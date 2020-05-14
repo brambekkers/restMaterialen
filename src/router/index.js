@@ -10,6 +10,7 @@ import Materials from "../views/dashboard/Materials.vue";
 Vue.use(VueRouter);
 
 const routes = [
+    { path: "*", component: Landing },
     {
         path: "/",
         name: "Landing",
@@ -34,6 +35,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
+    mode: "history",
     routes
 });
 
