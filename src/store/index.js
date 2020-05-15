@@ -7,6 +7,8 @@ import "firebase/firestore";
 import "firebase/storage";
 import firebaseConfig from "@/assets/config/firebaseConfig";
 
+import { nanoid } from "nanoid";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -83,12 +85,19 @@ export default new Vuex.Store({
             });
         },
         uploadImage({ getters }, blobImage) {
-            return new Promise((resolve, reject) => {
-                const ref = getters.storage.ref().child("images/materials");
-                ref.put(blobImage).then((snapshot) => {
-                    console.log("Uploaded a blob or file!");
-                    console.log(snapshot);
-                    resolve();
+            return new Promise(async (resolve, reject) => {
+                const path = `images/materials/${nanoid()}`;
+                const ref = getters.storage.ref().child(path);
+                const img = await ref.put(blobImage);
+                const url = await ref.getDownloadURL();
+                resolve({ url, path });
+            });
+        },
+        removeImage({ getters }, path) {
+            return new Promise(async (resolve, reject) => {
+                const ref = getters.storage.ref().child(path);
+                ref.delete().then(() => {
+                    resolve(true);
                 });
             });
         }

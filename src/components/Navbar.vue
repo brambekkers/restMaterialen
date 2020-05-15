@@ -17,7 +17,7 @@
 			<span class="icon-bar middle-bar"></span>
 			<span class="icon-bar bottom-bar"></span>
 		</button>
-		<div class="collapse navbar-collapse py-5 py-lg-0" id="navigation">
+		<div class="collapse navbar-collapse py-3 py-lg-0" id="navigation">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item active">
 					<a class="nav-link" href="#">
@@ -27,6 +27,9 @@
 				</li>
 				<li class="nav-item">
 					<router-link class="nav-link" to="/mission">Onze missie</router-link>
+				</li>
+				<li class="nav-item" v-if="user">
+					<router-link class="nav-link" to="/dashboard">Dashboard</router-link>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href v-if="user" @click="logout">Logout</a>
@@ -53,7 +56,7 @@
 		methods: {
 			logout() {
 				this.$store.dispatch("logout");
-				this.$router.push("/");
+				this.$router.push("/libary");
 			}
 		}
 	};
