@@ -16,9 +16,14 @@
                     </ul>
                 </nav>
                 <div class="credits ml-auto">
-                    <span class="copyright">© 2020, made by Bram Bekkers</span>
+                    <span class="copyright"
+                        >© {{ new Date().getFullYear() }}, made by Bram
+                        Bekkers</span
+                    >
                 </div>
             </div>
         </div>
     </footer>
 </template>
+
+<style lang="scss" scoped></style>

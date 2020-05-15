@@ -1,5 +1,5 @@
 <template>
-    <tr class="item">
+    <tr class="item" @click="toItem">
         <td>
             <div
                 class="preview_image img-thumbnail"
@@ -28,12 +28,18 @@
 
 <script>
 export default {
-    props: ["material"]
+    props: ["material"],
+    methods: {
+        toItem() {
+            this.$router.push(`${this.$route.fullPath}/${this.material.id}`);
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .item {
+    cursor: pointer;
     &:hover {
         background: #f4f3ef;
     }

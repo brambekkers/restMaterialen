@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 // Pages
 import Landing from "../views/Landing.vue";
 import Libary from "../views/Libary.vue";
+import Detail from "../views/Detail.vue";
 import Login from "../views/Login.vue";
 import Mission from "../views/Mission.vue";
 import About from "../views/About.vue";
@@ -27,6 +28,7 @@ const routes = [
         name: "Materialen bibliotheek",
         component: Libary
     },
+    { path: "/libary/:id", component: Detail },
     {
         path: "/login",
         name: "Login",
@@ -42,7 +44,7 @@ const routes = [
         name: "Over",
         component: About
     },
-    // Dashboard
+    // Dashboard (ADMIN ONLY)
     {
         path: "/dashboard",
         name: "Overzicht",
