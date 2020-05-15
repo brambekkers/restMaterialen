@@ -8,10 +8,13 @@
                     <div class="col-md-12">
                         <form @submit.prevent="add()">
                             <div class="card">
-                                <div class="card-header">
+                                <div class="card-header d-flex">
                                     <h4 class="card-title">
                                         Algemene materiaal info
                                     </h4>
+                                    <i
+                                        class="information fas fa-info-circle ml-auto text-warning mt-1 mr-1"
+                                    ></i>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -40,8 +43,15 @@
                                                         value="Plaatmateriaal"
                                                         >Plaatmateriaal</option
                                                     >
-                                                    <option value="Massief"
-                                                        >Massiefhout</option
+                                                    <option value="Massief hout"
+                                                        >Massief hout</option
+                                                    >
+                                                    <option
+                                                        value="Meubelstoffen"
+                                                        >Meubelstoffen</option
+                                                    >
+                                                    <option value="Overige"
+                                                        >Overige</option
                                                     >
                                                 </select>
                                             </div>
@@ -151,20 +161,17 @@
                                             <div class="row">
                                                 <div class="col-lg-8">
                                                     <div class="form-group">
-                                                        <label
-                                                            >Afbeelding</label
-                                                        >
                                                         <input
                                                             type="file"
                                                             id="newImage"
                                                             accept="image/png, image/jpeg"
-                                                            class="form-control-file"
+                                                            class="form-control-file mt-2"
                                                         />
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <button
-                                                        class="btn btn-outline-primary mt-4"
+                                                        class="btn btn-outline-primary mt-0"
                                                         @click.prevent="
                                                             addImage
                                                         "
@@ -183,7 +190,6 @@
                                                             .length
                                                     "
                                                 >
-                                                    <label>Images</label>
                                                     <br />
 
                                                     <span
@@ -219,18 +225,17 @@
                                             <div class="row">
                                                 <div class="col-lg-8">
                                                     <div class="form-group">
-                                                        <label>Label</label>
                                                         <input
                                                             type="text"
+                                                            placeholder="Voeg een steekwoord toe"
                                                             v-model="tag"
-                                                            placeholder
                                                             class="form-control border-input"
                                                         />
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <button
-                                                        class="btn btn-outline-primary mt-4"
+                                                        class="btn btn-outline-primary mt-0"
                                                         @click.prevent="addTag"
                                                     >
                                                         Voeg toe
@@ -245,7 +250,6 @@
                                                 class="form-group"
                                                 v-if="newMaterial.tags.length"
                                             >
-                                                <label>Labels</label>
                                                 <br />
 
                                                 <span
@@ -403,15 +407,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.information {
+    font-size: 2.5rem;
+
+    &:hover {
+        cursor: pointer;
+        animation: jello; /* referring directly to the animation's @keyframe declaration */
+        animation-duration: 2s; /* don't forget to set a duration! */
+    }
+}
 .thumbnail {
     display: inline-block;
     position: relative;
     width: 200px;
     height: auto;
     margin: 10px 10px;
-
-    img {
-    }
 }
 
 .tag {

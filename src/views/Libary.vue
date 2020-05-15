@@ -1,25 +1,26 @@
 <template>
     <div>
         <Navbar />
-        <Header />
-
-        <div class="container">
-            <div class="row">
-                <div class="col-3 ml-auto">
-                    <Search />
+        <div class="main-content">
+            <Header />
+            <div class="container">
+                <div class="row">
+                    <div class="col-3 ml-auto">
+                        <Search />
+                    </div>
                 </div>
-            </div>
-            <div class="card ">
-                <div class="card-header ">
-                    <h5 class="card-title">Restmaterialen database</h5>
-                    <p class="card-category">Geen filter</p>
-                </div>
-                <div class="card-body ">
-                    <MaterialsList />
-                </div>
-                <div class="card-footer ">
-                    <hr />
-                    <LastTimeUpdated />
+                <div class="card ">
+                    <div class="card-header ">
+                        <h5 class="card-title">Restmaterialen database</h5>
+                        <p class="card-category">Geen filter</p>
+                    </div>
+                    <div class="card-body ">
+                        <MaterialsList />
+                    </div>
+                    <div class="card-footer ">
+                        <hr />
+                        <LastTimeUpdated />
+                    </div>
                 </div>
             </div>
         </div>

@@ -8,6 +8,8 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 
+import "animate.css/animate.css";
+
 // Jquery (for boostrap notify)
 window.$ = require("jquery");
 

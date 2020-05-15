@@ -4918,9 +4918,14 @@ img {
 
 .main-panel > .content {
     padding: 0 30px 30px;
-    min-height: 100vh;
+    min-height: calc(100vh - 170px);
     margin-top: 93px;
 }
+
+.main-content {
+    min-height: calc(100vh - 140px);
+}
+
 .main-panel > .navbar {
     margin-bottom: 0;
 }
