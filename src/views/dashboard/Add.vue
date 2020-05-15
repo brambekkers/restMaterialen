@@ -37,10 +37,10 @@
                                                     required
                                                 >
                                                     <option
-                                                        value="plaatmateriaal"
+                                                        value="Plaatmateriaal"
                                                         >Plaatmateriaal</option
                                                     >
-                                                    <option value="ms"
+                                                    <option value="Massief"
                                                         >Massiefhout</option
                                                     >
                                                 </select>
@@ -301,7 +301,9 @@ export default {
                 description: "",
                 claimed: false,
                 tags: [],
-                images: []
+                images: [],
+                creationTime: null,
+                lastEditTime: null
             }
         };
     },
@@ -340,6 +342,8 @@ export default {
         },
         async add() {
             for (let i = 0; i < this.amount; i++) {
+                this.newMaterial.creationTime = new Date();
+                this.newMaterial.lastEditTime = new Date();
                 const res = await this.$store.dispatch(
                     "addMaterial",
                     this.newMaterial
@@ -347,6 +351,7 @@ export default {
 
                 if (res === true) {
                     this.notification(true);
+                    this.$router.push("/dashboard/materials");
                 } else {
                     this.notification(false, res);
                 }
@@ -391,6 +396,7 @@ export default {
             this.newMaterial.amount = 1;
             this.newMaterial.description = "";
             this.newMaterial.tags = [];
+            this.newMaterial.images = [];
         }
     }
 };

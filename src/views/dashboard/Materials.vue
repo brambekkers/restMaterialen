@@ -14,13 +14,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="card ">
-                                    <ul class="list-group list-group-flush">
-                                        <Material
-                                            v-for="material of materials"
-                                            :key="material.name"
-                                            :material="material"
-                                        />
-                                    </ul>
+                                    <MaterialsList />
                                 </div>
                             </div>
                         </div>
@@ -37,16 +31,11 @@ import Navbar from "@/components/dashboard/Navbar.vue";
 import Sidebar from "@/components/dashboard/Sidebar.vue";
 import Footer from "@/components/Footer.vue";
 
-import Material from "@/components/dashboard/components/Material.vue";
+import MaterialsList from "@/components/dashboard/components/MaterialsList.vue";
 
 export default {
     name: "Materials",
-    components: { Sidebar, Navbar, Footer, Material },
-    computed: {
-        materials() {
-            return this.$store.getters.materials;
-        }
-    },
+    components: { Sidebar, Navbar, Footer, MaterialsList },
     mounted() {}
 };
 </script>

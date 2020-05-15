@@ -1,14 +1,29 @@
 <template>
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col">{{ material.id }}</div>
-            <div class="col">{{ material.name }}</div>
-            <div class="col">{{ material.type }}</div>
-            <div class="col">{{ material.length }}</div>
-            <div class="col">{{ material.width }}</div>
-            <div class="col">{{ material.thickness }}</div>
-        </div>
-    </li>
+    <tr class="item">
+        <td>
+            <div
+                class="preview_image img-thumbnail"
+                :style="`background: url(${material.images[0].url})`"
+                v-if="material.images && material.images.length"
+            ></div>
+            <div class="preview_image img-thumbnail" v-else></div>
+        </td>
+        <td>
+            {{ material.name }}
+        </td>
+        <td>
+            {{ material.type }}
+        </td>
+        <td>
+            {{ material.length }}
+        </td>
+        <td>
+            {{ material.width }}
+        </td>
+        <td>
+            {{ material.thickness }}
+        </td>
+    </tr>
 </template>
 
 <script>
@@ -16,3 +31,21 @@ export default {
     props: ["material"]
 };
 </script>
+
+<style lang="scss" scoped>
+.item {
+    &:hover {
+        background: #f4f3ef;
+    }
+}
+
+.preview_image {
+    width: 70px;
+    height: 70px;
+    background: url("../../../assets/img/noImage.jpg");
+
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    border-radius: 50%;
+}
+</style>

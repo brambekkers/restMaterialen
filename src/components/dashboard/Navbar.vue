@@ -30,21 +30,7 @@
                 class="collapse navbar-collapse justify-content-end"
                 id="navigation"
             >
-                <form>
-                    <div class="input-group no-border">
-                        <input
-                            type="text"
-                            value
-                            class="form-control"
-                            placeholder="Search..."
-                        />
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <i class="fas fa-search"></i>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                <Search />
                 <ul class="navbar-nav">
                     <li class="nav-item btn-rotate dropdown">
                         <a
@@ -80,7 +66,10 @@
 </template>
 
 <script>
+import Search from "@/components/Search.vue";
+
 export default {
-    props: ["title"]
+    props: ["title"],
+    components: { Search }
 };
 </script>
