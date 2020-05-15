@@ -3515,7 +3515,7 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
     position: absolute;
     right: 10px;
     top: 50%;
-    margin-top: -13px;
+    /* margin-top: -13px; */
     width: 25px;
     height: 25px;
     padding: 3px;

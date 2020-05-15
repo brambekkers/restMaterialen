@@ -1,41 +1,24 @@
 <template>
-    <footer
-        class="footer"
-        style="position: absolute; bottom: 0; width: -webkit-fill-available;"
-    >
-        <div class="container-fluid">
-            <div class="row">
-                <nav class="footer-nav">
-                    <ul>
-                        <li>
-                            <a
-                                href="https://www.creative-tim.com"
-                                target="_blank"
-                                >Creative Tim</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="https://www.creative-tim.com/blog"
-                                target="_blank"
-                                >Blog</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="https://www.creative-tim.com/license"
-                                target="_blank"
-                                >Licenses</a
-                            >
-                        </li>
-                    </ul>
-                </nav>
-                <div class="credits ml-auto">
-                    <span class="copyright">
-                        © 2020, made by Bram Bekkers
-                    </span>
-                </div>
-            </div>
-        </div>
-    </footer>
+	<footer class="footer" style="position: absolute; bottom: 0; width: -webkit-fill-available;">
+		<div class="container-fluid">
+			<div class="row">
+				<nav class="footer-nav">
+					<ul>
+						<li>
+							<router-link to="/about">Over</router-link>
+						</li>
+						<li>
+							<router-link to="/Blog">Blog</router-link>
+						</li>
+						<li>
+							<router-link to="/Licences">Licenses</router-link>
+						</li>
+					</ul>
+				</nav>
+				<div class="credits ml-auto">
+					<span class="copyright">© 2020, made by Bram Bekkers</span>
+				</div>
+			</div>
+		</div>
+	</footer>
 </template>

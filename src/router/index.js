@@ -4,6 +4,12 @@ import VueRouter from "vue-router";
 // Pages
 import Landing from "../views/Landing.vue";
 import Libary from "../views/Libary.vue";
+import Login from "../views/Login.vue";
+import Mission from "../views/Mission.vue";
+import About from "../views/About.vue";
+
+// Dashboard pages
+import Dashboard from "../views/dashboard/Dashboard.vue";
 import Add from "../views/dashboard/Add.vue";
 import Materials from "../views/dashboard/Materials.vue";
 
@@ -21,7 +27,27 @@ const routes = [
         name: "Materialen bibliotheek",
         component: Libary
     },
+    {
+        path: "/login",
+        name: "Login",
+        component: Login
+    },
+    {
+        path: "/mission",
+        name: "Onze missie",
+        component: Mission
+    },
+    {
+        path: "/about",
+        name: "Over",
+        component: About
+    },
     // Dashboard
+    {
+        path: "/dashboard",
+        name: "Overzicht",
+        component: Dashboard
+    },
     {
         path: "/dashboard/materials",
         name: "Materialen",

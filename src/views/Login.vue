@@ -1,0 +1,120 @@
+<template>
+	<div>
+		<Navbar />
+		<div class="login">
+			<div class="background"></div>
+			<div class="card card-login">
+				<div class="card-header">
+					<h3 class="card-title text-center">Login</h3>
+				</div>
+				<div class="card-body">
+					<div class="form-group">
+						<label>Emailadres</label>
+						<input
+							type="email"
+							placeholder="Vul email in"
+							class="form-control input-no-border"
+							v-model="email"
+						/>
+					</div>
+					<div class="form-group">
+						<label>Wachtwoord</label>
+						<input
+							type="password"
+							placeholder="Vul wachtwoord in"
+							class="form-control input-no-border"
+							v-model="password"
+						/>
+					</div>
+				</div>
+				<div class="footer text-center">
+					<button @click="login" class="btn btn-fill btn-wd">Let's go</button>
+					<div class="forgot">
+						<a href="#pablo">Wachtwoord vergeten?</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	import Navbar from "@/components/Navbar.vue";
+
+	export default {
+		components: { Navbar },
+		data() {
+			return {
+				email: "",
+				password: ""
+			};
+		},
+		methods: {
+			async login() {
+				const res = await this.$store.dispatch("login", {
+					email: this.email,
+					password: this.password
+				});
+
+				// redirect
+				if (res.login) this.$router.push("/dashboard");
+
+				this.notification(res.login, res);
+			},
+			notification(succes, error) {
+				if (succes) {
+					$.notify(
+						{
+							title: "Toegevoegd!",
+							message: "Succesvol ingelogd!"
+						},
+						{
+							type: "success"
+						}
+					);
+				} else {
+					$.notify(
+						{
+							title: `Error - ${error.code}`,
+							message: error.message
+						},
+						{
+							type: "danger"
+						}
+					);
+				}
+			}
+		}
+	};
+</script>
+
+<style lang="scss" scoped>
+	.login {
+		position: relative;
+		display: flex;
+		width: 100vw;
+		height: calc(100vh - 62px);
+		justify-content: center;
+		align-items: center;
+
+		.background {
+			position: absolute;
+			opacity: 0.5;
+			z-index: 1;
+			width: 100%;
+			height: 100%;
+			background: url("../assets/img/background.jpg");
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+
+		.card-login {
+			z-index: 2;
+			box-shadow: 0 25px 30px -13px rgba(40, 40, 40, 0.4);
+			border-radius: 6px;
+			padding-top: 25px;
+			padding-bottom: 25px;
+			min-width: 350px;
+		}
+	}
+</style>

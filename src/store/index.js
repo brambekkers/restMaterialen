@@ -2,7 +2,9 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import * as firebase from "firebase";
+import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 import firebaseConfig from "@/assets/config/firebaseConfig";
 
 Vue.use(Vuex);
@@ -10,14 +12,24 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         firebase: null,
-        materials: null
+        materials: null,
+        user: null
     },
     getters: {
         db(state) {
             return state.firebase.firestore();
         },
+        auth(state) {
+            return state.firebase.auth();
+        },
+        storage(state) {
+            return state.firebase.storage();
+        },
         materials(state) {
             return state.materials;
+        },
+        user(state) {
+            return state.user;
         }
     },
     mutations: {},
@@ -25,6 +37,26 @@ export default new Vuex.Store({
         addFirebase({ state, dispatch }) {
             state.firebase = firebase.initializeApp(firebaseConfig);
             dispatch("addMaterialsListner");
+            dispatch("addUserListner");
+        },
+        addUserListner({ state, getters }) {
+            getters.auth.onAuthStateChanged((user) => {
+                state.user = user ? user : null;
+            });
+        },
+        async login({ getters }, { email, password }) {
+            return new Promise(async (resolve, reject) => {
+                const user = await getters.auth
+                    .signInWithEmailAndPassword(email, password)
+                    .catch((error) => {
+                        resolve({ login: false, ...error });
+                    });
+
+                resolve({ login: true, ...user });
+            });
+        },
+        logout({ getters }) {
+            getters.auth.signOut();
         },
         async addMaterialsListner({ state, getters }) {
             getters.db.collection("Materials").onSnapshot((materials) => {
@@ -38,7 +70,7 @@ export default new Vuex.Store({
             });
         },
         addMaterial({ getters }, material) {
-            return new Promise(async (resolve, reject) => {
+            return new Promise((resolve, reject) => {
                 getters.db
                     .collection("Materials")
                     .add(material)
@@ -48,6 +80,16 @@ export default new Vuex.Store({
                     .catch((error) => {
                         resolve(error);
                     });
+            });
+        },
+        uploadImage({ getters }, blobImage) {
+            return new Promise((resolve, reject) => {
+                const ref = getters.storage.ref().child("images/materials");
+                ref.put(blobImage).then((snapshot) => {
+                    console.log("Uploaded a blob or file!");
+                    console.log(snapshot);
+                    resolve();
+                });
             });
         }
     },
