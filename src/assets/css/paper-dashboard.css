@@ -10623,6 +10623,9 @@ img {
 .off-canvas-sidebar .nav > li > a:focus {
     background: hsla(0, 0%, 78%, 0.2);
 }
+.main-content {
+    min-height: calc(100vh - 140px);
+}
 .main-panel {
     position: relative;
     float: right;

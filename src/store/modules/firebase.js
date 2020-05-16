@@ -10,13 +10,13 @@ export default {
     },
     getters: {
         db(state) {
-            return state.firebase.firestore();
+            return state.firebase ? state.firebase.firestore() : null;
         },
         auth(state) {
-            return state.firebase.auth();
+            return state.firebase ? state.firebase.auth() : null;
         },
         storage(state) {
-            return state.firebase.storage();
+            return state.firebase ? state.firebase.storage() : null;
         }
     },
     mutations: {},

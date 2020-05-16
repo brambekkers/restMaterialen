@@ -23,23 +23,21 @@
                                             </div>
                                         </div>
                                         <!-- TYPE -->
-                                        <div class="col-4 col-xl-3">
-                                            <div class="form-group">
-                                                <label>Type</label>
-                                                <select
-                                                    class="selectpicker form-control border-input show-tick"
-                                                    data-style="btn btn-neutral btn-block mt-0 border "
-                                                    v-model="newMaterial.type"
-                                                    required
-                                                    title="Selecteer..."
-                                                >
-                                                    <option class="bs-title-option" value="" hidden disabled></option>
-                                                    <option value="Plaatmateriaal">Plaatmateriaal</option>
-                                                    <option value="Massief hout">Massief hout</option>
-                                                    <option value="Meubelstoffen">Meubelstoffen</option>
-                                                    <option value="Overige">Overige</option>
-                                                </select>
-                                            </div>
+                                        <div class="col-4 col-xl-3 form-group">
+                                            <label>Type</label>
+                                            <select
+                                                class="selectpicker form-control border-input show-tick"
+                                                data-style="btn btn-neutral btn-block mt-0 border "
+                                                v-model="newMaterial.type"
+                                                required
+                                                title="Selecteer..."
+                                            >
+                                                <option class="bs-title-option" value="" hidden disabled></option>
+                                                <option value="Plaatmateriaal">Plaatmateriaal</option>
+                                                <option value="Massief hout">Massief hout</option>
+                                                <option value="Meubelstoffen">Meubelstoffen</option>
+                                                <option value="Overige">Overige</option>
+                                            </select>
                                         </div>
 
                                         <div class="col-8 col-xl-4">
@@ -283,6 +281,9 @@ export default {
             this.newMaterial.tags = [];
             this.newMaterial.images = [];
         }
+    },
+    mounted() {
+        $(".selectpicker").selectpicker();
     }
 };
 </script>

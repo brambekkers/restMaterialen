@@ -6,6 +6,7 @@ import Landing from "../views/Landing.vue";
 import Libary from "../views/Libary.vue";
 import Detail from "../views/Detail.vue";
 import Login from "../views/Login.vue";
+import Profile from "../views/Profile.vue";
 import Mission from "../views/Mission.vue";
 import About from "../views/About.vue";
 
@@ -36,6 +37,11 @@ const routes = [
         path: "/login",
         name: "Login",
         component: Login
+    },
+    {
+        path: "/profile",
+        name: "Profiel",
+        component: Profile
     },
     {
         path: "/mission",

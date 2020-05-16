@@ -5,7 +5,7 @@
             <Navbar :title="$route.name" />
             <div class="content">
                 <div class="row d-flex justify-content-center">
-                    <div class="col-10 col-sm-6 col-xl-3">
+                    <div class="col-10 col-sm-6 col-xl-4">
                         <form class="form" @submit.prevent="addUser">
                             <div class="card card-signup mt-5">
                                 <div class="card-header text-center">
@@ -98,9 +98,9 @@ export default {
                 try {
                     await this.$store.dispatch("addUser", this.newUser);
                     this.notification(true);
+                    this.$router.push("/dashboard/users");
                 } catch (err) {
                     console.log(err);
-
                     this.notification(false, err.message);
                 }
             } else {
