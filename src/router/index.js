@@ -11,8 +11,11 @@ import About from "../views/About.vue";
 
 // Dashboard pages
 import Dashboard from "../views/dashboard/Dashboard.vue";
-import Add from "../views/dashboard/Add.vue";
 import Materials from "../views/dashboard/Materials.vue";
+import AddMaterial from "../views/dashboard/materials/Add.vue";
+import Users from "../views/dashboard/Users.vue";
+import AddUser from "../views/dashboard/users/Add.vue";
+import UserRights from "../views/dashboard/users/Rights.vue";
 
 Vue.use(VueRouter);
 
@@ -50,15 +53,32 @@ const routes = [
         name: "Overzicht",
         component: Dashboard
     },
+    // Materials
     {
         path: "/dashboard/materials",
         name: "Materialen",
         component: Materials
     },
     {
-        path: "/dashboard/add",
+        path: "/dashboard/materials/add",
         name: "Voeg material toe",
-        component: Add
+        component: AddMaterial
+    },
+    // Users
+    {
+        path: "/dashboard/users",
+        name: "Gebruikers",
+        component: Users
+    },
+    {
+        path: "/dashboard/users/add",
+        name: "Voeg gebruiker toe",
+        component: AddUser
+    },
+    {
+        path: "/dashboard/users/rights",
+        name: "Gebruikersrechten",
+        component: UserRights
     }
 ];
 

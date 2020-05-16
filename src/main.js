@@ -19,6 +19,10 @@ import "./assets/css/paper-dashboard.css";
 // Import Font Awesome
 import "@fortawesome/fontawesome-free/css/all.css";
 
+// bootstrap select
+import "bootstrap-select/dist/css/bootstrap-select.css";
+import "bootstrap-select/dist/js/bootstrap-select.js";
+
 Vue.config.productionTip = false;
 
 new Vue({

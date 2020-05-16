@@ -19,4 +19,9 @@ export default {
     width: 100vw;
     min-height: 100vh;
 }
+
+.btn-transparent {
+    background: transparent !important;
+    color: #66615b !important;
+}
 </style>

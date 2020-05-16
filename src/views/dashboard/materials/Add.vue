@@ -12,61 +12,40 @@
                                     <h4 class="card-title">
                                         Algemene materiaal info
                                     </h4>
-                                    <i
-                                        class="information fas fa-info-circle ml-auto text-warning mt-1 mr-1"
-                                    ></i>
+                                    <i class="information fas fa-info-circle ml-auto text-warning mt-1 mr-1"></i>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-8 col-xl-5">
                                             <div class="form-group">
                                                 <label>Naam</label>
-                                                <input
-                                                    type="text"
-                                                    v-model="newMaterial.name"
-                                                    placeholder="Wat is het voor materiaal"
-                                                    class="form-control border-input"
-                                                    required
-                                                />
+                                                <input type="text" v-model="newMaterial.name" placeholder="Wat is het voor materiaal" class="form-control border-input" required />
                                             </div>
                                         </div>
-                                        <div class="col-4 col-xl-2">
+                                        <!-- TYPE -->
+                                        <div class="col-4 col-xl-3">
                                             <div class="form-group">
                                                 <label>Type</label>
                                                 <select
-                                                    class="selectpicker form-control border-input"
-                                                    data-style="btn btn-danger btn-block"
+                                                    class="selectpicker form-control border-input show-tick"
+                                                    data-style="btn btn-neutral btn-block mt-0 border "
                                                     v-model="newMaterial.type"
                                                     required
+                                                    title="Selecteer..."
                                                 >
-                                                    <option
-                                                        value="Plaatmateriaal"
-                                                        >Plaatmateriaal</option
-                                                    >
-                                                    <option value="Massief hout"
-                                                        >Massief hout</option
-                                                    >
-                                                    <option
-                                                        value="Meubelstoffen"
-                                                        >Meubelstoffen</option
-                                                    >
-                                                    <option value="Overige"
-                                                        >Overige</option
-                                                    >
+                                                    <option class="bs-title-option" value="" hidden disabled></option>
+                                                    <option value="Plaatmateriaal">Plaatmateriaal</option>
+                                                    <option value="Massief hout">Massief hout</option>
+                                                    <option value="Meubelstoffen">Meubelstoffen</option>
+                                                    <option value="Overige">Overige</option>
                                                 </select>
                                             </div>
                                         </div>
 
-                                        <div class="col-8 col-xl-5">
+                                        <div class="col-8 col-xl-4">
                                             <div class="form-group">
                                                 <label>Herkomst</label>
-                                                <input
-                                                    type="text"
-                                                    v-model="newMaterial.origin"
-                                                    placeholder="Waar komt het materiaal vandaan?"
-                                                    class="form-control border-input"
-                                                    required
-                                                />
+                                                <input type="text" v-model="newMaterial.origin" placeholder="Waar komt het materiaal vandaan?" class="form-control border-input" required />
                                             </div>
                                         </div>
                                     </div>
@@ -75,59 +54,25 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Lengte</label>
-                                                <input
-                                                    type="number"
-                                                    v-model.number="
-                                                        newMaterial.length
-                                                    "
-                                                    placeholder="Lengte"
-                                                    class="form-control"
-                                                    min="1"
-                                                    required
-                                                />
+                                                <input type="number" v-model.number="newMaterial.length" placeholder="Lengte" class="form-control" min="1" required />
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Breedte</label>
-                                                <input
-                                                    type="number"
-                                                    v-model.number="
-                                                        newMaterial.width
-                                                    "
-                                                    placeholder="Breedte"
-                                                    class="form-control"
-                                                    min="1"
-                                                    required
-                                                />
+                                                <input type="number" v-model.number="newMaterial.width" placeholder="Breedte" class="form-control" min="1" required />
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Dikte</label>
-                                                <input
-                                                    type="number"
-                                                    v-model.number="
-                                                        newMaterial.thickness
-                                                    "
-                                                    placeholder="Dikte"
-                                                    class="form-control"
-                                                    min="1"
-                                                    required
-                                                />
+                                                <input type="number" v-model.number="newMaterial.thickness" placeholder="Dikte" class="form-control" min="1" required />
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Aantal</label>
-                                                <input
-                                                    type="number"
-                                                    v-model.number="amount"
-                                                    placeholder="Aantal"
-                                                    class="form-control"
-                                                    min="1"
-                                                    required
-                                                />
+                                                <input type="number" v-model.number="amount" placeholder="Aantal" class="form-control" min="1" required />
                                             </div>
                                         </div>
                                     </div>
@@ -136,14 +81,7 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label>Omschrijving</label>
-                                                <textarea
-                                                    rows="5"
-                                                    v-model="
-                                                        newMaterial.description
-                                                    "
-                                                    placeholder="Omschrijving van het materiaal"
-                                                    class="form-control border-input"
-                                                />
+                                                <textarea rows="5" v-model="newMaterial.description" placeholder="Omschrijving van het materiaal" class="form-control border-input" />
                                             </div>
                                         </div>
                                     </div>
@@ -161,21 +99,11 @@
                                             <div class="row">
                                                 <div class="col-lg-8">
                                                     <div class="form-group">
-                                                        <input
-                                                            type="file"
-                                                            id="newImage"
-                                                            accept="image/png, image/jpeg"
-                                                            class="form-control-file mt-2"
-                                                        />
+                                                        <input type="file" id="newImage" accept="image/png, image/jpeg" class="form-control-file mt-2" />
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <button
-                                                        class="btn btn-outline-primary mt-0"
-                                                        @click.prevent="
-                                                            addImage
-                                                        "
-                                                    >
+                                                    <button class="btn btn-outline-primary mt-0" @click.prevent="addImage">
                                                         Voeg toe
                                                     </button>
                                                 </div>
@@ -183,31 +111,12 @@
 
                                             <!-- Images -->
                                             <div class="col-12">
-                                                <div
-                                                    class="form-group"
-                                                    v-if="
-                                                        newMaterial.images
-                                                            .length
-                                                    "
-                                                >
+                                                <div class="form-group" v-if="newMaterial.images.length">
                                                     <br />
 
-                                                    <span
-                                                        v-for="(image,
-                                                        i) of newMaterial.images"
-                                                        :key="image.path"
-                                                        class="thumbnail"
-                                                    >
-                                                        <img
-                                                            :src="image.url"
-                                                            class="img-thumbnail"
-                                                        />
-                                                        <i
-                                                            class="close fas fa-times"
-                                                            @click="
-                                                                removeImage(i)
-                                                            "
-                                                        ></i>
+                                                    <span v-for="(image, i) of newMaterial.images" :key="image.path" class="thumbnail">
+                                                        <img :src="image.url" class="img-thumbnail" />
+                                                        <i class="close fas fa-times" @click="removeImage(i)"></i>
                                                     </span>
                                                 </div>
                                             </div>
@@ -225,19 +134,11 @@
                                             <div class="row">
                                                 <div class="col-lg-8">
                                                     <div class="form-group">
-                                                        <input
-                                                            type="text"
-                                                            placeholder="Voeg een steekwoord toe"
-                                                            v-model="tag"
-                                                            class="form-control border-input"
-                                                        />
+                                                        <input type="text" placeholder="Voeg een steekwoord toe" v-model="tag" class="form-control border-input" />
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <button
-                                                        class="btn btn-outline-primary mt-0"
-                                                        @click.prevent="addTag"
-                                                    >
+                                                    <button class="btn btn-outline-primary mt-0" @click.prevent="addTag">
                                                         Voeg toe
                                                     </button>
                                                 </div>
@@ -246,32 +147,19 @@
 
                                         <!-- Labels -->
                                         <div class="col-12">
-                                            <div
-                                                class="form-group"
-                                                v-if="newMaterial.tags.length"
-                                            >
+                                            <div class="form-group" v-if="newMaterial.tags.length">
                                                 <br />
 
-                                                <span
-                                                    v-for="tag of newMaterial.tags"
-                                                    :key="tag"
-                                                    class="tag"
-                                                >
+                                                <span v-for="tag of newMaterial.tags" :key="tag" class="tag">
                                                     {{ tag }}
-                                                    <i
-                                                        class="close fas fa-times"
-                                                        @click="removeTag(tag)"
-                                                    ></i>
+                                                    <i class="close fas fa-times" @click="removeTag(tag)"></i>
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <button
-                                class="btn btn-default float-right"
-                                type="submit"
-                            >
+                            <button class="btn btn-default float-right" type="submit">
                                 Voeg materiaal toe
                             </button>
                         </form>
@@ -314,10 +202,7 @@ export default {
     components: { Sidebar, Navbar, Footer },
     methods: {
         addTag() {
-            if (
-                this.tag.length > 0 &&
-                !this.newMaterial.tags.includes(this.tag)
-            ) {
+            if (this.tag.length > 0 && !this.newMaterial.tags.includes(this.tag)) {
                 this.newMaterial.tags.push(this.tag);
                 this.tag = "";
             }
@@ -348,10 +233,7 @@ export default {
             for (let i = 0; i < this.amount; i++) {
                 this.newMaterial.creationTime = new Date();
                 this.newMaterial.lastEditTime = new Date();
-                const res = await this.$store.dispatch(
-                    "addMaterial",
-                    this.newMaterial
-                );
+                const res = await this.$store.dispatch("addMaterial", this.newMaterial);
 
                 if (res === true) {
                     this.notification(true);
@@ -368,8 +250,7 @@ export default {
                 $.notify(
                     {
                         title: "Toegevoegd!",
-                        message:
-                            "Het materiaal is succesvol aan de database toegevoegd!"
+                        message: "Het materiaal is succesvol aan de database toegevoegd!"
                     },
                     {
                         type: "success"
