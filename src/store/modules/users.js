@@ -1,7 +1,13 @@
+import * as firebase from "firebase";
+
 export default {
     state: {
         user: null,
-        users: []
+        users: [],
+        roles: {
+            editors: [],
+            admins: []
+        }
     },
     getters: {
         user(state) {
@@ -9,6 +15,12 @@ export default {
         },
         users(state) {
             return state.users;
+        },
+        editors(state) {
+            return state.roles.editors;
+        },
+        admins(state) {
+            return state.roles.admins;
         }
     },
     mutations: {},
@@ -82,7 +94,7 @@ export default {
                 }
             });
         },
-        async getAllUsers({ state, getters }) {
+        async getUsers({ state, getters }) {
             if (getters.db) {
                 getters.db.collection("Users").onSnapshot((users) => {
                     state.users = [];
@@ -91,6 +103,28 @@ export default {
                     });
                 });
             }
+        },
+        async getRoles({ state, getters }) {
+            if (getters.db) {
+                getters.db
+                    .collection("Roles")
+                    .doc("editor")
+                    .onSnapshot((editors) => {
+                        state.roles.editors = editors.data().users;
+                    });
+                getters.db
+                    .collection("Roles")
+                    .doc("admin")
+                    .onSnapshot((admins) => {
+                        state.roles.admins = admins.data().users;
+                    });
+            }
+        },
+        addRole({ getters }, { id, type }) {
+            getters.db.doc(`Roles/${type}`).update({ users: firebase.firestore.FieldValue.arrayUnion(id) });
+        },
+        removeRole({ getters }, { id, type }) {
+            getters.db.doc(`Roles/${type}`).update({ users: firebase.firestore.FieldValue.arrayRemove(id) });
         }
     }
 };
