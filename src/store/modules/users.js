@@ -28,6 +28,9 @@ export default {
         userListner({ state, getters, dispatch }) {
             getters.auth.onAuthStateChanged(async (user) => {
                 state.user = user ? await dispatch("getUserFromDatabase", user) : null;
+                if (user) {
+                    state.user.role = await dispatch("getRole");
+                }
             });
         },
         async getUserFromDatabase({ getters }, user) {
@@ -38,6 +41,21 @@ export default {
                 } catch (err) {
                     console.log(err);
                     reject(null);
+                }
+            });
+        },
+        async getRole({ getters, state }) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    await getters.db.doc(`Roles/admin`).get();
+                    resolve("admin");
+                } catch (error) {
+                    try {
+                        await getters.db.doc(`Roles/editor`).get();
+                        resolve("editor");
+                    } catch (error) {
+                        resolve("user");
+                    }
                 }
             });
         },
