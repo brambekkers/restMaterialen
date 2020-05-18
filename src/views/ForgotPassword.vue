@@ -3,36 +3,25 @@
 		<Navbar />
 		<div class="login">
 			<div class="background"></div>
-			<div class="card card-login">
-				<form @submit.prevent="login">
+			<div class="card card-login text-center">
+				<form @submit.prevent="resetPassword">
 					<div class="card-header">
-						<h3 class="card-title text-center">Login</h3>
+						<h3 class="card-title">Wachtwoord vergeten?</h3>
 					</div>
 					<div class="card-body">
-						<div class="form-group">
-							<label>Emailadres</label>
-							<input
-								type="email"
-								placeholder="Vul email in"
-								class="form-control input-no-border"
-								v-model="email"
-							/>
-						</div>
-						<div class="form-group">
-							<label>Wachtwoord</label>
-							<input
-								type="password"
-								placeholder="Vul wachtwoord in"
-								class="form-control input-no-border"
-								v-model="password"
-							/>
-						</div>
+						<p>
+							Niks aan de hand joh!
+							<br />Je wachtwoord resetten is eenvoudig. Vul hieronder je emailadres en bekijk je mail.
+						</p>
+						<input
+							type="email"
+							placeholder="Vul email in"
+							class="form-control input-no-border"
+							v-model="email"
+						/>
 					</div>
-					<div class="footer text-center">
-						<button type="submit" class="btn btn-fill btn-wd">Let's go</button>
-						<div class="forgot">
-							<router-link to="/forgotpassword">Wachtwoord vergeten?</router-link>
-						</div>
+					<div class="footer">
+						<button type="submit" class="btn btn-fill btn-wd">Vraag aan</button>
 					</div>
 				</form>
 			</div>
@@ -47,18 +36,15 @@
 		components: { Navbar },
 		data() {
 			return {
-				email: "",
-				password: ""
+				email: ""
 			};
 		},
 		methods: {
-			async login() {
+			async resetPassword() {
 				try {
-					await this.$store.dispatch("login", {
-						email: this.email,
-						password: this.password
-					});
-					this.$router.push("/dashboard");
+					await this.$store.dispatch("resetPassword", this.email);
+					this.$router.push("/login");
+					this.notification(true);
 				} catch (err) {
 					this.notification(false, err);
 				}
@@ -68,7 +54,7 @@
 					$.notify(
 						{
 							title: "Toegevoegd!",
-							message: "Succesvol ingelogd!"
+							message: "De resetlink is naar je toe gemaild!"
 						},
 						{
 							type: "success"
@@ -117,6 +103,7 @@
 			padding-top: 25px;
 			padding-bottom: 25px;
 			min-width: 350px;
+			width: 350px;
 		}
 	}
 </style>

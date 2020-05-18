@@ -53,8 +53,8 @@
 						<p>Reserveringen</p>
 					</router-link>
 				</li>
-				<!-- users -->
-				<li>
+				<!-- Users -->
+				<li v-if="isAdmin">
 					<a data-toggle="collapse" href="#collapse-users">
 						<i class="fas fa-users"></i>
 						<p>
@@ -62,7 +62,7 @@
 							<b class="caret"></b>
 						</p>
 					</a>
-					<!-- Submenu Materials -->
+					<!-- Submenu users -->
 					<div class="collapse" id="collapse-users" style>
 						<ul class="nav ml-5">
 							<!-- Overzicht -->
@@ -93,3 +93,16 @@
 		</div>
 	</div>
 </template>
+
+<script>
+	export default {
+		computed: {
+			isEditor(state) {
+				return state.user && state.user.role === "editor";
+			},
+			isAdmin(state) {
+				return state.user && state.user.role === "admin";
+			}
+		}
+	};
+</script>

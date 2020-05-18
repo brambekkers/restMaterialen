@@ -35,7 +35,6 @@ export default {
         },
         updateMaterial({ getters }, material) {
             return new Promise(async (resolve, reject) => {
-                console.log("testing");
                 try {
                     await getters.db.doc(`Materials/${material.id}`).set(material);
                     resolve(true);

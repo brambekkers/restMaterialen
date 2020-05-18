@@ -4,10 +4,10 @@
 		<div class="main-panel h-100">
 			<Navbar :title="$route.name" />
 			<div class="content row d-flex justify-content-center">
-				<div class="col-xxl-9 col-xxxl-6">
+				<div class="col-xxl-9 col-xxl-6">
 					<div class="row">
-						<adminInfo />
-						<totalMaterials />
+						<AdminInfo />
+						<TotalMaterials />
 					</div>
 				</div>
 			</div>
@@ -22,11 +22,11 @@
 	import Footer from "@/components/Footer.vue";
 
 	// Panels
-	import adminInfo from "@/components/dashboard/components/adminInfo.vue";
-	import totalMaterials from "@/components/dashboard/components/totalMaterials.vue";
+	import AdminInfo from "@/components/dashboard/components/AdminInfo.vue";
+	import TotalMaterials from "@/components/dashboard/components/TotalMaterials.vue";
 
 	export default {
 		name: "Home",
-		components: { Sidebar, Navbar, Footer, adminInfo, totalMaterials }
+		components: { Sidebar, Navbar, Footer, AdminInfo, TotalMaterials }
 	};
 </script>

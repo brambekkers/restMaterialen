@@ -36,6 +36,18 @@
 											/>
 										</div>
 									</div>
+									<div class="col-12 col-xl-5">
+										<div class="form-group">
+											<label>Prijs</label>
+											<input
+												type="text"
+												:value="`${material.price} euro ${material.priceUnit.toLowerCase()}`"
+												placeholder="Waar komt het materiaal vandaan?"
+												class="form-control border-input"
+												disabled
+											/>
+										</div>
+									</div>
 								</div>
 
 								<div class="row">

@@ -86,13 +86,11 @@
 		},
 		methods: {
 			async updateMaterial() {
-				console.log("test");
 				this.material.lastEditTime = new Date();
 				const res = await this.$store.dispatch(
 					"updateMaterial",
 					this.material
 				);
-				console.log(res);
 
 				if (res === true) {
 					this.notification(true);
@@ -103,6 +101,7 @@
 			},
 			deleteMaterial() {
 				this.$store.dispatch("deleteMaterial", this.material);
+				this.$router.push("/dashboard/materials");
 			},
 			notification(succes, error) {
 				if (succes) {

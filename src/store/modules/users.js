@@ -21,6 +21,12 @@ export default {
         },
         admins(state) {
             return state.roles.admins;
+        },
+        isEditor(state) {
+            return state.user && state.user.role === "editor";
+        },
+        isAdmin(state) {
+            return state.user && state.user.role === "admin";
         }
     },
     mutations: {},
@@ -61,15 +67,26 @@ export default {
         },
         async login({ getters }, { email, password }) {
             return new Promise(async (resolve, reject) => {
-                const user = await getters.auth.signInWithEmailAndPassword(email, password).catch((error) => {
-                    resolve({ login: false, ...error });
-                });
-
-                resolve({ login: true, ...user });
+                try {
+                    const user = await getters.auth.signInWithEmailAndPassword(email, password);
+                    resolve(true);
+                } catch (error) {
+                    reject(error);
+                }
             });
         },
         logout({ getters }) {
             getters.auth.signOut();
+        },
+        resetPassword({ getters }, email) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    await getters.auth.sendPasswordResetEmail(email);
+                    resolve(true);
+                } catch (err) {
+                    reject(err);
+                }
+            });
         },
         async addUser({ getters, dispatch }, userInput) {
             return new Promise(async (resolve, reject) => {
