@@ -14,6 +14,7 @@ import About from "../views/About.vue";
 import Dashboard from "../views/dashboard/Dashboard.vue";
 import Materials from "../views/dashboard/Materials.vue";
 import AddMaterial from "../views/dashboard/materials/Add.vue";
+import EditMaterial from "../views/dashboard/materials/Edit.vue";
 import Users from "../views/dashboard/Users.vue";
 import AddUser from "../views/dashboard/users/Add.vue";
 import UserRights from "../views/dashboard/users/Rights.vue";
@@ -69,6 +70,11 @@ const routes = [
         path: "/dashboard/materials/add",
         name: "Voeg material toe",
         component: AddMaterial
+    },
+    {
+        path: "/dashboard/materials/:id",
+        name: "Materiaal aanpassen",
+        component: EditMaterial
     },
     // Users
     {

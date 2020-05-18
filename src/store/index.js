@@ -4,6 +4,7 @@ import Vuex from "vuex";
 // Modules
 import firebase from "@/store/modules/firebase";
 import users from "@/store/modules/users";
+import materials from "@/store/modules/materials";
 
 // other
 import { nanoid } from "nanoid";
@@ -11,41 +12,11 @@ import { nanoid } from "nanoid";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    modules: { users, firebase },
-    state: {
-        materials: null
-    },
-    getters: {
-        materials(state) {
-            return state.materials;
-        }
-    },
+    modules: { users, firebase, materials },
+    state: {},
+    getters: {},
     mutations: {},
     actions: {
-        async materialsListner({ state, getters }) {
-            getters.db.collection("Materials").onSnapshot((materials) => {
-                state.materials = [];
-                materials.forEach((material) => {
-                    state.materials.push({
-                        ...material.data(),
-                        id: material.id
-                    });
-                });
-            });
-        },
-        addMaterial({ getters }, material) {
-            return new Promise((resolve, reject) => {
-                getters.db
-                    .collection("Materials")
-                    .add(material)
-                    .then(() => {
-                        resolve(true);
-                    })
-                    .catch((error) => {
-                        resolve(error);
-                    });
-            });
-        },
         uploadImage({ getters }, blobImage) {
             return new Promise(async (resolve, reject) => {
                 const path = `images/materials/${nanoid()}`;

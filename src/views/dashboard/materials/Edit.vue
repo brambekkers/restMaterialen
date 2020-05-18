@@ -1,34 +1,35 @@
 <template>
 	<div class="wrapper">
 		<Sidebar />
-		<div class="main-panel h-100">
+		<div class="main-panel">
 			<Navbar :title="$route.name" />
 			<div class="content">
-				<form @submit.prevent="add()">
+				<form @submit.prevent="updateMaterial()">
 					<div class="row">
 						<!-- Algemene info -->
 						<div class="col-md-12">
-							<FormInfo :material.sync="newMaterial" :amount.sync="amount" :isNewMaterial="true" />
+							<FormInfo :material.sync="material" :isNewMaterial="false" />
 						</div>
 					</div>
 					<div class="row">
 						<!-- Prijs -->
 						<div class="col-md-12">
-							<FormPrice :material.sync="newMaterial" />
+							<FormPrice :material.sync="material" />
 						</div>
 					</div>
 
 					<div class="row">
 						<!-- Afbeeldingen -->
 						<div class="col-6">
-							<FormImage :material.sync="newMaterial" />
+							<FormImage :material.sync="material" />
 						</div>
 						<!-- Labels -->
 						<div class="col-6">
-							<FormTag :material.sync="newMaterial" />
+							<FormTag :material.sync="material" />
 						</div>
 					</div>
-					<button class="btn btn-default float-right" type="submit">Voeg materiaal toe</button>
+					<button class="btn btn-danger" @click.prevent="deleteMaterial">Delete materiaal</button>
+					<button class="btn btn-default float-right" type="submit">Update materiaal</button>
 				</form>
 			</div>
 			<Footer />
@@ -47,11 +48,10 @@
 	import FormTag from "@/components/dashboard/forms/Tag.vue";
 
 	export default {
-		name: "AddMaterial",
+		name: "EditMaterial",
 		data() {
 			return {
-				amount: 1,
-				newMaterial: {
+				material: {
 					name: "",
 					type: "",
 					origin: "",
@@ -79,23 +79,30 @@
 			FormImage,
 			FormTag
 		},
+		computed: {
+			materials() {
+				return this.$store.getters.materials;
+			}
+		},
 		methods: {
-			async add() {
-				for (let i = 0; i < this.amount; i++) {
-					this.newMaterial.creationTime = new Date();
-					this.newMaterial.lastEditTime = new Date();
-					const res = await this.$store.dispatch(
-						"addMaterial",
-						this.newMaterial
-					);
+			async updateMaterial() {
+				console.log("test");
+				this.material.lastEditTime = new Date();
+				const res = await this.$store.dispatch(
+					"updateMaterial",
+					this.material
+				);
+				console.log(res);
 
-					if (res === true) {
-						this.notification(true);
-						this.$router.push("/dashboard/materials");
-					} else {
-						this.notification(false, res);
-					}
+				if (res === true) {
+					this.notification(true);
+					this.$router.push("/dashboard/materials");
+				} else {
+					this.notification(false, res);
 				}
+			},
+			deleteMaterial() {
+				this.$store.dispatch("deleteMaterial", this.material);
 			},
 			notification(succes, error) {
 				if (succes) {
@@ -103,8 +110,7 @@
 					$.notify(
 						{
 							title: "Toegevoegd!",
-							message:
-								"Het materiaal is succesvol aan de database toegevoegd!"
+							message: "Het materiaal is succesvol upgedate!"
 						},
 						{
 							type: "success"
@@ -121,7 +127,19 @@
 						}
 					);
 				}
+			},
+			syncMaterial() {
+				if (this.materials) {
+					const id = this.$route.params.id;
+					const currentMaterial = this.materials.filter(
+						item => item.id === id
+					)[0];
+					this.$set(this, "material", currentMaterial);
+				}
 			}
+		},
+		mounted() {
+			this.syncMaterial();
 		}
 	};
 </script>
