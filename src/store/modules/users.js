@@ -100,6 +100,17 @@ export default {
             });
             v;
         },
+        async deleteUser({ getters, dispatch }, id) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    getters.db.doc(`Users/${id}`).delete();
+                    getters.auth.currentUser.delete();
+                } catch (err) {
+                    reject(err);
+                }
+            });
+            v;
+        },
         async newUserAuth({ getters }, { email, password }) {
             return new Promise(async (resolve, reject) => {
                 try {

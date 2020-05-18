@@ -97,11 +97,17 @@
 <script>
 	export default {
 		computed: {
-			isEditor(state) {
-				return state.user && state.user.role === "editor";
+			isEditor() {
+				return (
+					this.$store.getters.user &&
+					this.$store.getters.user.role === "editor"
+				);
 			},
 			isAdmin(state) {
-				return state.user && state.user.role === "admin";
+				return (
+					this.$store.getters.user &&
+					this.$store.getters.user.role === "admin"
+				);
 			}
 		}
 	};

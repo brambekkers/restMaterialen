@@ -88,7 +88,7 @@
 								</form>
 							</div>
 						</div>
-						<button class="btn btn-danger">Verwijder account</button>
+						<button class="btn btn-danger" @click="deleteUser()">Verwijder account</button>
 						<button class="btn btn-default float-right">Update account</button>
 					</div>
 				</div>
@@ -111,6 +111,17 @@
 			},
 			user() {
 				return this.$store.getters.user;
+			}
+		},
+		methods: {
+			async deleteUser() {
+				try {
+					// TODO: Make alert
+					await this.$store.dispatch("deleteUser", this.user.id);
+					console.log("succesvol verwijderd");
+				} catch (err) {
+					console.log(err);
+				}
 			}
 		}
 	};
