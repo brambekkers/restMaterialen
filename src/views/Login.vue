@@ -58,32 +58,22 @@
 						email: this.email,
 						password: this.password
 					});
+					// onComplete:
+					this.$store.dispatch("notification", {
+						style: "success",
+						msg: {
+							title: "Succesvol ingelogd!",
+							text:
+								"Je bent ingelogd op de website. Je kunt nu verder werken onder je eigen account."
+						}
+					});
+					// redirect
 					this.$router.push("/dashboard");
 				} catch (err) {
-					this.notification(false, err);
-				}
-			},
-			notification(succes, error) {
-				if (succes) {
-					$.notify(
-						{
-							title: "Toegevoegd!",
-							message: "Succesvol ingelogd!"
-						},
-						{
-							type: "success"
-						}
-					);
-				} else {
-					$.notify(
-						{
-							title: `Error - ${error.code}`,
-							message: error.message
-						},
-						{
-							type: "danger"
-						}
-					);
+					this.$store.dispatch("notification", {
+						style: "error",
+						msg: err
+					});
 				}
 			}
 		}

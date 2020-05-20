@@ -106,9 +106,6 @@
 		name: "Profile",
 		components: { Navbar, Footer },
 		computed: {
-			rank() {
-				return "Lid";
-			},
 			user() {
 				return this.$store.getters.user;
 			}
@@ -118,9 +115,21 @@
 				try {
 					// TODO: Make alert
 					await this.$store.dispatch("deleteUser", this.user.id);
-					console.log("succesvol verwijderd");
+
+					// onComplete:
+					this.$store.dispatch("notification", {
+						style: "success",
+						msg: {
+							title: "Succesvol verwijderd",
+							text:
+								"Je account is succesvol verwijderd. Als jouw data is verwijderd en je kunt vanaf nu niet meer inloggen."
+						}
+					});
 				} catch (err) {
-					console.log(err);
+					this.$store.dispatch("notification", {
+						style: "error",
+						msg: err
+					});
 				}
 			}
 		}

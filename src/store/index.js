@@ -5,6 +5,7 @@ import Vuex from "vuex";
 import firebase from "@/store/modules/firebase";
 import users from "@/store/modules/users";
 import materials from "@/store/modules/materials";
+import notification from "@/store/modules/notification";
 
 // other
 import { nanoid } from "nanoid";
@@ -12,7 +13,7 @@ import { nanoid } from "nanoid";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    modules: { users, firebase, materials },
+    modules: { users, firebase, materials, notification },
     state: {},
     getters: {},
     mutations: {},

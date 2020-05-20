@@ -84,42 +84,27 @@
 				for (let i = 0; i < this.amount; i++) {
 					this.newMaterial.creationTime = new Date();
 					this.newMaterial.lastEditTime = new Date();
-					const res = await this.$store.dispatch(
-						"addMaterial",
-						this.newMaterial
-					);
 
-					if (res === true) {
-						this.notification(true);
+					try {
+						// add material
+						await this.$store.dispatch("addMaterial", this.newMaterial);
+						// onComplete:
+						this.$store.dispatch("notification", {
+							style: "success",
+							msg: {
+								title: "Succesvol Toegevoegd!",
+								text:
+									"Het materiaal is succesvol aan de database toegevoegd!"
+							}
+						});
+						// Redirect
 						this.$router.push("/dashboard/materials");
-					} else {
-						this.notification(false, res);
+					} catch (err) {
+						this.$store.dispatch("notification", {
+							style: "error",
+							msg: err
+						});
 					}
-				}
-			},
-			notification(succes, error) {
-				if (succes) {
-					const color = "success";
-					$.notify(
-						{
-							title: "Toegevoegd!",
-							message:
-								"Het materiaal is succesvol aan de database toegevoegd!"
-						},
-						{
-							type: "success"
-						}
-					);
-				} else {
-					$.notify(
-						{
-							title: "Error",
-							message: error
-						},
-						{
-							type: "danger"
-						}
-					);
 				}
 			}
 		}

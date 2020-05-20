@@ -1,6 +1,6 @@
 <template>
 	<div class="table-responsive-md">
-		<table class="table table-striped">
+		<table class="table table-striped border">
 			<thead class="text-primary">
 				<tr>
 					<th>ID</th>

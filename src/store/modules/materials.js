@@ -49,11 +49,17 @@ export default {
                 for (const image of material.images) {
                     dispatch("removeImage", image.path);
                 }
-                // remove material from database
-                getters.db
-                    .collection("Materials")
-                    .doc(material.id)
-                    .delete();
+
+                try {
+                    // remove material from database
+                    getters.db
+                        .collection("Materials")
+                        .doc(material.id)
+                        .delete();
+                    resolve();
+                } catch (error) {
+                    reject(error);
+                }
             });
         }
     }

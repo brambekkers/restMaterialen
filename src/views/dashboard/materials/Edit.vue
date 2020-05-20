@@ -87,44 +87,44 @@
 		methods: {
 			async updateMaterial() {
 				this.material.lastEditTime = new Date();
-				const res = await this.$store.dispatch(
-					"updateMaterial",
-					this.material
-				);
 
-				if (res === true) {
-					this.notification(true);
+				try {
+					await this.$store.dispatch("updateMaterial", this.material);
+					// onComplete:
+					this.$store.dispatch("notification", {
+						style: "success",
+						msg: {
+							title: "Update!",
+							text: "Het materiaal is succesvol upgedate!"
+						}
+					});
+					// Redirect
 					this.$router.push("/dashboard/materials");
-				} else {
-					this.notification(false, res);
+				} catch (err) {
+					this.$store.dispatch("notification", {
+						style: "error",
+						msg: err
+					});
 				}
 			},
 			deleteMaterial() {
-				this.$store.dispatch("deleteMaterial", this.material);
-				this.$router.push("/dashboard/materials");
-			},
-			notification(succes, error) {
-				if (succes) {
-					const color = "success";
-					$.notify(
-						{
-							title: "Toegevoegd!",
-							message: "Het materiaal is succesvol upgedate!"
-						},
-						{
-							type: "success"
+				try {
+					this.$store.dispatch("deleteMaterial", this.material);
+					// onComplete:
+					this.$store.dispatch("notification", {
+						style: "success",
+						msg: {
+							title: "Verwijderd!",
+							text: "Het materiaal is succesvol verwijderd!"
 						}
-					);
-				} else {
-					$.notify(
-						{
-							title: "Error",
-							message: error
-						},
-						{
-							type: "danger"
-						}
-					);
+					});
+					// Redirect
+					this.$router.push("/dashboard/materials");
+				} catch (err) {
+					this.$store.dispatch("notification", {
+						style: "error",
+						msg: err
+					});
 				}
 			},
 			syncMaterial() {

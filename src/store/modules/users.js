@@ -1,3 +1,4 @@
+import Vue from "vue";
 import * as firebase from "firebase";
 
 export default {
@@ -22,6 +23,9 @@ export default {
         admins(state) {
             return state.roles.admins;
         },
+        role() {
+            return state.user.role;
+        },
         isEditor(state) {
             return state.user && state.user.role === "editor";
         },
@@ -31,11 +35,13 @@ export default {
     },
     mutations: {},
     actions: {
-        userListner({ state, getters, dispatch }) {
+        userListner({ state, getters, commit, dispatch }) {
             getters.auth.onAuthStateChanged(async (user) => {
                 state.user = user ? await dispatch("getUserFromDatabase", user) : null;
+                console.log("ik drsaa");
                 if (user) {
-                    state.user.role = await dispatch("getRole");
+                    const role = await dispatch("getRole");
+                    Vue.set(state.user, "role", role);
                 }
             });
         },
