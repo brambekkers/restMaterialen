@@ -1,3 +1,8 @@
+// boostrap notify
+import "bootstrap-notify";
+// Sweet Alert 2
+import Swal from "sweetalert2";
+
 export default {
     state: {},
     getters: {},
@@ -33,6 +38,33 @@ export default {
             }
 
             $.notify({ title, message, icon }, { type, template });
+        },
+        alert({}, { type, msg }) {
+            return new Promise((resolve, reject) => {
+                if (type === "warning") {
+                    Swal.fire({
+                        title: msg.title,
+                        text: msg.text,
+                        icon: "warning",
+                        confirmButtonText: "Cool",
+                        confirmButtonClass: "btn btn-success"
+                    });
+                }
+                if (type === "confirm") {
+                    Swal.fire({
+                        title: msg.title,
+                        text: msg.text,
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "btn btn-danger",
+                        confirmButtonText: "Ja, ik weet het zeker!",
+                        cancelButtonText: "Nope",
+                        cancelButtonClass: "btn btn-default"
+                    }).then((result) => {
+                        result.value ? resolve() : reject();
+                    });
+                }
+            });
         }
     }
 };

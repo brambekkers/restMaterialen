@@ -38,7 +38,6 @@ export default {
         userListner({ state, getters, commit, dispatch }) {
             getters.auth.onAuthStateChanged(async (user) => {
                 state.user = user ? await dispatch("getUserFromDatabase", user) : null;
-                console.log("ik drsaa");
                 if (user) {
                     const role = await dispatch("getRole");
                     Vue.set(state.user, "role", role);
@@ -81,8 +80,15 @@ export default {
                 }
             });
         },
-        logout({ getters }) {
+        logout({ getters, dispatch }) {
             getters.auth.signOut();
+            dispatch("notification", {
+                style: "success",
+                msg: {
+                    title: "Uitgelogd!",
+                    text: "Je bent succesvol uitgelogd!"
+                }
+            });
         },
         resetPassword({ getters }, email) {
             return new Promise(async (resolve, reject) => {
