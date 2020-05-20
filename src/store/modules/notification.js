@@ -43,16 +43,26 @@ export default {
             return new Promise((resolve, reject) => {
                 if (type === "warning") {
                     Swal.fire({
-                        title: msg.title,
+                        titleText: msg.title,
                         text: msg.text,
                         icon: "warning",
                         confirmButtonText: "Cool",
                         confirmButtonClass: "btn btn-success"
                     });
                 }
+                if (type === "information") {
+                    Swal.fire({
+                        titleText: msg.title,
+                        html: msg.text,
+                        width: "70%",
+                        icon: "question",
+                        confirmButtonText: "Ik snap het",
+                        confirmButtonClass: "btn btn-default"
+                    });
+                }
                 if (type === "confirm") {
                     Swal.fire({
-                        title: msg.title,
+                        titleText: msg.title,
                         text: msg.text,
                         icon: "warning",
                         showCancelButton: true,

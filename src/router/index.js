@@ -13,10 +13,10 @@ import About from "../views/About.vue";
 
 // Dashboard pages
 import Dashboard from "../views/dashboard/Dashboard.vue";
-import Materials from "../views/dashboard/Materials.vue";
+import Materials from "../views/dashboard/materials/Materials.vue";
 import AddMaterial from "../views/dashboard/materials/Add.vue";
 import EditMaterial from "../views/dashboard/materials/Edit.vue";
-import Users from "../views/dashboard/Users.vue";
+import Users from "../views/dashboard/users/Users.vue";
 import AddUser from "../views/dashboard/users/Add.vue";
 import UserRights from "../views/dashboard/users/Rights.vue";
 

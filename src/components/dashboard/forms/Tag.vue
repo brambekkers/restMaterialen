@@ -1,7 +1,8 @@
 <template>
     <div class="card">
-        <div class="card-header">
+        <div class="card-header d-flex">
             <h4 class="card-title mb-0">Labels</h4>
+            <Information :info="info" />
         </div>
         <div class="card-body">
             <div class="row">
@@ -31,11 +32,23 @@
 </template>
 
 <script>
+import Information from "@/components/Information";
+
 export default {
+    components: { Information },
     props: ["material"],
     data() {
         return {
-            tag: ""
+            tag: "",
+            info: {
+                title: "Labels",
+                msg: `
+				<div class="text-left">
+                    Een label voeg je toe om de gebruiker te laten zoeken in het systeem. De labels zijn zichtbaar voor de gebruikes bij het materiaal.
+                    Hierdoor kunnen gebruikers ook andere artikelen in de database vinden met dezelfde tag. Handig als je op zoek bent naar meer van hetzelfde materiaal.<br><br>
+                    Andere woorden voor een label zijn onder andere: <b>steekwoord, trefwoord, sleutelwoord, hashtag</b>
+				</div>`
+            }
         };
     },
     methods: {
