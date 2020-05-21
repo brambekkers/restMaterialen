@@ -5,7 +5,10 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<div class="card mt-5">
+						<div
+							class="card mt-5"
+							v-if="material"
+						>
 							<div class="card-header">
 								<h4 class="card-title">{{ material.name }}</h4>
 							</div>
@@ -36,18 +39,7 @@
 											/>
 										</div>
 									</div>
-									<div class="col-12 col-xl-5">
-										<div class="form-group">
-											<label>Prijs</label>
-											<input
-												type="text"
-												:value="`${material.price} euro ${material.priceUnit.toLowerCase()}`"
-												placeholder="Waar komt het materiaal vandaan?"
-												class="form-control border-input"
-												disabled
-											/>
-										</div>
-									</div>
+
 								</div>
 
 								<div class="row">
@@ -105,14 +97,43 @@
 												class="form-control border-input"
 												disabled
 											/>
+											</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-12 col-md-6">
+										<div class="form-group">
+											<label>Prijs</label>
+											<input
+												type="text"
+												:value="`${material.price} euro ${material.priceUnit.toLowerCase()}`"
+												placeholder="Waar komt het materiaal vandaan?"
+												class="form-control border-input"
+												disabled
+											/>
+										</div>
+									</div>
+								
+									<div class="col-12 col-md-6">
+										<div class="form-group">
+											<label>Beschikbaarheid</label>
+											<input
+												type="text"
+												:value="`${material.unitAvalible} / ${material.unitAmount} beschikbaar`"
+												placeholder="Waar komt het materiaal vandaan?"
+												class="form-control border-input"
+												disabled
+											/>
 										</div>
 									</div>
 								</div>
+
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<div class="card">
+								<div class="card" v-if="material">
 									<div class="card-header">
 										<h4 class="card-title mb-0">Afbeeldingen</h4>
 									</div>
@@ -129,7 +150,7 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="card">
+								<div class="card" v-if="material">
 									<div class="card-header">
 										<h4 class="card-title mb-0">Labels</h4>
 									</div>
@@ -163,30 +184,30 @@
 </template>
 
 <script>
-	import Navbar from "@/components/Navbar.vue";
-	import Footer from "@/components/Footer.vue";
+import Navbar from "@/components/Navbar.vue";
+import Footer from "@/components/Footer.vue";
 
-	export default {
-		name: "Detail",
-		components: {
-			Navbar,
-			Footer
+export default {
+	name: "Detail",
+	components: {
+		Navbar,
+		Footer
+	},
+	computed: {
+		materials() {
+			return this.$store.getters.materials;
 		},
-		computed: {
-			materials() {
-				return this.$store.getters.materials;
-			},
-			material() {
-				if (this.materials) {
-					const id = this.$route.params.id;
-					return this.materials.filter(item => item.id === id)[0];
-				}
+		material() {
+			if (this.materials) {
+				const id = this.$route.params.id;
+				return this.materials.filter(item => item.id === id)[0];
 			}
-		},
-		mounted() {
-			$(".selectpicker").selectpicker();
 		}
-	};
+	},
+	mounted() {
+		$(".selectpicker").selectpicker();
+	}
+};
 </script>
 
 <style lang="scss" scoped>

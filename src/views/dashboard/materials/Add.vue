@@ -8,7 +8,11 @@
 					<div class="row">
 						<!-- Algemene info -->
 						<div class="col-md-12">
-							<FormInfo :material.sync="newMaterial" :amount.sync="amount" :isNewMaterial="true" />
+							<FormInfo
+								:material.sync="newMaterial"
+								:amount.sync="amount"
+								:isNewMaterial="true"
+							/>
 						</div>
 					</div>
 					<div class="row">
@@ -28,7 +32,10 @@
 							<FormTag :material.sync="newMaterial" />
 						</div>
 					</div>
-					<button class="btn btn-default float-right" type="submit">Voeg materiaal toe</button>
+					<button
+						class="btn btn-default float-right"
+						type="submit"
+					>Voeg materiaal toe</button>
 				</form>
 			</div>
 			<Footer />
@@ -37,76 +44,85 @@
 </template>
 
 <script>
-	import Navbar from "@/components/dashboard/Navbar.vue";
-	import Sidebar from "@/components/dashboard/Sidebar.vue";
-	import Footer from "@/components/Footer.vue";
+import Navbar from "@/components/dashboard/Navbar.vue";
+import Sidebar from "@/components/dashboard/Sidebar.vue";
+import Footer from "@/components/Footer.vue";
 
-	import FormInfo from "@/components/dashboard/forms/Info.vue";
-	import FormPrice from "@/components/dashboard/forms/Price.vue";
-	import FormImage from "@/components/dashboard/forms/Image.vue";
-	import FormTag from "@/components/dashboard/forms/Tag.vue";
+import FormInfo from "@/components/dashboard/forms/Info.vue";
+import FormPrice from "@/components/dashboard/forms/Price.vue";
+import FormImage from "@/components/dashboard/forms/Image.vue";
+import FormTag from "@/components/dashboard/forms/Tag.vue";
 
-	export default {
-		name: "AddMaterial",
-		data() {
-			return {
-				amount: 1,
-				newMaterial: {
-					name: "",
-					type: "",
-					origin: "",
-					length: null,
-					width: null,
-					thickness: null,
-					description: "",
-					claimed: false,
-					price: null,
-					priceUnit: "",
-					unitAmount: null,
-					tags: [],
-					images: [],
-					creationTime: null,
-					lastEditTime: null
-				}
-			};
-		},
-		components: {
-			Sidebar,
-			Navbar,
-			Footer,
-			FormInfo,
-			FormPrice,
-			FormImage,
-			FormTag
-		},
-		methods: {
-			async add() {
-				for (let i = 0; i < this.amount; i++) {
-					this.newMaterial.creationTime = new Date();
-					this.newMaterial.lastEditTime = new Date();
+export default {
+	name: "AddMaterial",
+	data() {
+		return {
+			amount: 1,
+			newMaterial: {
+				name: "",
+				type: "",
+				origin: "",
+				length: null,
+				width: null,
+				thickness: null,
+				description: "",
+				claimed: false,
+				price: null,
+				priceUnit: "",
+				unitAmount: null,
+				unitAvalible: null,
+				tags: [],
+				images: [],
+				creationTime: null,
+				lastEditTime: null
+			}
+		};
+	},
+	components: {
+		Sidebar,
+		Navbar,
+		Footer,
+		FormInfo,
+		FormPrice,
+		FormImage,
+		FormTag
+	},
+	methods: {
+		async add() {
+			for (let i = 0; i < this.amount; i++) {
+				this.$set(this.newMaterial, "creationTime", new Date());
+				this.$set(this.newMaterial, "lastEditTime", new Date());
+				this.$set(
+					this.newMaterial,
+					"unitAvalible",
+					this.newMaterial.unitAmount
+				);
 
-					try {
-						// add material
-						await this.$store.dispatch("addMaterial", this.newMaterial);
-						// onComplete:
-						this.$store.dispatch("notification", {
-							style: "success",
-							msg: {
-								title: "Succesvol Toegevoegd!",
-								text:
-									"Het materiaal is succesvol aan de database toegevoegd!"
-							}
-						});
-						// Redirect
-						this.$router.push("/dashboard/materials");
-					} catch (err) {
-						this.$store.dispatch("notification", {
-							style: "error",
-							msg: err
-						});
-					}
+				try {
+					// add material
+					await this.$store.dispatch("addMaterial", this.newMaterial);
+					// onComplete:
+					this.$store.dispatch("notification", {
+						style: "success",
+						msg: {
+							title: "Succesvol Toegevoegd!",
+							text:
+								"Het materiaal is succesvol aan de database toegevoegd!"
+						}
+					});
+					// Redirect
+					this.$router.push("/dashboard/materials");
+				} catch (err) {
+					this.$store.dispatch("notification", {
+						style: "error",
+						msg: err
+					});
 				}
 			}
 		}
-	};
+	},
+	mounted() {
+		$(".selectpicker").selectpicker();
+	}
+};
 </script>
