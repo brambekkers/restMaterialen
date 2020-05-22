@@ -6,7 +6,10 @@
 			<div class="content">
 				<div class="row d-flex justify-content-center">
 					<div class="col-10 col-sm-6 col-xl-4">
-						<form class="form" @submit.prevent="addUser">
+						<form
+							class="form"
+							@submit.prevent="addUser"
+						>
 							<div class="card card-signup mt-5">
 								<div class="card-header text-center">
 									<h4 class="card-title">Voeg gebruiker toe</h4>
@@ -87,7 +90,10 @@
 									</div>
 								</div>
 							</div>
-							<button type="submit" class="btn btn-default float-right">Voeg gebruiker toe</button>
+							<button
+								type="submit"
+								class="btn btn-default float-right"
+							>Voeg gebruiker toe</button>
 						</form>
 					</div>
 				</div>
@@ -98,64 +104,63 @@
 </template>
 
 <script>
-	import Navbar from "@/components/dashboard/Navbar.vue";
-	import Sidebar from "@/components/dashboard/Sidebar.vue";
-	import Footer from "@/components/Footer.vue";
+import Navbar from "@/components/dashboard/Navbar.vue";
+import Sidebar from "@/components/dashboard/Sidebar.vue";
+import Footer from "@/components/Footer.vue";
 
-	export default {
-		name: "addUser",
-		components: { Sidebar, Navbar, Footer },
-		data() {
-			return {
-				newUser: {
-					firstName: "",
-					lastName: "",
-					email: "",
-					password: "",
-					passwordCheck: ""
-				}
-			};
-		},
-		computed: {
-			passwordSame() {
-				return this.newUser.password === this.newUser.passwordCheck;
+export default {
+	name: "addUser",
+	components: { Sidebar, Navbar, Footer },
+	data() {
+		return {
+			newUser: {
+				firstName: "",
+				lastName: "",
+				email: "",
+				password: "",
+				passwordCheck: ""
 			}
-		},
+		};
+	},
+	computed: {
+		passwordSame() {
+			return this.newUser.password === this.newUser.passwordCheck;
+		}
+	},
+	methods: {
+		async addUser() {
+			if (this.passwordSame) {
+				try {
+					// add user
+					await this.$store.dispatch("addUser", this.newUser);
 
-		methods: {
-			async addUser() {
-				if (this.passwordSame) {
-					try {
-						// add user
-						await this.$store.dispatch("addUser", this.newUser);
-
-						// onComplete:
-						this.$store.dispatch("notification", {
-							style: "success",
-							msg: {
-								title: "Succesvol Toegevoegd!",
-								text: "De gebruiker is succesvol toegevoegd!"
-							}
-						});
-
-						// redirect
-						this.$router.push("/dashboard/users");
-					} catch (err) {
-						this.$store.dispatch("notification", {
-							style: "error",
-							msg: err
-						});
-					}
-				} else {
+					// onComplete:
 					this.$store.dispatch("notification", {
-						style: "error",
+						style: "success",
 						msg: {
-							code: "Wachtwoord fout",
-							message: "Controle wachtwoord komt niet overeen"
+							title: "Succesvol Toegevoegd!",
+							text: "De gebruiker is succesvol toegevoegd!"
 						}
 					});
+
+					// redirect
+					this.$router.push("/dashboard/users");
+				} catch (err) {
+					this.$store.dispatch("notification", {
+						style: "error",
+						msg: err
+					});
 				}
+			} else {
+				this.$store.dispatch("notification", {
+					style: "error",
+					msg: {
+						code: "Wachtwoord fout",
+						message: "Controle wachtwoord komt niet overeen"
+					}
+				});
 			}
 		}
-	};
+	}
+};
 </script>

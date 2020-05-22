@@ -29,7 +29,10 @@
 						</div>
 					</div>
 					<div class="footer text-center">
-						<button type="submit" class="btn btn-fill btn-wd">Let's go</button>
+						<button
+							type="submit"
+							class="btn btn-fill btn-wd"
+						>Let's go</button>
 						<div class="forgot">
 							<router-link to="/forgotpassword">Wachtwoord vergeten?</router-link>
 						</div>
@@ -41,43 +44,43 @@
 </template>
 
 <script>
-	import Navbar from "@/components/Navbar.vue";
+import Navbar from "@/components/Navbar.vue";
 
-	export default {
-		components: { Navbar },
-		data() {
-			return {
-				email: "",
-				password: ""
-			};
-		},
-		methods: {
-			async login() {
-				try {
-					await this.$store.dispatch("login", {
-						email: this.email,
-						password: this.password
-					});
-					// onComplete:
-					this.$store.dispatch("notification", {
-						style: "success",
-						msg: {
-							title: "Succesvol ingelogd!",
-							text:
-								"Je bent ingelogd op de website. Je kunt nu verder werken onder je eigen account."
-						}
-					});
-					// redirect
-					this.$router.push("/dashboard");
-				} catch (err) {
-					this.$store.dispatch("notification", {
-						style: "error",
-						msg: err
-					});
-				}
+export default {
+	components: { Navbar },
+	data() {
+		return {
+			email: "",
+			password: ""
+		};
+	},
+	methods: {
+		async login() {
+			try {
+				await this.$store.dispatch("login", {
+					email: this.email,
+					password: this.password
+				});
+				// onComplete:
+				this.$store.dispatch("notification", {
+					style: "success",
+					msg: {
+						title: "Succesvol ingelogd!",
+						text:
+							"Je bent ingelogd op de website. Je kunt nu verder werken onder je eigen account."
+					}
+				});
+				// redirect
+				this.$router.push("/libary");
+			} catch (err) {
+				this.$store.dispatch("notification", {
+					style: "error",
+					msg: err
+				});
 			}
 		}
-	};
+	}
+};
 </script>
 
 <style lang="scss" scoped>
