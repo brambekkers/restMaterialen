@@ -172,10 +172,10 @@
 						<i class="fas fa-arrow-circle-left mr-3"></i>Terug
 					</router-link>
 
-					<button class="btn btn-info">
+					<router-link :to="`/reservation/${$route.params.id}`" tag="button" class="btn btn-info">
 						Reserveer
 						<i class="fas fa-pencil-alt ml-3"></i>
-					</button>
+					</router-link>
 				</div>
 			</div>
 		</div>

@@ -7,8 +7,8 @@ import store from "@/store";
 import Landing from "../views/Landing.vue";
 import Libary from "../views/Libary.vue";
 import Detail from "../views/Detail.vue";
+import Reservation from "../views/Reservation.vue";
 import Login from "../views/Login.vue";
-import NotLoggedIn from "../views/NotLoggedIn.vue";
 import Forgot from "../views/ForgotPassword.vue";
 import Profile from "../views/Profile.vue";
 import Mission from "../views/Mission.vue";
@@ -51,11 +51,15 @@ const routes = [
         name: "Materialen bibliotheek",
         component: Libary
     },
-    { path: "/libary/:id", component: Detail },
     {
-        path: "/NotLoggedIn",
-        name: "Niet ingelogd",
-        component: NotLoggedIn
+        path: "/libary/:id",
+        name: "Materiaal details",
+        component: Detail
+    },
+    {
+        path: "/reservation/:id",
+        name: "Materiaal reserveren",
+        component: Reservation
     },
     {
         path: "/login",
