@@ -3,8 +3,11 @@
 		<Sidebar />
 		<div class="main-panel h-100">
 			<Navbar :title="$route.name" />
-			<div class="content">
-				<div class="row">
+			<div class="content h-75">
+				<div
+					class="row"
+					v-show="isLoaded"
+				>
 					<!-- Editor -->
 					<div class="col-sm-6">
 						<div class="card mt-5">
@@ -107,6 +110,7 @@
 						</div>
 					</div>
 				</div>
+				<Loading v-if="!isLoaded" />
 			</div>
 			<Footer />
 		</div>
@@ -117,6 +121,7 @@
 import Navbar from "@/components/dashboard/Navbar.vue";
 import Sidebar from "@/components/dashboard/Sidebar.vue";
 import Footer from "@/components/Footer.vue";
+import Loading from "@/components/Loading.vue";
 
 export default {
 	name: "Rights",
@@ -126,8 +131,20 @@ export default {
 			selectedAdminID: ""
 		};
 	},
-	components: { Sidebar, Navbar, Footer },
+	components: { Sidebar, Navbar, Footer, Loading },
 	computed: {
+		isLoaded() {
+			if (
+				this.users.length &&
+				this.editors.length &&
+				this.admins.length
+			) {
+				$(".selectpicker").selectpicker();
+				return true;
+			} else {
+				return true;
+			}
+		},
 		users() {
 			return this.$store.getters.users;
 		},
@@ -178,7 +195,6 @@ export default {
 				this.$store.dispatch("getUsers");
 				this.$store.dispatch("getRoles");
 			}
-			$(".selectpicker").selectpicker();
 		}, 500);
 	}
 };

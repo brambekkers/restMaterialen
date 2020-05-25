@@ -120,7 +120,7 @@
 											<label>Beschikbaarheid</label>
 											<input
 												type="text"
-												:value="`${material.unitAvalible} / ${material.unitAmount} beschikbaar`"
+												:value="`${material.unitAvalible} ${unit} beschikbaar`"
 												placeholder="Waar komt het materiaal vandaan?"
 												class="form-control border-input"
 												disabled
@@ -194,6 +194,14 @@ export default {
 		Footer
 	},
 	computed: {
+		unit() {
+			if (this.material.priceUnit) {
+				const unit = this.material.priceUnit.split(" ")[1];
+				if (unit === "deel") return "delen";
+				return unit.toLowerCase();
+			}
+			return "eenheden";
+		},
 		materials() {
 			return this.$store.getters.materials;
 		},

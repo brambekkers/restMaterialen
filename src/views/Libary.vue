@@ -15,7 +15,8 @@
 						<p class="card-category">Geen filter</p>
 					</div>
 					<div class="card-body">
-						<MaterialsList />
+						<MaterialsList v-if="materials" />
+						<Loading v-else />
 					</div>
 					<div class="card-footer">
 						<hr />
@@ -35,7 +36,9 @@ import Footer from "@/components/Footer.vue";
 import Search from "@/components/Search.vue";
 import LastTimeUpdated from "@/components/LastTimeUpdated.vue";
 
-import MaterialsList from "@/components/dashboard/components/MaterialsList.vue";
+import MaterialsList from "@/components/libary/MaterialsList.vue";
+
+import Loading from "@/components/Loading.vue";
 
 export default {
 	name: "Libary",
@@ -50,11 +53,15 @@ export default {
 		Footer,
 		Search,
 		MaterialsList,
-		LastTimeUpdated
+		LastTimeUpdated,
+		Loading
 	},
 	computed: {
 		searchTags() {
 			this.searchText.split(" ");
+		},
+		materials() {
+			return this.$store.getters.materials;
 		}
 	}
 };

@@ -22,7 +22,7 @@
 					</label>
 				</div>
 				<hr class="my-0">
-				<div class="mt-2 mb-3">
+				<div class="my-3">
 					<label>
 						Hoeveel wil je reserveren?
 					</label>
@@ -47,6 +47,15 @@
 					</div>
 				</div>
 
+				<div
+					class="form-group text-right"
+					v-if="material.price && material.unitAmount"
+				>
+					<label>De totale prijs:</label>
+					<p class="mb-0">
+						<h5 class="title mt-0 ">{{ material.price * material.unitAmount}} euro</h5>
+					</p>
+				</div>
 				<div class="form-check text-left">
 					<label class="form-check-label">
 						<input
