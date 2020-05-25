@@ -1,10 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "@/store";
+
 
 // Pages
 import Landing from "../views/Landing.vue";
 import Libary from "../views/Libary.vue";
 import Detail from "../views/Detail.vue";
+import Reservation from "../views/Reservation.vue";
 import Login from "../views/Login.vue";
 import Forgot from "../views/ForgotPassword.vue";
 import Profile from "../views/Profile.vue";
@@ -22,6 +25,20 @@ import UserRights from "../views/dashboard/users/Rights.vue";
 
 Vue.use(VueRouter);
 
+const permissionFunction = (type, next) => {
+    if ((type === 'admin' && !store.getters.isAdmin) || (type === 'editor' && !store.getters.isEditor)) {
+        store.dispatch("alert", {
+            type: "noPermission",
+            msg: {
+                rightsNeeded: type,
+                onComplete: next
+            }
+        });
+    } else {
+        next();
+    }
+}
+
 const routes = [
     { path: "*", component: Landing },
     {
@@ -34,7 +51,16 @@ const routes = [
         name: "Materialen bibliotheek",
         component: Libary
     },
-    { path: "/libary/:id", component: Detail },
+    {
+        path: "/libary/:id",
+        name: "Materiaal details",
+        component: Detail
+    },
+    {
+        path: "/reservation/:id",
+        name: "Materiaal reserveren",
+        component: Reservation
+    },
     {
         path: "/login",
         name: "Login",
@@ -60,43 +86,65 @@ const routes = [
         name: "Over",
         component: About
     },
-    // Dashboard (ADMIN ONLY)
+    // Dashboard (ADMIN and EDITOR ONLY)
     {
         path: "/dashboard",
         name: "Overzicht",
-        component: Dashboard
+        component: Dashboard,
+        beforeEnter: (to, from, next) => {
+            permissionFunction('editor', next)
+        }
     },
-    // Materials
+    // Materials (ADMIN and EDITOR ONLY)
     {
         path: "/dashboard/materials",
         name: "Materialen",
-        component: Materials
+        component: Materials,
+        beforeEnter: (to, from, next) => {
+            permissionFunction('editor', next)
+        }
     },
     {
         path: "/dashboard/materials/add",
         name: "Voeg material toe",
-        component: AddMaterial
+        component: AddMaterial,
+        beforeEnter: (to, from, next) => {
+            permissionFunction('editor', next)
+        }
+
     },
     {
         path: "/dashboard/materials/:id",
         name: "Materiaal aanpassen",
-        component: EditMaterial
+        component: EditMaterial,
+        beforeEnter: (to, from, next) => {
+            permissionFunction('editor', next)
+        }
     },
-    // Users
+    // Users (ADMIN ONLY)
     {
         path: "/dashboard/users",
         name: "Gebruikers",
-        component: Users
+        component: Users,
+        beforeEnter: (to, from, next) => {
+            permissionFunction('admin', next)
+        }
     },
     {
         path: "/dashboard/users/add",
         name: "Voeg gebruiker toe",
-        component: AddUser
+        component: AddUser,
+        beforeEnter: (to, from, next) => {
+            permissionFunction('admin', next)
+        }
     },
     {
         path: "/dashboard/users/rights",
         name: "Gebruikersrechten",
-        component: UserRights
+        component: UserRights,
+        beforeEnter: (to, from, next) => {
+            permissionFunction('admin', next)
+        }
     }
 ];
 

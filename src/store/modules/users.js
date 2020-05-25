@@ -1,4 +1,5 @@
 import Vue from "vue";
+import router from "@/router";
 import * as firebase from "firebase";
 
 export default {
@@ -27,7 +28,7 @@ export default {
             return state.user.role;
         },
         isEditor(state) {
-            return state.user && state.user.role === "editor";
+            return state.user && (state.user.role === "editor" || state.user.role === "admin");
         },
         isAdmin(state) {
             return state.user && state.user.role === "admin";
@@ -153,10 +154,12 @@ export default {
             });
         },
         async getUsers({ state, getters }) {
+
             if (getters.db) {
                 getters.db.collection("Users").onSnapshot((users) => {
-                    state.users = [];
-                    users.forEach((user) => {
+                    Vue.set(state, "users", []);
+
+                    users.forEach(user => {
                         state.users.push(user.data());
                     });
                 });
