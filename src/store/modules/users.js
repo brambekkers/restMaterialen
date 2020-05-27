@@ -38,7 +38,8 @@ export default {
     actions: {
         userListner({ state, getters, commit, dispatch }) {
             getters.auth.onAuthStateChanged(async (user) => {
-                state.user = user ? await dispatch("getUserFromDatabase", user) : null;
+                const dbUser = user ? await dispatch("getUserFromDatabase", user) : null;
+                Vue.set(state, "user", dbUser);
                 if (user) {
                     const role = await dispatch("getRole");
                     Vue.set(state.user, "role", role);

@@ -9,6 +9,8 @@ export default {
     },
     mutations: {},
     actions: {
+        // Material listner 
+        // updates all materials
         async materialsListner({ state, getters }) {
             getters.db.collection("Materials").onSnapshot((materials) => {
                 state.materials = [];

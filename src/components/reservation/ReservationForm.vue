@@ -4,15 +4,18 @@
 		class="card card-signup"
 		v-if="material"
 	>
-		<div class="card-header ">
-			<h4 class="card-title mb-0">Reserveer</h4>
-			<h6 class="card-title mt-0">{{material.name}}</h6>
+		<form
+			class="form"
+			@submit.prevent="makeReservation()"
+		>
+			<div class="card-header ">
+				<h4 class="card-title mb-0">Reserveer</h4>
+				<h6 class="card-title mt-0">{{material.name}}</h6>
 
-		</div>
-		<div class="card-body text-left py-0">
-			<hr class="my-0">
+			</div>
+			<div class="card-body text-left py-0">
+				<hr class="my-0">
 
-			<form class="form">
 				<div class="my-2">
 					<label class="row">
 						<div class="col-6 title">Totaal beschikbaar:</div>
@@ -53,7 +56,7 @@
 				>
 					<label>De totale prijs:</label>
 					<p class="mb-0">
-						<h5 class="title mt-0 ">{{ material.price * material.unitAmount}} euro</h5>
+						<h5 class="title mt-0 ">{{ material.price * amount}} euro</h5>
 					</p>
 				</div>
 				<div class="form-check text-left">
@@ -75,20 +78,21 @@
 						Ik accepteer <router-link to="/policy">de voorwaarde</router-link>.
 					</label>
 				</div>
-			</form>
-		</div>
-		<div class="card-footer ">
-			<a
-				href="javascript:;"
-				class="btn btn-info btn-round"
-			>Reserveer</a>
-		</div>
+			</div>
+			<div class="card-footer ">
+				<button
+					type="submit"
+					class="btn btn-info btn-round"
+				>Reserveer</button>
+			</div>
+		</form>
+
 	</div>
 </template>
 
 <script>
 export default {
-	name: "Detail",
+	name: "ReservationForm",
 	data() {
 		return {
 			policyCheck: false,
@@ -112,6 +116,16 @@ export default {
 				return unit.toLowerCase();
 			}
 			return "eenheden";
+		}
+	},
+	methods: {
+		makeReservation() {
+			const reservation = this.$store.dispatch("reservate", {
+				id: this.$route.params.id,
+				amount: this.amount
+			});
+
+			console.log("Reservation result:", reservation);
 		}
 	}
 };
