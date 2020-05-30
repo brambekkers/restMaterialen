@@ -9,7 +9,7 @@ export default {
     },
     mutations: {},
     actions: {
-        // Material listner 
+        // Material listner
         // updates all materials
         async materialsListner({ state, getters }) {
             getters.db.collection("Materials").onSnapshot((materials) => {
@@ -37,11 +37,15 @@ export default {
         },
         updateMaterial({ getters }, material) {
             return new Promise(async (resolve, reject) => {
-                try {
-                    await getters.db.doc(`Materials/${material.id}`).set(material);
-                    resolve(true);
-                } catch (error) {
-                    reject(error);
+                if (material && material.id) {
+                    try {
+                        await getters.db.doc(`Materials/${material.id}`).set(material);
+                        resolve(true);
+                    } catch (error) {
+                        reject(error);
+                    }
+                } else {
+                    reject();
                 }
             });
         },

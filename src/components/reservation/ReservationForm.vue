@@ -55,9 +55,7 @@
 					v-if="material.price && material.unitAmount"
 				>
 					<label>De totale prijs:</label>
-					<p class="mb-0">
-						<h5 class="title mt-0 ">{{ material.price * amount}} euro</h5>
-					</p>
+					<p class="mb-0"><h5 class="title mt-0 ">{{ material.price * amount}} euro</h5></p>
 				</div>
 				<div class="form-check text-left">
 					<label class="form-check-label">
@@ -96,10 +94,28 @@ export default {
 	data() {
 		return {
 			policyCheck: false,
-			amount: null
+			amount: null,
+			reservation: null,
+			hasReservate: false
 		};
 	},
+	watch:{
+		reservation(){
+			if(this.reservation){
+				this.$store.dispatch('alert', {
+					type: 'warning',
+					msg: {
+						title: 'Al gereserveerd',
+						text: `Je hebt al ${this.reservation.amount} ${this.unit} van ${this.material.name} gereserveerd. Je kunt natuurlijk altijd nog meer reserveren maar dat komt dan bovenop je besetaande reservering.`
+					}
+				})
+			}
+		}
+	},
 	computed: {
+		user() {
+			return this.$store.getters.user;
+		},
 		materials() {
 			return this.$store.getters.materials;
 		},
@@ -116,17 +132,62 @@ export default {
 				return unit.toLowerCase();
 			}
 			return "eenheden";
-		}
+		},
 	},
 	methods: {
-		makeReservation() {
-			const reservation = this.$store.dispatch("reservate", {
-				id: this.$route.params.id,
-				amount: this.amount
-			});
+		async makeReservation() {
+			if(this.policyCheck){
+				if(!this.hasReservate){
+					this.hasReservate = true
+					try {
+						const reservation = await this.$store.dispatch("reservate", {
+							id: this.$route.params.id,
+							amount: this.amount,
+							userAmount: this.amount + (this.reservation ? this.reservation.amount : 0)
+						});
+						// onComplete:
+						this.$store.dispatch("notification", {
+							style: "success",
+							msg: {
+								title: "Succesvol gereserveerd!",
+								text:
+									"Je hebt het materiaal succesvol gereserveerd."
+							}
+							});
+						// redirect
+						this.$router.push("/libary");
+					} catch (err) {
+						this.hasReservate = false
+						this.$store.dispatch('notification', {
+							style: 'error',
+							msg: {
+								code: err.code,
+								message: err.message
+							}
+						})
+					};
+				}
+				
+			}else{
+				this.$store.dispatch('notification', {
+					style: 'error',
+					msg: {
+						code: 'Accepteer de voorwaarde',
+						message: `Om te kunnen reserveren moet je de voorwaarden accepteren. Lees deze goed door voordat je reserveerd.`
+					}
+				})
+			}
+		},
+		 getReservation() {
+			setTimeout(async()=>{
+				this.reservation = await this.$store.dispatch("getReservation", this.$route.params.id);
+			},1000);
 
-			console.log("Reservation result:", reservation);
 		}
+
+	},
+	mounted(){
+		this.getReservation();
 	}
 };
 </script>

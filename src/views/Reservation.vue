@@ -2,8 +2,8 @@
 	<div>
 		<Navbar />
 		<div class="main-content align-items-center d-flex">
-			<div class="container ">
-				<div class="row ">
+			<div class="container">
+				<div class="row">
 					<div class="col-lg-5 col-md-5 ml-auto">
 						<ReservationInfo />
 					</div>
@@ -18,22 +18,22 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue";
-import Footer from "@/components/Footer.vue";
+	import Navbar from "@/components/Navbar.vue";
+	import Footer from "@/components/Footer.vue";
 
-import ReservationInfo from "@/components/reservation/ReservationInfo";
-import ReservationForm from "@/components/reservation/ReservationForm";
+	import ReservationInfo from "@/components/reservation/ReservationInfo";
+	import ReservationForm from "@/components/reservation/ReservationForm";
 
-export default {
-	name: "Detail",
+	export default {
+		name: "MaterialReservation",
 
-	components: {
-		Navbar,
-		Footer,
-		ReservationInfo,
-		ReservationForm
-	}
-};
+		components: {
+			Navbar,
+			Footer,
+			ReservationInfo,
+			ReservationForm
+		}
+	};
 </script>
 
 <style lang="scss" scoped>

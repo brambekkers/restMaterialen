@@ -10,10 +10,10 @@ export default {
     getters: {},
     mutations: {},
     actions: {
-        notification({ }, { style, msg }) {
+        notification({}, { style, msg }) {
             let title, message, type, icon;
             const template = `
-                <div class="alert alert-{0} alert-with-icon alert-dismissible fade show col-10 col-md-8 col-lg-6 col-xl-3" data-notify="container">
+                <div class="alert alert-{0} alert-with-icon alert-dismissible fade show col-10 col-md-8 col-lg-6 col-xl-4 col-xxl-3" data-notify="container">
                     <button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>
                     <span data-notify="icon"></span>
                     <span data-notify="title" class="font-weight-bold">{1}</span>
@@ -25,21 +25,17 @@ export default {
                 message = msg.message;
                 icon = "fas fa-exclamation-triangle";
                 type = "danger";
-            }
-            else if (style === "success") {
+            } else if (style === "success") {
                 title = msg.title;
                 message = msg.text;
                 icon = "fas fa-thumbs-up";
                 type = "success";
-            }
-            else if (style === "warning") {
+            } else if (style === "warning") {
                 title = msg.title;
                 message = msg.text;
                 icon = "fas fa-exclamation-triangle";
                 type = "warning";
             }
-
-
 
             $.notify({ title, message, icon }, { type, template });
         },
@@ -53,8 +49,7 @@ export default {
                         confirmButtonText: "Cool",
                         confirmButtonClass: "btn btn-success"
                     });
-                }
-                else if (type === "information") {
+                } else if (type === "information") {
                     Swal.fire({
                         titleText: msg.title,
                         html: msg.text,
@@ -63,8 +58,7 @@ export default {
                         confirmButtonText: "Ik snap het",
                         confirmButtonClass: "btn btn-default"
                     });
-                }
-                else if (type === "confirm") {
+                } else if (type === "confirm") {
                     Swal.fire({
                         titleText: msg.title,
                         text: msg.text,
@@ -77,10 +71,9 @@ export default {
                     }).then((result) => {
                         result.value ? resolve() : reject();
                     });
-                }
-                else if (type === "noPermission") {
-                    let interval
-                    let hasRights = false
+                } else if (type === "noPermission") {
+                    let interval;
+                    let hasRights = false;
                     Swal.fire({
                         titleText: `Geen rechten`,
                         html: `Het lijkt erop dat je <b>niet</b> de juiste rechten voor deze pagina bezit.`,
@@ -90,24 +83,24 @@ export default {
                         confirmButtonClass: "btn btn-default",
                         onBeforeOpen: () => {
                             interval = setInterval(() => {
-                                const admin = msg.rightsNeeded === 'admin' && getters.isAdmin
-                                const editor = msg.rightsNeeded === 'editor' && getters.isEditor
+                                const admin = msg.rightsNeeded === "admin" && getters.isAdmin;
+                                const editor = msg.rightsNeeded === "editor" && getters.isEditor;
                                 if (admin || editor) {
-                                    hasRights = true
-                                    Swal.close()
+                                    hasRights = true;
+                                    Swal.close();
                                 }
-                            }, 100)
+                            }, 100);
                         },
                         onClose: () => {
-                            clearInterval(interval)
+                            clearInterval(interval);
                         }
                     }).then(() => {
                         if (!hasRights) {
-                            router.push('/');
+                            router.push("/");
                         } else {
                             msg.onComplete();
                         }
-                    })
+                    });
                 }
             });
         }

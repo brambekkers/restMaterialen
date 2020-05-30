@@ -1,5 +1,4 @@
 import Vue from "vue";
-import router from "@/router";
 import * as firebase from "firebase";
 
 export default {
@@ -155,12 +154,11 @@ export default {
             });
         },
         async getUsers({ state, getters }) {
-
             if (getters.db) {
                 getters.db.collection("Users").onSnapshot((users) => {
                     Vue.set(state, "users", []);
 
-                    users.forEach(user => {
+                    users.forEach((user) => {
                         state.users.push(user.data());
                     });
                 });

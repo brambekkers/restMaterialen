@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "@/store";
 
-
 // Pages
 import Landing from "../views/Landing.vue";
 import Libary from "../views/Libary.vue";
@@ -16,9 +15,13 @@ import About from "../views/About.vue";
 
 // Dashboard pages
 import Dashboard from "../views/dashboard/Dashboard.vue";
+
 import Materials from "../views/dashboard/materials/Materials.vue";
 import AddMaterial from "../views/dashboard/materials/Add.vue";
 import EditMaterial from "../views/dashboard/materials/Edit.vue";
+
+import Reservations from "../views/dashboard/Reservations.vue";
+
 import Users from "../views/dashboard/users/Users.vue";
 import AddUser from "../views/dashboard/users/Add.vue";
 import UserRights from "../views/dashboard/users/Rights.vue";
@@ -26,7 +29,7 @@ import UserRights from "../views/dashboard/users/Rights.vue";
 Vue.use(VueRouter);
 
 const permissionFunction = (type, next) => {
-    if ((type === 'admin' && !store.getters.isAdmin) || (type === 'editor' && !store.getters.isEditor)) {
+    if ((type === "admin" && !store.getters.isAdmin) || (type === "editor" && !store.getters.isEditor)) {
         store.dispatch("alert", {
             type: "noPermission",
             msg: {
@@ -37,7 +40,7 @@ const permissionFunction = (type, next) => {
     } else {
         next();
     }
-}
+};
 
 const routes = [
     { path: "*", component: Landing },
@@ -92,7 +95,7 @@ const routes = [
         name: "Overzicht",
         component: Dashboard,
         beforeEnter: (to, from, next) => {
-            permissionFunction('editor', next)
+            permissionFunction("editor", next);
         }
     },
     // Materials (ADMIN and EDITOR ONLY)
@@ -101,7 +104,7 @@ const routes = [
         name: "Materialen",
         component: Materials,
         beforeEnter: (to, from, next) => {
-            permissionFunction('editor', next)
+            permissionFunction("editor", next);
         }
     },
     {
@@ -109,16 +112,24 @@ const routes = [
         name: "Voeg material toe",
         component: AddMaterial,
         beforeEnter: (to, from, next) => {
-            permissionFunction('editor', next)
+            permissionFunction("editor", next);
         }
-
     },
     {
         path: "/dashboard/materials/:id",
         name: "Materiaal aanpassen",
         component: EditMaterial,
         beforeEnter: (to, from, next) => {
-            permissionFunction('editor', next)
+            permissionFunction("editor", next);
+        }
+    },
+    // Reservations (Admin and Editors)
+    {
+        path: "/dashboard/reservations",
+        name: "Reserveringen",
+        component: Reservations,
+        beforeEnter: (to, from, next) => {
+            permissionFunction("editor", next);
         }
     },
     // Users (ADMIN ONLY)
@@ -127,7 +138,7 @@ const routes = [
         name: "Gebruikers",
         component: Users,
         beforeEnter: (to, from, next) => {
-            permissionFunction('admin', next)
+            permissionFunction("admin", next);
         }
     },
     {
@@ -135,7 +146,7 @@ const routes = [
         name: "Voeg gebruiker toe",
         component: AddUser,
         beforeEnter: (to, from, next) => {
-            permissionFunction('admin', next)
+            permissionFunction("admin", next);
         }
     },
     {
@@ -143,7 +154,7 @@ const routes = [
         name: "Gebruikersrechten",
         component: UserRights,
         beforeEnter: (to, from, next) => {
-            permissionFunction('admin', next)
+            permissionFunction("admin", next);
         }
     }
 ];

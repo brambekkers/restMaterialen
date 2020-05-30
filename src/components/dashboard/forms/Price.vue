@@ -68,7 +68,7 @@
 				<!-- Amount left-->
 				<div
 					class="col-md-6 col-xl-6 form-group"
-					v-if="this.unit != 'plaat' && this.unit != 'stuk' && this.unit != 'rol' && edit"
+					v-if="edit"
 				>
 					<label>Hoeveel {{unit}} is er nog over van de {{material.unitAmount}}</label>
 					<div class="row">
@@ -79,6 +79,7 @@
 								class="form-control border-input "
 								required
 								min="0"
+								:max="material.unitAmount"
 							/></div>
 					</div>
 

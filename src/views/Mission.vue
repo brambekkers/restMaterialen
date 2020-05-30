@@ -7,7 +7,7 @@
                     <div class="col-12">
                         <div class="card mt-5 px-4">
                             <div class="card-header">
-                                <h3 class="card-title text-center mt-5">
+                                <h3 class="card-title text-center mt-5npm ">
                                     Duurzaamheids missie
                                 </h3>
                             </div>
