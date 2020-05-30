@@ -3,11 +3,15 @@ import * as firebase from "firebase";
 
 export default {
     state: {
-        reservations: []
+        reservations: [],
+        userReservations: []
     },
     getters: {
         reservations(state) {
             return state.reservations;
+        },
+        userReservations(state) {
+            return state.userReservations;
         }
     },
     mutations: {},
@@ -25,11 +29,27 @@ export default {
                 }
             }
         },
-        getReservation({ state, getters }, id) {
+        async getUserReservations({ state, getters, dispatch }) {
+            if (getters.db) {
+                const reservations = [];
+                for (const material of getters.materials) {
+                    try {
+                        const reservation = await dispatch("getReservation", material.id);
+                        if (reservation) reservations.push(reservation);
+                    } catch (error) {}
+                }
+                Vue.set(state, "userReservations", reservations);
+            }
+        },
+        getReservation({ getters }, id) {
             return new Promise(async (resolve, reject) => {
                 if (getters.db) {
-                    const reservation = await getters.db.doc(`Reservations/${id}/reservations/${getters.user.id}`).get();
-                    resolve(reservation.data());
+                    try {
+                        const reservation = await getters.db.doc(`Reservations/${id}/reservations/${getters.user.id}`).get();
+                        resolve(reservation.data());
+                    } catch (error) {
+                        reject(error);
+                    }
                 }
             });
         },
