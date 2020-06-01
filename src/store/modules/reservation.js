@@ -43,6 +43,7 @@ export default {
         },
         getReservation({ getters }, id) {
             return new Promise(async (resolve, reject) => {
+                console.log("runs");
                 if (getters.db) {
                     try {
                         const reservation = await getters.db.doc(`Reservations/${id}/reservations/${getters.user.id}`).get();
@@ -96,7 +97,9 @@ export default {
                     await getters.db.doc(path).set({
                         id,
                         amount: userAmount,
-                        uid: uid
+                        uid: uid,
+                        paid: false,
+                        date: new Date()
                     });
                     resolve();
                 } catch (error) {

@@ -107,6 +107,7 @@ export default {
 	props: ["material", "edit"],
 	watch: {
 		unit() {
+			this.$set(this.material, 'unit', this.unit)
 			if (
 				this.unit === "plaat" ||
 				this.unit === "stuk" ||

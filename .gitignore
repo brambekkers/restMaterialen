@@ -2,6 +2,9 @@
 node_modules
 /dist
 
+# Personal
+todo.txt
+
 # Firebase config
 /src/assets/config/firebaseConfig.js
 

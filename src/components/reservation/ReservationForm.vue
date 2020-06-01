@@ -20,7 +20,7 @@
 					<label class="row">
 						<div class="col-6 title">Totaal beschikbaar:</div>
 						<div class="col-6">{{material.unitAvalible}}</div>
-						<div class="col-6 title">Prijs per {{unit}}: </div>
+						<div class="col-6 title">Prijs {{material.priceUnit.toLowerCase()}}: </div>
 						<div class="col-6">{{material.price}} euro</div>
 					</label>
 				</div>
@@ -45,7 +45,7 @@
 							required
 						>
 						<div class="input-group-append text-size-sm">
-							<label class="input-group-text mb-0">{{unit}}</label>
+							<label class="input-group-text mb-0">{{material.unit}}</label>
 						</div>
 					</div>
 				</div>
@@ -106,7 +106,7 @@ export default {
 					type: 'warning',
 					msg: {
 						title: 'Al gereserveerd',
-						text: `Je hebt al ${this.reservation.amount} ${this.unit} van ${this.material.name} gereserveerd. Je kunt natuurlijk altijd nog meer reserveren maar dat komt dan bovenop je besetaande reservering.`
+						text: `Je hebt al ${this.reservation.amount} ${this.material.unit} van ${this.material.name} gereserveerd. Je kunt natuurlijk altijd nog meer reserveren maar dat komt dan bovenop je besetaande reservering.`
 					}
 				})
 			}
@@ -124,14 +124,6 @@ export default {
 				const id = this.$route.params.id;
 				return this.materials.filter(item => item.id === id)[0];
 			}
-		},
-		unit() {
-			if (this.material.priceUnit) {
-				const unit = this.material.priceUnit.split(" ")[1];
-				if (unit === "deel") return "delen";
-				return unit.toLowerCase();
-			}
-			return "eenheden";
 		},
 	},
 	methods: {

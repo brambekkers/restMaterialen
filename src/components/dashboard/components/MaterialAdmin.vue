@@ -1,24 +1,13 @@
 <template>
-	<tr
-		class="item"
-		@click="toItem"
-	>
+	<tr class="item" @click="toItem">
 		<td>
-			<div
-				class="preview_image img-thumbnail"
-				:style="`background: url(${material.images[0].url})`"
-				v-if="material.images && material.images.length"
-			></div>
-			<div
-				class="preview_image img-thumbnail"
-				v-else
-			></div>
+			<MaterialThumbnail :images="material.images" :width="50" :height="50" />
 		</td>
 		<td>{{ material.name }}</td>
 		<td>{{ material.type }}</td>
 		<td>{{ material.length }} x {{ material.width }} x {{ material.thickness }}</td>
-		<td>{{ material.price }} {{ material.priceUnit }}</td>
-		<td class="text-center">{{material.unitAvalible}} / {{material.unitAmount}}</td>
+		<td>{{ material.price }} euro {{ material.priceUnit.toLowerCase() }}</td>
+		<td class="text-center">{{material.unitAvalible}} / {{material.unitAmount}} {{material.unit}}</td>
 		<td class="text-right">
 			<button
 				type="button"
@@ -46,54 +35,57 @@
 </template>
 
 <script>
-export default {
-	props: ["material"],
-	methods: {
-		toItem() {
-			this.$router.push(`${this.$route.fullPath}/${this.material.id}`);
-		},
-		async deleteButton() {
-			try {
-				await this.$store.dispatch("alert", {
-					type: "confirm",
-					msg: {
-						title: "Materiaal verwijderen?",
-						text:
-							"Weet je zeker dat je dit materiaal wilt verwijderen? Wanneer je dit materiaal verwijderd verlies je al de data en dit kan niet meer ongedaan worden gemaakt."
-					}
-				});
-				this.deleteMaterial();
-			} catch (error) {
-				// Do nothing
+	import MaterialThumbnail from "@/components/libary/MaterialThumbnail.vue";
+
+	export default {
+		props: ["material"],
+		components: { MaterialThumbnail },
+		methods: {
+			toItem() {
+				this.$router.push(`${this.$route.fullPath}/${this.material.id}`);
+			},
+			async deleteButton() {
+				try {
+					await this.$store.dispatch("alert", {
+						type: "confirm",
+						msg: {
+							title: "Materiaal verwijderen?",
+							text:
+								"Weet je zeker dat je dit materiaal wilt verwijderen? Wanneer je dit materiaal verwijderd verlies je al de data en dit kan niet meer ongedaan worden gemaakt."
+						}
+					});
+					this.deleteMaterial();
+				} catch (error) {
+					// Do nothing
+				}
+			},
+			deleteMaterial() {
+				try {
+					this.$store.dispatch("deleteMaterial", this.material);
+					// onComplete:
+					this.$store.dispatch("notification", {
+						style: "success",
+						msg: {
+							title: "Verwijderd!",
+							text: "Het materiaal is succesvol verwijderd!"
+						}
+					});
+					// Redirect
+					this.$router.push("/dashboard/materials");
+				} catch (err) {
+					this.$store.dispatch("notification", {
+						style: "error",
+						msg: err
+					});
+				}
 			}
 		},
-		deleteMaterial() {
-			try {
-				this.$store.dispatch("deleteMaterial", this.material);
-				// onComplete:
-				this.$store.dispatch("notification", {
-					style: "success",
-					msg: {
-						title: "Verwijderd!",
-						text: "Het materiaal is succesvol verwijderd!"
-					}
-				});
-				// Redirect
-				this.$router.push("/dashboard/materials");
-			} catch (err) {
-				this.$store.dispatch("notification", {
-					style: "error",
-					msg: err
-				});
-			}
+		mounted() {
+			$(() => {
+				$('[data-toggle="tooltip"]').tooltip();
+			});
 		}
-	},
-	mounted() {
-		$(() => {
-			$('[data-toggle="tooltip"]').tooltip();
-		});
-	}
-};
+	};
 </script>
 
 <style lang="scss" scoped>

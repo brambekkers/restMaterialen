@@ -7,7 +7,16 @@ export default {
             return state.materials;
         }
     },
-    mutations: {},
+    mutations: {
+        unit({}, string) {
+            if (string) {
+                const unit = string.split(" ")[1];
+                if (unit === "deel") return "delen";
+                return unit;
+            }
+            return "eenheden";
+        }
+    },
     actions: {
         // Material listner
         // updates all materials

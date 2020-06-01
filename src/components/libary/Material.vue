@@ -1,18 +1,7 @@
 <template>
-	<tr
-		class="item"
-		@click="toItem"
-	>
+	<tr class="item" @click="toItem">
 		<td>
-			<div
-				class="preview_image img-thumbnail"
-				:style="`background: url(${material.images[0].url})`"
-				v-if="material.images && material.images.length"
-			></div>
-			<div
-				class="preview_image img-thumbnail"
-				v-else
-			></div>
+			<MaterialThumbnail :images="material.images" :width="50" :height="50" />
 		</td>
 		<td>{{ material.name }}</td>
 		<td>{{ material.type }}</td>
@@ -24,14 +13,17 @@
 </template>
 
 <script>
-export default {
-	props: ["material"],
-	methods: {
-		toItem() {
-			this.$router.push(`${this.$route.fullPath}/${this.material.id}`);
+	import MaterialThumbnail from "@/components/libary/MaterialThumbnail.vue";
+
+	export default {
+		props: ["material"],
+		components: { MaterialThumbnail },
+		methods: {
+			toItem() {
+				this.$router.push(`${this.$route.fullPath}/${this.material.id}`);
+			}
 		}
-	}
-};
+	};
 </script>
 
 <style lang="scss" scoped>
@@ -40,15 +32,5 @@ export default {
 		&:hover {
 			background: #f4f3ef;
 		}
-	}
-
-	.preview_image {
-		width: 70px;
-		height: 70px;
-		background: url("../../assets/img/noImage.jpg");
-
-		background-repeat: no-repeat !important;
-		background-size: cover !important;
-		border-radius: 50%;
 	}
 </style>
