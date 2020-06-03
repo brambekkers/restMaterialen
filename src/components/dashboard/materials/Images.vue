@@ -10,7 +10,7 @@
                         <input type="file" id="newImage" accept="image/png, image/jpeg" class="form-control-file mt-2" />
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 text-right">
                     <button class="btn btn-outline-primary mt-0" @click.prevent="addImage()">Voeg toe</button>
                 </div>
             </div>

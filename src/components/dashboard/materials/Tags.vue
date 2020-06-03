@@ -11,7 +11,7 @@
                         <input type="text" placeholder="Voeg een steekwoord toe" v-model="tag" class="form-control border-input" />
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4  text-right">
                     <button class="btn btn-outline-primary mt-0" @click.prevent="addTag()">Voeg toe</button>
                 </div>
             </div>

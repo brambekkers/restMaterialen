@@ -21,24 +21,22 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
-                    <div>
-                        <h6>Reserveringen</h6>
-                        <table class="table mx-0 table-striped border-top mb-0 table-hover border">
-                            <thead class>
-                                <tr>
-                                    <th class="pl-4">#</th>
-                                    <th>Gebruiker</th>
-                                    <th>Hoeveelheid</th>
-                                    <th class="text-center">Betaalt</th>
-                                    <th class="text-right pr-4">Acties</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <ReservationAdmin v-for="(reservation, i) of material.reservations" :key="i" :reservation="reservation" :material="material" :index="i" />
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="col-12 mt-4">
+                    <h6>Reserveringen</h6>
+                    <table class="table mx-0 table-striped border-top mb-0 table-hover border">
+                        <thead class>
+                            <tr>
+                                <th class="pl-4">#</th>
+                                <th>Gebruiker</th>
+                                <th>Hoeveelheid</th>
+                                <th class="text-center">Betaalt</th>
+                                <th class="text-right pr-4">Acties</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ReservationAdmin v-for="(reservation, i) of material.reservations" :key="i" :reservation="reservation" :material="material" :index="i" />
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
