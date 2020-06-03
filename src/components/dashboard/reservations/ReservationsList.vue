@@ -32,18 +32,20 @@
 							<thead class>
 								<tr>
 									<th class="pl-4">#</th>
-									<th>ID</th>
+									<th>Gebruiker</th>
 									<th>Hoeveelheid</th>
-									<th class="text-right pr-4">betaalt</th>
+									<th class="text-center">Betaalt</th>
+									<th class="text-right pr-4">Acties</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for="(reservation, i) of material.reservations" :key="i">
-									<td class="pl-4">{{i+1}}</td>
-									<td>{{reservation.uid}}</td>
-									<td>{{reservation.amount}} {{material.unit}}</td>
-									<td class="text-right"></td>
-								</tr>
+								<ReservationAdmin
+									v-for="(reservation, i) of material.reservations"
+									:key="i"
+									:reservation="reservation"
+									:material="material"
+									:index="i"
+								/>
 							</tbody>
 						</table>
 					</div>
@@ -54,11 +56,12 @@
 </template>
 
 <script>
+	import ReservationAdmin from "@/components/dashboard/reservations/ReservationAdmin.vue";
 	import MaterialThumbnail from "@/components/libary/MaterialThumbnail.vue";
 
 	export default {
-		name: "ReservationsAdmin",
-		components: { MaterialThumbnail },
+		name: "ReservationsList",
+		components: { ReservationAdmin, MaterialThumbnail },
 		computed: {
 			reservations() {
 				return this.$store.getters.reservations;

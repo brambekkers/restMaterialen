@@ -59,11 +59,11 @@
 					// Do nothing
 				}
 			},
-			deleteMaterial() {
+			async deleteMaterial() {
 				try {
-					this.$store.dispatch("deleteMaterial", this.material);
+					await this.$store.dispatch("deleteMaterial", this.material);
 					// onComplete:
-					this.$store.dispatch("notification", {
+					await this.$store.dispatch("notification", {
 						style: "success",
 						msg: {
 							title: "Verwijderd!",
@@ -81,9 +81,7 @@
 			}
 		},
 		mounted() {
-			$(() => {
-				$('[data-toggle="tooltip"]').tooltip();
-			});
+			$('[data-toggle="tooltip"]').tooltip();
 		}
 	};
 </script>

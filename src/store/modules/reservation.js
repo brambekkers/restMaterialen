@@ -43,7 +43,6 @@ export default {
         },
         getReservation({ getters }, id) {
             return new Promise(async (resolve, reject) => {
-                console.log("runs");
                 if (getters.db) {
                     try {
                         const reservation = await getters.db.doc(`Reservations/${id}/reservations/${getters.user.id}`).get();
@@ -60,7 +59,7 @@ export default {
                     const material = await dispatch("materialToReservate", obj.id);
                     await dispatch("isAmountAvalible", { material, amount: obj.amount });
                     await dispatch("reservationInDatabase", obj);
-                    await dispatch("updateMaterialAmount", { material, amount: obj.amount });
+                    await dispatch("updateMaterialAmount", { material, amount: -obj.amount });
                     resolve("Reservation success");
                 } catch (error) {
                     console.log(error);
@@ -94,13 +93,30 @@ export default {
 
                 // update to database
                 try {
+                    const reservationDate = new Date();
+                    const expireDate = new Date();
                     await getters.db.doc(path).set({
                         id,
                         amount: userAmount,
                         uid: uid,
                         paid: false,
-                        date: new Date()
+                        reservationDate: reservationDate,
+                        expireDate: new Date(expireDate.setDate(reservationDate.getDate() + getters.reservationExpireDays))
                     });
+                    resolve();
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        },
+        removeReservationInDatabase({ getters }, reservation) {
+            return new Promise(async (resolve, reject) => {
+                const uid = getters.auth.currentUser.uid;
+                const path = `Reservations/${reservation.id}/reservations/${reservation.uid}`;
+
+                // update to database
+                try {
+                    await getters.db.doc(path).delete();
                     resolve();
                 } catch (error) {
                     reject(error);
@@ -110,10 +126,23 @@ export default {
         updateMaterialAmount({ dispatch }, { material, amount }) {
             return new Promise(async (resolve, reject) => {
                 try {
-                    material.unitAvalible -= amount;
+                    material.unitAvalible += amount;
                     await dispatch("updateMaterial", material);
                     resolve();
                 } catch (error) {
+                    reject(error);
+                }
+            });
+        },
+        removeReservation({ dispatch }, reservation) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const material = await dispatch("materialToReservate", reservation.id);
+                    await dispatch("removeReservationInDatabase", reservation);
+                    await dispatch("updateMaterialAmount", { material, amount: reservation.amount });
+                    resolve("Remove Reservation succesfully");
+                } catch (error) {
+                    console.log(error);
                     reject(error);
                 }
             });

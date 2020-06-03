@@ -147,7 +147,7 @@ export default {
 							}
 							});
 						// redirect
-						this.$router.push("/libary");
+						this.$router.push("/profile");
 					} catch (err) {
 						this.hasReservate = false
 						this.$store.dispatch('notification', {
@@ -174,7 +174,6 @@ export default {
 			setTimeout(async()=>{
 				this.reservation = await this.$store.dispatch("getReservation", this.$route.params.id);
 			},1000);
-
 		}
 
 	},

@@ -18,7 +18,7 @@
 								</div>
 
 								<div class="card">
-									<ReservationsAdmin />
+									<ReservationsList />
 								</div>
 							</div>
 						</div>
@@ -38,11 +38,18 @@
 
 	import Loading from "@/components/Loading.vue";
 	import Search from "@/components/Search.vue";
-	import ReservationsAdmin from "@/components/dashboard/reservations/ReservationsAdmin.vue";
+	import ReservationsList from "@/components/dashboard/reservations/ReservationsList.vue";
 
 	export default {
 		name: "Reservations",
-		components: { Sidebar, Navbar, Footer, Search, Loading, ReservationsAdmin },
+		components: {
+			Sidebar,
+			Navbar,
+			Footer,
+			Search,
+			Loading,
+			ReservationsList
+		},
 		computed: {
 			reservations() {
 				return this.$store.getters.reservations;

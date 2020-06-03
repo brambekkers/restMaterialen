@@ -26,9 +26,14 @@
 								</span>
 							</div>
 							<div class="col-md-3 col-3 text-right mt-n2">
-								<button class="btn btn-sm btn-outline-success btn-round btn-icon">
-									<i class="fas fa-euro-sign"></i>
-								</button>
+								<td class="text-center">
+									<button
+										class="btn btn-sm btn-round btn-icon"
+										:class="reservation.paid ? 'btn-outline-success' : 'btn-outline-danger' "
+									>
+										<i class="fas fa-euro-sign"></i>
+									</button>
+								</td>
 							</div>
 						</div>
 					</li>

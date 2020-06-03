@@ -1,3 +1,5 @@
+import QRCode from "qrcode";
+
 export default {
     state: {
         materials: null
@@ -31,17 +33,16 @@ export default {
                 });
             });
         },
-        addMaterial({ getters }, material) {
-            return new Promise((resolve, reject) => {
-                getters.db
-                    .collection("Materials")
-                    .add(material)
-                    .then(() => {
-                        resolve(true);
-                    })
-                    .catch((error) => {
-                        resolve(error);
-                    });
+        addMaterial({ dispatch, getters }, material) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const docRef = await getters.db.collection("Materials").add(material);
+                    const qr = await dispatch("createQRcode", docRef.id);
+                    await getters.db.doc(`Materials/${docRef.id}`).update({ qr });
+                    resolve();
+                } catch (error) {
+                    reject(error);
+                }
             });
         },
         updateMaterial({ getters }, material) {
@@ -72,6 +73,22 @@ export default {
                         .doc(material.id)
                         .delete();
                     resolve();
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        },
+        createQRcode({}, id) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const options = {
+                        errorCorrectionLevel: "H",
+                        type: "image/jpeg",
+                        quality: 1,
+                        margin: 3
+                    };
+                    const qrCode = await QRCode.toDataURL(`https://restmaterialen.web.app/libary/${id}`, options);
+                    resolve(qrCode);
                 } catch (error) {
                     reject(error);
                 }
