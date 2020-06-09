@@ -8,6 +8,7 @@ import Libary from "../views/Libary.vue";
 import Detail from "../views/Detail.vue";
 import Reservation from "../views/Reservation.vue";
 import Login from "../views/Login.vue";
+import Register from "../views/Register.vue";
 import Forgot from "../views/ForgotPassword.vue";
 import Profile from "../views/Profile.vue";
 import Mission from "../views/Mission.vue";
@@ -68,6 +69,11 @@ const routes = [
         path: "/login",
         name: "Login",
         component: Login
+    },
+    {
+        path: "/register",
+        name: "Registreer",
+        component: Register
     },
     {
         path: "/forgotpassword",

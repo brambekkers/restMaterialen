@@ -101,53 +101,35 @@ export default {
                 }
             });
         },
-        async addUser({ getters, dispatch }, userInput) {
+        async addUser({ getters }, userInput) {
             return new Promise(async (resolve, reject) => {
                 try {
-                    const { user, error } = await dispatch("newUserAuth", userInput);
-                    const res = await dispatch("newUserDB", { user, userInput });
-                    resolve(res);
-                } catch (err) {
-                    reject(err);
-                }
-            });
-            v;
-        },
-        async deleteUser({ getters, dispatch }, id) {
-            return new Promise(async (resolve, reject) => {
-                try {
-                    getters.db.doc(`Users/${id}`).delete();
-                    getters.auth.currentUser.delete();
-                } catch (err) {
-                    reject(err);
-                }
-            });
-            v;
-        },
-        async newUserAuth({ getters }, { email, password }) {
-            return new Promise(async (resolve, reject) => {
-                try {
-                    const res = await getters.auth.createUserWithEmailAndPassword(email, password);
-                    resolve(res);
-                } catch (err) {
-                    reject(err);
-                }
-            });
-        },
-        async newUserDB({ getters }, { user, userInput }) {
-            return new Promise(async (resolve, reject) => {
-                try {
-                    const res = getters.db.doc(`Users/${user.uid}`).set({
+                    const { user } = await getters.auth.createUserWithEmailAndPassword(userInput.email, userInput.password);
+                    await getters.db.doc(`Users/${user.uid}`).set({
                         firstName: userInput.firstName,
                         lastName: userInput.lastName,
                         email: userInput.email,
+                        studentNumber: userInput.studentNumber,
+                        class: userInput.class,
+                        study: userInput.study,
                         id: user.uid,
                         metadata: {
                             creationTime: user.metadata.creationTime,
                             lastSignInTime: user.metadata.lastSignInTime
                         }
                     });
-                    resolve(res);
+                    resolve(user);
+                } catch (err) {
+                    reject(err);
+                }
+            });
+            v;
+        },
+        async deleteUser({ getters }, id) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    getters.db.doc(`Users/${id}`).delete();
+                    getters.auth.currentUser.delete();
                 } catch (err) {
                     reject(err);
                 }

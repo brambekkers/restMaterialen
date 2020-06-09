@@ -57,25 +57,7 @@
 					<label>De totale prijs:</label>
 					<p class="mb-0"><h5 class="title mt-0 ">{{ material.price * amount}} euro</h5></p>
 				</div>
-				<div class="form-check text-left">
-					<label class="form-check-label">
-						<input
-							class="form-check-input"
-							type="checkbox"
-							v-model="policyCheck"
-						>
-
-						<span class="form-check-sign">
-							<transition name="fade">
-								<i
-									class="fas fa-check"
-									v-if="policyCheck"
-								></i>
-							</transition>
-						</span>
-						Ik accepteer <router-link to="/policy">de voorwaarde</router-link>.
-					</label>
-				</div>
+				<Checkbox @toggleCheck="policyCheck = $event" :link="'/policy'"/>
 			</div>
 			<div class="card-footer ">
 				<button
@@ -89,7 +71,10 @@
 </template>
 
 <script>
+import Checkbox from "@/components/Checkbox.vue";
+
 export default {
+	components: {Checkbox},
 	name: "ReservationForm",
 	data() {
 		return {
@@ -162,10 +147,10 @@ export default {
 				
 			}else{
 				this.$store.dispatch('notification', {
-					style: 'error',
+					style: 'warning',
 					msg: {
-						code: 'Accepteer de voorwaarde',
-						message: `Om te kunnen reserveren moet je de voorwaarden accepteren. Lees deze goed door voordat je reserveerd.`
+						title: 'Accepteer de voorwaarde',
+						text: `Om te kunnen reserveren moet je de voorwaarden accepteren. Lees deze goed door voordat je reserveerd.`
 					}
 				})
 			}
@@ -198,23 +183,5 @@ export default {
 		}
 	}
 
-	.form-check .form-check-sign > i {
-		color: white;
-		font-size: 15px;
-		position: absolute;
-		top: 4px;
-		left: 4px;
-	}
-
-	.form-check input[type="checkbox"]:checked + .form-check-sign:after {
-		opacity: 0;
-	}
-
-	.fade-enter-active,
-	.fade-leave-active {
-		transition: opacity 0.5s;
-	}
-	.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-		opacity: 0;
-	}
+	
 </style>

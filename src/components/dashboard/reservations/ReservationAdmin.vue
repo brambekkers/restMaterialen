@@ -3,6 +3,7 @@
 		<td class="pl-4">{{index+1}}</td>
 		<td>{{reservation.uid}}</td>
 		<td>{{reservation.amount}} {{material.unit}}</td>
+		<td>{{reservation.amount * material.price}} euro</td>
 		<td class="text-center">
 			<button
 				class="btn btn-sm btn-round btn-icon"

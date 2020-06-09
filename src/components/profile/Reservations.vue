@@ -5,7 +5,7 @@
 				<h4 class="card-title">Reserveringen</h4>
 			</div>
 			<div class="card-body">
-				<ul class="list-unstyled">
+				<ul class="list-unstyled" v-if="userReservations.length">
 					<li class="my-2 border-bottom" v-for="reservation of userReservations" :key="reservation.id">
 						<div class="row">
 							<div class="col-md-2 col-2 pr-0">
@@ -38,6 +38,8 @@
 						</div>
 					</li>
 				</ul>
+				<p v-else>Je hebt nog geen reserveringen</p>
+				<p></p>
 			</div>
 		</div>
 	</div>
