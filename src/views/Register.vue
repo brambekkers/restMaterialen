@@ -96,8 +96,8 @@
 												<div class="col-10">
 													<div class="input-group">
 														<div class="input-group-prepend">
-															<span class="input-group-text">
-																<i class="fas fa-user"></i>
+															<span class="input-group-text pr-2">
+																<i class="fas fa-user-tag"></i>
 															</span>
 														</div>
 														<input
@@ -110,8 +110,8 @@
 													</div>
 													<div class="input-group">
 														<div class="input-group-prepend">
-															<span class="input-group-text">
-																<i class="far fa-user-circle"></i>
+															<span class="input-group-text pr-2">
+																<i class="fas fa-graduation-cap"></i>
 															</span>
 														</div>
 														<input
@@ -188,7 +188,11 @@
 														/>
 													</div>
 
-													<Checkbox class="mt-5" @toggleCheck="policyCheck = $event" :link="'/privacy'" />
+													<Checkbox
+														class="mt-5"
+														@toggleCheck="newUser.privacyCheck = $event"
+														:link="'/privacy'"
+													/>
 												</div>
 											</div>
 											<div class="pull-right mt-5">
@@ -230,14 +234,9 @@
 					study: "",
 					password: "",
 					passwordCheck: "",
-					privacyCheck: false
+					privacyCheck: ""
 				}
 			};
-		},
-		computed: {
-			passwordSame() {
-				return this.newUser.password === this.newUser.passwordCheck;
-			}
 		},
 		methods: {
 			next() {
@@ -245,36 +244,57 @@
 				this.maxStep = this.step > this.maxStep ? this.step : this.maxStep;
 			},
 			async addUser() {
-				if (this.passwordSame) {
-					try {
-						// add user
-						await this.$store.dispatch("addUser", this.newUser);
+				if (!this.passwordCheck()) return;
+				if (!this.privacyCheck()) return;
+				try {
+					// add user
+					await this.$store.dispatch("addUser", this.newUser);
 
-						// onComplete:
-						this.$store.dispatch("notification", {
-							style: "success",
-							msg: {
-								title: "Succesvol Toegevoegd!",
-								text: "De gebruiker is succesvol toegevoegd!"
-							}
-						});
-
-						// redirect
-						this.$router.push("/profile");
-					} catch (err) {
-						this.$store.dispatch("notification", {
-							style: "error",
-							msg: err
-						});
-					}
-				} else {
+					// onComplete:
 					this.$store.dispatch("notification", {
-						style: "error",
+						style: "success",
 						msg: {
-							code: "Wachtwoord fout",
-							message: "Controle wachtwoord komt niet overeen"
+							title: "Succesvol Toegevoegd!",
+							text: "De gebruiker is succesvol toegevoegd!"
 						}
 					});
+
+					// redirect
+					this.$router.push("/profile");
+				} catch (err) {
+					this.$store.dispatch("notification", {
+						style: "error",
+						msg: err
+					});
+				}
+			},
+			passwordCheck() {
+				if (this.newUser.password === this.newUser.passwordCheck) {
+					return true;
+				} else {
+					this.$store.dispatch("notification", {
+						style: "warning",
+						msg: {
+							title: "Wachtwoord fout",
+							text: "Controle wachtwoord komt niet overeen"
+						}
+					});
+					return false;
+				}
+			},
+			privacyCheck() {
+				if (this.newUser.privacyCheck) {
+					return true;
+				} else {
+					this.$store.dispatch("notification", {
+						style: "warning",
+						msg: {
+							title: "Voorwaarden niet geaccepteerd",
+							text:
+								"Accepteer de privacy voorwaarden om door te  gaan."
+						}
+					});
+					return false;
 				}
 			}
 		},

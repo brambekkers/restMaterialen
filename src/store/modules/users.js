@@ -40,8 +40,13 @@ export default {
                 const dbUser = user ? await dispatch("getUserFromDatabase", user) : null;
                 Vue.set(state, "user", dbUser);
                 if (user) {
+                    // Get current Role (Admin or editor)
                     const role = await dispatch("getRole");
                     Vue.set(state.user, "role", role);
+
+                    // Update user to set last time login
+                    Vue.set(state.user, "metadata", getters.auth.currentUser.metadata);
+                    dispatch("updateUser", state.user);
                 }
             });
         },
@@ -101,11 +106,22 @@ export default {
                 }
             });
         },
-        async addUser({ getters }, userInput) {
+        async addUser({ getters, dispatch }, userInput) {
             return new Promise(async (resolve, reject) => {
                 try {
                     const { user } = await getters.auth.createUserWithEmailAndPassword(userInput.email, userInput.password);
-                    await getters.db.doc(`Users/${user.uid}`).set({
+                    await dispatch("updateUser", userInput);
+                    resolve(user);
+                } catch (err) {
+                    reject(err);
+                }
+            });
+        },
+        async updateUser({ getters }, userInput) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const user = getters.auth.currentUser;
+                    const updatedUser = await getters.db.doc(`Users/${user.uid}`).set({
                         firstName: userInput.firstName,
                         lastName: userInput.lastName,
                         email: userInput.email,
@@ -118,18 +134,18 @@ export default {
                             lastSignInTime: user.metadata.lastSignInTime
                         }
                     });
-                    resolve(user);
+                    resolve(updatedUser);
                 } catch (err) {
                     reject(err);
                 }
             });
-            v;
         },
         async deleteUser({ getters }, id) {
             return new Promise(async (resolve, reject) => {
                 try {
-                    getters.db.doc(`Users/${id}`).delete();
-                    getters.auth.currentUser.delete();
+                    await getters.db.doc(`Users/${id}`).delete();
+                    await getters.auth.currentUser.delete();
+                    resolve();
                 } catch (err) {
                     reject(err);
                 }

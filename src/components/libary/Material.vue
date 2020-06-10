@@ -1,5 +1,5 @@
 <template>
-	<tr class="item" @click="toItem">
+	<tr class="item" @click="toItem" v-if="material.unitAvalible > 0">
 		<td>
 			<MaterialThumbnail :images="material.images" :width="50" :height="50" />
 		</td>

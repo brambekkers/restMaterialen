@@ -71,6 +71,35 @@ export default {
                     }).then((result) => {
                         result.value ? resolve() : reject();
                     });
+                } else if (type === "notLogedIn") {
+                    let interval;
+                    let hasRights = false;
+                    console.log("ik draai");
+                    Swal.fire({
+                        titleText: `Geen rechten`,
+                        html: `Je moet ingelogd zijn om deze pagina te bereiken. `,
+                        width: "70%",
+                        icon: "error",
+                        confirmButtonText: "Ik snap het",
+                        confirmButtonClass: "btn btn-default",
+                        onBeforeOpen: () => {
+                            interval = setInterval(() => {
+                                if (getters.user) {
+                                    hasRights = true;
+                                    Swal.close();
+                                }
+                            }, 100);
+                        },
+                        onClose: () => {
+                            clearInterval(interval);
+                        }
+                    }).then(() => {
+                        if (!hasRights) {
+                            router.push("/login");
+                        } else {
+                            msg.onComplete();
+                        }
+                    });
                 } else if (type === "noPermission") {
                     let interval;
                     let hasRights = false;

@@ -38,6 +38,15 @@ const permissionFunction = (type, next) => {
                 onComplete: next
             }
         });
+    }
+    if (type === "user" && !store.getters.user) {
+        store.dispatch("alert", {
+            type: "notLogedIn",
+            msg: {
+                rightsNeeded: type,
+                onComplete: next
+            }
+        });
     } else {
         next();
     }
@@ -63,7 +72,10 @@ const routes = [
     {
         path: "/reservation/:id",
         name: "Materiaal reserveren",
-        component: Reservation
+        component: Reservation,
+        beforeEnter: (to, from, next) => {
+            permissionFunction("user", next);
+        }
     },
     {
         path: "/login",
@@ -83,7 +95,10 @@ const routes = [
     {
         path: "/profile",
         name: "Profiel",
-        component: Profile
+        component: Profile,
+        beforeEnter: (to, from, next) => {
+            permissionFunction("user", next);
+        }
     },
     {
         path: "/mission",

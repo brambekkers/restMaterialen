@@ -13,25 +13,21 @@
 				</tr>
 			</thead>
 			<tbody>
-				<Material
-					v-for="material of materials"
-					:key="material.id"
-					:material="material"
-				/>
+				<Material v-for="material of materials" :key="material.id" :material="material" />
 			</tbody>
 		</table>
 	</div>
 </template>
 
 <script>
-import Material from "@/components/libary/Material.vue";
+	import Material from "@/components/libary/Material.vue";
 
-export default {
-	components: { Material },
-	computed: {
-		materials() {
-			return this.$store.getters.materials;
+	export default {
+		components: { Material },
+		computed: {
+			materials() {
+				return this.$store.getters.materials;
+			}
 		}
-	}
-};
+	};
 </script>

@@ -68,8 +68,6 @@
 				</form>
 			</div>
 		</div>
-		<button class="btn btn-danger" @click="deleteButton()">Verwijder account</button>
-		<button class="btn btn-default float-right">Update account</button>
 	</div>
 </template>
 

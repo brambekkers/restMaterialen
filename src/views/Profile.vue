@@ -8,6 +8,8 @@
 					<Reservations />
 					<UserDetails :user="user" />
 				</div>
+				<button class="btn btn-danger" @click="deleteButton()">Verwijder account</button>
+				<button class="btn btn-default float-right" @click="updateButton()">Update account</button>
 			</div>
 		</div>
 		<Footer />
@@ -46,6 +48,26 @@
 					// Do nothing
 				}
 			},
+			async updateButton() {
+				try {
+					// TODO: Make alert
+					await this.$store.dispatch("updateUser", this.user);
+
+					// onComplete:
+					this.$store.dispatch("notification", {
+						style: "success",
+						msg: {
+							title: "Succesvol geupdate",
+							text: "Je account is succesvol geupdate."
+						}
+					});
+				} catch (err) {
+					this.$store.dispatch("notification", {
+						style: "error",
+						msg: err
+					});
+				}
+			},
 			async deleteUser() {
 				try {
 					// TODO: Make alert
@@ -60,6 +82,7 @@
 								"Je account is succesvol verwijderd. Als jouw data is verwijderd en je kunt vanaf nu niet meer inloggen."
 						}
 					});
+					this.$router.push("/libary");
 				} catch (err) {
 					this.$store.dispatch("notification", {
 						style: "error",
