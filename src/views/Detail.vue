@@ -8,20 +8,13 @@
 						<Info :material="material" />
 					</div>
 				</div>
-				<div class="row" v-if="isEditor">
-					<div class="col-md-4">
-						<Admin :material="material" />
-					</div>
-					<div class="col-md-8">
-						<Reservations :material="material" />
-					</div>
-				</div>
+
 				<div class="row">
 					<div class="col-md-6">
 						<Images :material="material" />
 					</div>
 					<div class="col-md-6">
-						<Labels :material="material" />
+						<Tags :material="material" />
 					</div>
 				</div>
 				<div class="d-flex justify-content-between">
@@ -51,9 +44,7 @@
 
 	import Info from "@/components/libary/details/Info.vue";
 	import Images from "@/components/libary/details/Images.vue";
-	import Labels from "@/components/libary/details/Labels.vue";
-	import Admin from "@/components/libary/details/Admin.vue";
-	import Reservations from "@/components/libary/details/Reservations.vue";
+	import Tags from "@/components/libary/details/Tags.vue";
 
 	export default {
 		name: "Detail",
@@ -62,17 +53,13 @@
 			Footer,
 			Info,
 			Images,
-			Labels,
-			Admin,
-			Reservations
+			Tags
 		},
 		computed: {
 			user() {
 				return this.$store.getters.user;
 			},
-			isEditor() {
-				return this.$store.getters.isEditor;
-			},
+
 			materials() {
 				return this.$store.getters.materials;
 			},

@@ -19,6 +19,7 @@ import Dashboard from "../views/dashboard/Dashboard.vue";
 
 import Materials from "../views/dashboard/materials/Materials.vue";
 import AddMaterial from "../views/dashboard/materials/Add.vue";
+import ViewMaterial from "../views/dashboard/materials/View.vue";
 import EditMaterial from "../views/dashboard/materials/Edit.vue";
 
 import Reservations from "../views/dashboard/Reservations.vue";
@@ -138,6 +139,14 @@ const routes = [
     },
     {
         path: "/dashboard/materials/:id",
+        name: "Materiaal bekijken",
+        component: ViewMaterial,
+        beforeEnter: (to, from, next) => {
+            permissionFunction("editor", next);
+        }
+    },
+    {
+        path: "/dashboard/materials/edit/:id",
         name: "Materiaal aanpassen",
         component: EditMaterial,
         beforeEnter: (to, from, next) => {

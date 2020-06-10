@@ -1,5 +1,5 @@
 <template>
-	<tr class="item" @click="toItem">
+	<tr class="item">
 		<td>
 			<MaterialThumbnail :images="material.images" :width="50" :height="50" />
 		</td>
@@ -9,16 +9,28 @@
 		<td>{{ material.price }} euro {{ material.priceUnit.toLowerCase() }}</td>
 		<td class="text-center">{{material.unitAvalible}} / {{material.unitAmount}} {{material.unit}}</td>
 		<td class="text-right">
-			<button
+			<router-link
 				type="button"
 				rel="tooltip"
+				:to="`/dashboard/materials/${material.id}`"
+				class="btn btn-success btn-sm btn-icon mx-1"
+				data-toggle="tooltip"
+				data-placement="top"
+				title="Bekijk materiaal"
+			>
+				<i class="far fa-eye"></i>
+			</router-link>
+			<router-link
+				type="button"
+				rel="tooltip"
+				:to="`/materials/edit/${material.id}`"
 				class="btn btn-info btn-sm btn-icon mx-1"
 				data-toggle="tooltip"
 				data-placement="top"
-				title="Edit materiaal"
+				title="Bewerk materiaal"
 			>
 				<i class="fa fa-edit"></i>
-			</button>
+			</router-link>
 			<button
 				type="button"
 				rel="tooltip"
@@ -41,9 +53,6 @@
 		props: ["material"],
 		components: { MaterialThumbnail },
 		methods: {
-			toItem() {
-				this.$router.push(`${this.$route.fullPath}/${this.material.id}`);
-			},
 			async deleteButton() {
 				try {
 					await this.$store.dispatch("alert", {

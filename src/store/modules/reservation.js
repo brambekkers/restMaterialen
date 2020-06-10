@@ -1,5 +1,4 @@
 import Vue from "vue";
-import * as firebase from "firebase";
 
 export default {
     state: {

@@ -4,7 +4,10 @@
 			<h4 class="card-title mb-0">Reserveringen</h4>
 		</div>
 		<div class="card-body">
-			<table class="table mx-0 table-striped border-top mb-0 table-hover border">
+			<table
+				class="table mx-0 table-striped border-top mb-0 table-hover border"
+				v-if="material.reservations && material.reservations.length"
+			>
 				<thead class>
 					<tr>
 						<th class="pl-4">#</th>
@@ -26,6 +29,7 @@
 					/>
 				</tbody>
 			</table>
+			<p v-else>Er zijn nog geen reserveringen voor dit materiaal.</p>
 		</div>
 	</div>
 </template>
