@@ -23,7 +23,7 @@
 			<router-link
 				type="button"
 				rel="tooltip"
-				:to="`/materials/edit/${material.id}`"
+				:to="`/dashboard/materials/edit/${material.id}`"
 				class="btn btn-info btn-sm btn-icon mx-1"
 				data-toggle="tooltip"
 				data-placement="top"

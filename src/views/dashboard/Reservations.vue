@@ -4,7 +4,7 @@
 		<div class="main-panel h-100">
 			<Navbar :title="$route.name" />
 			<div class="content h-75">
-				<div class="row justify-content-center" v-if="reservations.length">
+				<div class="row justify-content-center">
 					<div class="col-xxl-8 col-xxxl-5">
 						<div class="card">
 							<div class="card-header">
@@ -24,7 +24,6 @@
 						</div>
 					</div>
 				</div>
-				<Loading v-else />
 			</div>
 			<Footer />
 		</div>
@@ -49,18 +48,6 @@
 			Search,
 			Loading,
 			ReservationsList
-		},
-		computed: {
-			reservations() {
-				return this.$store.getters.reservations;
-			}
-		},
-		mounted() {
-			setTimeout(() => {
-				if (!this.reservations.length) {
-					this.$store.dispatch("getReservations");
-				}
-			}, 500);
 		}
 	};
 </script>

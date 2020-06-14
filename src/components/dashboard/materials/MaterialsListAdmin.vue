@@ -24,10 +24,6 @@
 
 	export default {
 		components: { Material },
-		computed: {
-			materials() {
-				return this.$store.getters.materials;
-			}
-		}
+		props: ["materials"]
 	};
 </script>

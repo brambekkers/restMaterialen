@@ -1,63 +1,28 @@
 import Vue from "vue";
 
 export default {
-    state: {
-        reservations: [],
-        userReservations: []
-    },
+    state: {},
     getters: {
-        reservations(state) {
-            return state.reservations;
-        },
-        userReservations(state) {
-            return state.userReservations;
+        userReservations(state, getters) {
+            const userReservations = [];
+            const uid = getters.auth.currentUser.uid;
+            for (const material of getters.materials) {
+                if (material.reservations && material.reservations[uid]) {
+                    userReservations.push(material.reservations[uid]);
+                }
+            }
+            return userReservations;
         }
     },
     mutations: {},
     actions: {
-        async getReservations({ state, getters }) {
-            if (getters.db) {
-                Vue.set(state, "reservations", []);
-                for (const material of getters.materials) {
-                    const path = `Reservations/${material.id}/reservations`;
-                    getters.db.collection(path).onSnapshot((reservations) => {
-                        reservations.forEach((reservation) => {
-                            state.reservations.push(reservation.data());
-                        });
-                    });
-                }
-            }
-        },
-        async getUserReservations({ state, getters, dispatch }) {
-            if (getters.db) {
-                const reservations = [];
-                for (const material of getters.materials) {
-                    try {
-                        const reservation = await dispatch("getReservation", material.id);
-                        if (reservation) reservations.push(reservation);
-                    } catch (error) {}
-                }
-                Vue.set(state, "userReservations", reservations);
-            }
-        },
-        getReservation({ getters }, id) {
-            return new Promise(async (resolve, reject) => {
-                if (getters.db) {
-                    try {
-                        const reservation = await getters.db.doc(`Reservations/${id}/reservations/${getters.user.id}`).get();
-                        resolve(reservation.data());
-                    } catch (error) {
-                        reject(error);
-                    }
-                }
-            });
-        },
         reservate({ getters, dispatch }, obj) {
             return new Promise(async (resolve, reject) => {
                 try {
                     const material = await dispatch("materialToReservate", obj.id);
                     await dispatch("isAmountAvalible", { material, amount: obj.amount });
-                    await dispatch("reservationInDatabase", obj);
+                    await dispatch("reservationInDatabase", { material, userAmount: obj.userAmount });
+                    console.log("test");
                     await dispatch("updateMaterialAmount", { material, amount: -obj.amount });
                     resolve("Reservation success");
                 } catch (error) {
@@ -85,37 +50,49 @@ export default {
                 }
             });
         },
-        reservationInDatabase({ getters }, { id, userAmount }) {
+        reservationInDatabase({ getters, dispatch }, { material, userAmount }) {
             return new Promise(async (resolve, reject) => {
                 const uid = getters.auth.currentUser.uid;
-                const path = `Reservations/${id}/reservations/${uid}`;
 
-                // update to database
                 try {
+                    // Get reservations
+                    const reservations = material.reservations ? material.reservations : {};
+
+                    // Update reservation
                     const reservationDate = new Date();
                     const expireDate = new Date();
-                    await getters.db.doc(path).set({
-                        id,
+
+                    reservations[uid] = {
+                        id: material.id,
                         amount: userAmount,
                         uid: uid,
-                        paid: false,
-                        reservationDate: reservationDate,
+                        payID: null,
+                        reservationDate,
                         expireDate: new Date(expireDate.setDate(reservationDate.getDate() + getters.reservationExpireDays))
-                    });
+                    };
+                    material.reservations = reservations;
+
+                    // Update reservation to database
+                    await dispatch("updateMaterial", material);
+
                     resolve();
                 } catch (error) {
                     reject(error);
                 }
             });
         },
-        removeReservationInDatabase({ getters }, reservation) {
+        removeReservationInDatabase({ getters, dispatch }, reservation) {
             return new Promise(async (resolve, reject) => {
-                const uid = getters.auth.currentUser.uid;
-                const path = `Reservations/${reservation.id}/reservations/${reservation.uid}`;
-
-                // update to database
                 try {
-                    await getters.db.doc(path).delete();
+                    // Get material
+                    const material = await dispatch("materialToReservate", reservation.id);
+
+                    // delete reservation from material (localy)
+                    delete material.reservations[reservation.uid];
+
+                    // Update reservation to database
+                    await dispatch("updateMaterial", material);
+
                     resolve();
                 } catch (error) {
                     reject(error);
@@ -125,7 +102,9 @@ export default {
         updateMaterialAmount({ dispatch }, { material, amount }) {
             return new Promise(async (resolve, reject) => {
                 try {
-                    material.unitAvalible += amount;
+                    if (material.unitAvalible + amount <= material.unitAmount) {
+                        material.unitAvalible += amount;
+                    }
                     await dispatch("updateMaterial", material);
                     resolve();
                 } catch (error) {

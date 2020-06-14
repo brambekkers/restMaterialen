@@ -61,7 +61,7 @@ export default {
                 } else if (type === "confirm") {
                     Swal.fire({
                         titleText: msg.title,
-                        text: msg.text,
+                        html: msg.text,
                         icon: "warning",
                         showCancelButton: true,
                         confirmButtonClass: "btn btn-danger",
@@ -74,7 +74,6 @@ export default {
                 } else if (type === "notLogedIn") {
                     let interval;
                     let hasRights = false;
-                    console.log("ik draai");
                     Swal.fire({
                         titleText: `Geen rechten`,
                         html: `Je moet ingelogd zijn om deze pagina te bereiken. `,

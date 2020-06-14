@@ -7,7 +7,7 @@
 		<td class="text-center">
 			<button
 				class="btn btn-sm btn-round btn-icon"
-				:class="reservation.paid ? 'btn-outline-success' : 'btn-outline-danger' "
+				:class="reservation.payID ? 'btn-outline-success' : 'btn-outline-danger' "
 			>
 				<i class="fas fa-euro-sign"></i>
 			</button>
@@ -20,6 +20,7 @@
 				data-placement="top"
 				title="Pas betaling aan"
 				class="btn btn-info btn-sm btn-icon mx-1"
+				@click.stop="paymentButton()"
 			>
 				<i class="fas fa-euro-sign"></i>
 			</button>
@@ -41,6 +42,21 @@
 <script>
 	export default {
 		props: ["material", "reservation", "index"],
+		watch: {
+			reservation: {
+				immediate: true,
+				deep: true,
+				async handler() {
+					if (this.reservation.payID) {
+						const paymentExist = await this.$store.dispatch(
+							"checkIfPaymentExist",
+							this.reservation.payID
+						);
+						console.log(paymentExist);
+					}
+				}
+			}
+		},
 		methods: {
 			async deleteButton() {
 				try {
@@ -53,9 +69,55 @@
 						}
 					});
 					this.removeReservation();
-				} catch (error) {
-					// Do nothing
+				} catch (err) {
+					this.$store.dispatch("notification", {
+						style: "error",
+						msg: err
+					});
 				}
+			},
+			async paymentButton() {
+				try {
+					await this.$store.dispatch("alert", {
+						type: "confirm",
+						msg: {
+							title: "Betaling aanpassen",
+							text: `Weet je zeker dat je de betaling wilt aanpassen naar: <strong> ${
+								this.reservation.payID ? "" : "niet"
+							} betaald.</strong>`
+						}
+					});
+					this.togglePayment();
+				} catch (err) {
+					this.$store.dispatch("notification", {
+						style: "error",
+						msg: err
+					});
+				}
+			},
+			async togglePayment() {
+				try {
+					this.reservation.payID
+						? await this.$store.dispatch(
+								"removePayment",
+								this.reservation
+						  )
+						: await this.$store.dispatch(
+								"registerPayment",
+								this.reservation
+						  );
+
+					// onComplete:
+					this.$store.dispatch("notification", {
+						style: "success",
+						msg: {
+							title: "Betaling aangepast!",
+							text: `Je hebt succesvol de betaling aangepast. De reservering is <strong> ${
+								this.reservation.payID ? "" : "niet"
+							} betaald.</strong>`
+						}
+					});
+				} catch (error) {}
 			},
 			async removeReservation() {
 				try {
@@ -79,7 +141,7 @@
 				}
 			}
 		},
-		mounted() {
+		updated() {
 			$('[data-toggle="tooltip"]').tooltip();
 		}
 	};

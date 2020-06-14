@@ -42,13 +42,16 @@
 								<div class="tab-content tab-space tab-subcategories">
 									<div class="tab-pane active" id="active">
 										<div class="card border">
-											<MaterialsListAdmin />
+											<MaterialsListAdmin :materials="activeMaterials" v-if="activeMaterials" />
 										</div>
 									</div>
 									<div class="tab-pane" id="reservated">
-										Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
-										<br />
-										<br />Dramatically maintain clicks-and-mortar solutions without functional solutions.
+										<div class="card border" v-if="reservatedMaterials">
+											<MaterialsListAdmin :materials="reservatedMaterials" />
+										</div>
+										<p
+											v-else
+										>Er staat geen materiaal open wat volledig is gereserveerd maar nog niet compleet is afgerond.</p>
 									</div>
 									<div class="tab-pane" id="archive">
 										Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.
@@ -81,6 +84,19 @@
 			return {
 				searchText: ""
 			};
+		},
+		computed: {
+			materials() {
+				return this.$store.getters.materials;
+			},
+			activeMaterials() {
+				if (this.materials)
+					return this.materials.filter(m => m.unitAvalible);
+			},
+			reservatedMaterials() {
+				if (this.materials)
+					return this.materials.filter(m => m.unitAvalible === 0);
+			}
 		}
 	};
 </script>

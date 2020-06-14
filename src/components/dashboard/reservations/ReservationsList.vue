@@ -5,7 +5,7 @@
 				<li
 					class="list-group-item p-0"
 					:key="`title${material.id}`"
-					v-if="material.reservations.length"
+					v-if="material.reservations && Object.values(material.reservations).length"
 					data-toggle="collapse"
 					:data-target="`#collapse_${material.id}`"
 					aria-expanded="true"
@@ -19,7 +19,7 @@
 							<span class="title">{{material.name}}</span>
 						</div>
 						<div class="col-4 d-flex align-items-center">
-							<span>{{material.reservations.length}} {{material.reservations.length > 1 ?'reserveringen' : 'reservering'}}</span>
+							<span>{{Object.values(material.reservations).length}} {{Object.values(material.reservations).length > 1 ?'reserveringen' : 'reservering'}}</span>
 						</div>
 					</div>
 					<div
@@ -64,19 +64,8 @@
 		name: "ReservationsList",
 		components: { ReservationAdmin, MaterialThumbnail },
 		computed: {
-			reservations() {
-				return this.$store.getters.reservations;
-			},
 			materials() {
-				return this.$store.getters.materials.map(material => {
-					material.reservations = [];
-					for (const reservation of this.reservations) {
-						if (material.id === reservation.id) {
-							material.reservations.push(reservation);
-						}
-					}
-					return material;
-				});
+				return this.$store.getters.materials;
 			}
 		}
 	};

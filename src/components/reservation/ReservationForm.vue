@@ -79,23 +79,9 @@ export default {
 	data() {
 		return {
 			policyCheck: false,
-			amount: null,
-			reservation: null,
+			amount: 0,
 			hasReservate: false
 		};
-	},
-	watch:{
-		reservation(){
-			if(this.reservation){
-				this.$store.dispatch('alert', {
-					type: 'warning',
-					msg: {
-						title: 'Al gereserveerd',
-						text: `Je hebt al ${this.reservation.amount} ${this.material.unit} van ${this.material.name} gereserveerd. Je kunt natuurlijk altijd nog meer reserveren maar dat komt dan bovenop je besetaande reservering.`
-					}
-				})
-			}
-		}
 	},
 	computed: {
 		user() {
@@ -108,6 +94,11 @@ export default {
 			if (this.materials) {
 				const id = this.$route.params.id;
 				return this.materials.filter(item => item.id === id)[0];
+			}
+		},
+		reservation() {
+			if (this.material && this.material.reservations) {
+				return this.material.reservations[this.user.id]
 			}
 		},
 	},
@@ -144,7 +135,6 @@ export default {
 						})
 					};
 				}
-				
 			}else{
 				this.$store.dispatch('notification', {
 					style: 'warning',
@@ -155,16 +145,20 @@ export default {
 				})
 			}
 		},
-		 getReservation() {
-			setTimeout(async()=>{
-				this.reservation = await this.$store.dispatch("getReservation", this.$route.params.id);
-			},1000);
-		}
-
 	},
 	mounted(){
-		this.getReservation();
+		if(this.reservation){
+			this.$store.dispatch('alert', {
+				type: 'warning',
+				msg: {
+					title: 'Al gereserveerd',
+					text: `Je hebt al ${this.reservation.amount} ${this.material.unit} van ${this.material.name} gereserveerd. Je kunt natuurlijk altijd nog meer reserveren maar dat komt dan bovenop je besetaande reservering.`
+				}
+			})
+		}
 	}
+	
+	
 };
 </script>
 

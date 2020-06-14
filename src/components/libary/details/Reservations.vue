@@ -6,7 +6,7 @@
 		<div class="card-body">
 			<table
 				class="table mx-0 table-striped border-top mb-0 table-hover border"
-				v-if="material.reservations && material.reservations.length"
+				v-if="material.reservations && Object.values(material.reservations)"
 			>
 				<thead class>
 					<tr>

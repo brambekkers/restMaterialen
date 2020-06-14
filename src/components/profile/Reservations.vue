@@ -29,7 +29,7 @@
 								<td class="text-center">
 									<button
 										class="btn btn-sm btn-round btn-icon"
-										:class="reservation.paid ? 'btn-outline-success' : 'btn-outline-danger' "
+										:class="reservation.payID ? 'btn-outline-success' : 'btn-outline-danger' "
 									>
 										<i class="fas fa-euro-sign"></i>
 									</button>
@@ -64,9 +64,6 @@
 				if (unit === "deel") return "delen";
 				return unit.toLowerCase();
 			}
-		},
-		mounted() {
-			this.$store.dispatch("getUserReservations");
 		}
 	};
 </script>
