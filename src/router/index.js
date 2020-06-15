@@ -58,22 +58,42 @@ const routes = [
     {
         path: "/",
         name: "Landing",
-        component: Landing
+        component: Landing,
+        meta: {
+            template: "landing",
+            transitionEnter: "slideDown",
+            transitionLeave: "animated slideOutUp"
+        }
     },
     {
         path: "/libary",
         name: "Materialen bibliotheek",
-        component: Libary
+        component: Libary,
+        meta: {
+            transitionEnter: "slideRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "front"
+        }
     },
     {
         path: "/libary/:id",
         name: "Materiaal details",
-        component: Detail
+        component: Detail,
+        meta: {
+            transitionEnter: "slideRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "front"
+        }
     },
     {
         path: "/reservation/:id",
         name: "Materiaal reserveren",
         component: Reservation,
+        meta: {
+            transitionEnter: "slideRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "front"
+        },
         beforeEnter: (to, from, next) => {
             permissionFunction("user", next);
         }
@@ -81,22 +101,42 @@ const routes = [
     {
         path: "/login",
         name: "Login",
-        component: Login
+        component: Login,
+        meta: {
+            transitionEnter: "fade",
+            ttransitionLeave: "fade-leave",
+            template: "front"
+        }
     },
     {
         path: "/register",
         name: "Registreer",
-        component: Register
+        component: Register,
+        meta: {
+            transitionEnter: "fade",
+            transitionLeave: "fade-leave",
+            template: "front"
+        }
     },
     {
         path: "/forgotpassword",
         name: "Wachtwoord vergeten",
-        component: Forgot
+        component: Forgot,
+        meta: {
+            transitionEnter: "fade",
+            transitionLeave: "fade-leave",
+            template: "front"
+        }
     },
     {
         path: "/profile",
         name: "Profiel",
         component: Profile,
+        meta: {
+            transitionEnter: "slideRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "front"
+        },
         beforeEnter: (to, from, next) => {
             permissionFunction("user", next);
         }
@@ -104,18 +144,33 @@ const routes = [
     {
         path: "/mission",
         name: "Onze missie",
-        component: Mission
+        component: Mission,
+        meta: {
+            transitionEnter: "slideRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "front"
+        }
     },
     {
         path: "/about",
         name: "Over",
-        component: About
+        component: About,
+        meta: {
+            transitionEnter: "slideRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "front"
+        }
     },
     // Dashboard (ADMIN and EDITOR ONLY)
     {
         path: "/dashboard",
         name: "Overzicht",
         component: Dashboard,
+        meta: {
+            transitionEnter: "slideRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "back"
+        },
         beforeEnter: (to, from, next) => {
             permissionFunction("editor", next);
         }
@@ -125,6 +180,11 @@ const routes = [
         path: "/dashboard/materials",
         name: "Materialen",
         component: Materials,
+        meta: {
+            transitionEnter: "slideRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "back"
+        },
         beforeEnter: (to, from, next) => {
             permissionFunction("editor", next);
         }
@@ -133,6 +193,11 @@ const routes = [
         path: "/dashboard/materials/add",
         name: "Voeg material toe",
         component: AddMaterial,
+        meta: {
+            transitionEnter: "slideRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "back"
+        },
         beforeEnter: (to, from, next) => {
             permissionFunction("editor", next);
         }
@@ -141,6 +206,11 @@ const routes = [
         path: "/dashboard/materials/:id",
         name: "Materiaal bekijken",
         component: ViewMaterial,
+        meta: {
+            transitionEnter: "slideRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "back"
+        },
         beforeEnter: (to, from, next) => {
             permissionFunction("editor", next);
         }
@@ -149,6 +219,11 @@ const routes = [
         path: "/dashboard/materials/edit/:id",
         name: "Materiaal aanpassen",
         component: EditMaterial,
+        meta: {
+            transitionEnter: "slideRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "back"
+        },
         beforeEnter: (to, from, next) => {
             permissionFunction("editor", next);
         }
@@ -158,6 +233,11 @@ const routes = [
         path: "/dashboard/reservations",
         name: "Reserveringen",
         component: Reservations,
+        meta: {
+            transitionEnter: "slideRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "back"
+        },
         beforeEnter: (to, from, next) => {
             permissionFunction("editor", next);
         }
@@ -167,6 +247,11 @@ const routes = [
         path: "/dashboard/users",
         name: "Gebruikers",
         component: Users,
+        meta: {
+            transitionEnter: "slideRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "back"
+        },
         beforeEnter: (to, from, next) => {
             permissionFunction("admin", next);
         }
@@ -175,6 +260,11 @@ const routes = [
         path: "/dashboard/users/add",
         name: "Voeg gebruiker toe",
         component: AddUser,
+        meta: {
+            transitionEnter: "slideRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "back"
+        },
         beforeEnter: (to, from, next) => {
             permissionFunction("admin", next);
         }
@@ -183,6 +273,11 @@ const routes = [
         path: "/dashboard/users/rights",
         name: "Gebruikersrechten",
         component: UserRights,
+        meta: {
+            transitionEnter: "slideRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "back"
+        },
         beforeEnter: (to, from, next) => {
             permissionFunction("admin", next);
         }

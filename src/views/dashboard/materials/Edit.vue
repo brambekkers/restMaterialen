@@ -1,49 +1,38 @@
 <template>
-    <div class="wrapper">
-        <Sidebar />
-        <div class="main-panel">
-            <Navbar :title="$route.name" />
-            <div class="content">
-                <form @submit.prevent="updateMaterial()">
-                    <div class="row">
-                        <!-- Algemene info -->
-                        <div class="col-md-8 col-lg-8 col-xl-10">
-                            <Info :material.sync="material" :isNewMaterial="false" />
-                        </div>
-                        <!-- QR -->
-                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-2  d-flex align-items-stretch">
-                            <QR :material.sync="material" :isNewMaterial="false" />
-                        </div>
-                        <!-- Prijs -->
-                        <div class="col-sm-6 col-md-12">
-                            <Price :material.sync="material" :edit="true" />
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- Afbeeldingen -->
-                        <div class="col-6">
-                            <Images :material.sync="material" />
-                        </div>
-                        <!-- Labels -->
-                        <div class="col-6">
-                            <Tags :material.sync="material" />
-                        </div>
-                    </div>
-                    <button class="btn btn-danger" @click.prevent="deleteButton">Delete materiaal</button>
-                    <button class="btn btn-default float-right" type="submit">Update materiaal</button>
-                </form>
+    <div class="content">
+        <form @submit.prevent="updateMaterial()">
+            <div class="row">
+                <!-- Algemene info -->
+                <div class="col-md-8 col-lg-8 col-xl-10">
+                    <Info :material.sync="material" :isNewMaterial="false" />
+                </div>
+                <!-- QR -->
+                <div class="col-sm-6 col-md-4 col-lg-4 col-xl-2  d-flex align-items-stretch">
+                    <QR :material.sync="material" :isNewMaterial="false" />
+                </div>
+                <!-- Prijs -->
+                <div class="col-sm-6 col-md-12">
+                    <Price :material.sync="material" :edit="true" />
+                </div>
             </div>
-            <Footer />
-        </div>
+
+            <div class="row">
+                <!-- Afbeeldingen -->
+                <div class="col-6">
+                    <Images :material.sync="material" />
+                </div>
+                <!-- Labels -->
+                <div class="col-6">
+                    <Tags :material.sync="material" />
+                </div>
+            </div>
+            <button class="btn btn-danger" @click.prevent="deleteButton">Delete materiaal</button>
+            <button class="btn btn-default float-right" type="submit">Update materiaal</button>
+        </form>
     </div>
 </template>
 
 <script>
-import Navbar from "@/components/dashboard/Navbar.vue";
-import Sidebar from "@/components/dashboard/Sidebar.vue";
-import Footer from "@/components/Footer.vue";
-
 import Info from "@/components/dashboard/materials/Info.vue";
 import Price from "@/components/dashboard/materials/Price.vue";
 import Images from "@/components/dashboard/materials/Images.vue";
@@ -52,6 +41,13 @@ import QR from "@/components/dashboard/materials/QR.vue";
 
 export default {
     name: "EditMaterial",
+    components: {
+        Info,
+        Price,
+        Images,
+        Tags,
+        QR
+    },
     data() {
         return {
             material: {
@@ -73,16 +69,7 @@ export default {
             }
         };
     },
-    components: {
-        Sidebar,
-        Navbar,
-        Footer,
-        Info,
-        Price,
-        Images,
-        Tags,
-        QR
-    },
+
     watch: {
         materials() {
             this.syncMaterial();

@@ -1,46 +1,35 @@
 <template>
-    <div class="wrapper">
-        <Sidebar />
-        <div class="main-panel h-100">
-            <Navbar :title="$route.name" />
-            <div class="content">
-                <form @submit.prevent="add()">
-                    <div class="row">
-                        <!-- Algemene info -->
-                        <div class="col-md-12">
-                            <Info :material.sync="newMaterial" :amount.sync="amount" :isNewMaterial="true" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!-- Prijs -->
-                        <div class="col-md-12">
-                            <Price :material.sync="newMaterial" />
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- Afbeeldingen -->
-                        <div class="col-6">
-                            <Images :material.sync="newMaterial" />
-                        </div>
-                        <!-- Labels -->
-                        <div class="col-6">
-                            <Tags :material.sync="newMaterial" />
-                        </div>
-                    </div>
-                    <button class="btn btn-default float-right" type="submit">Voeg materiaal toe</button>
-                </form>
+    <div class="content">
+        <form @submit.prevent="add()">
+            <div class="row">
+                <!-- Algemene info -->
+                <div class="col-md-12">
+                    <Info :material.sync="newMaterial" :amount.sync="amount" :isNewMaterial="true" />
+                </div>
             </div>
-            <Footer />
-        </div>
+            <div class="row">
+                <!-- Prijs -->
+                <div class="col-md-12">
+                    <Price :material.sync="newMaterial" />
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Afbeeldingen -->
+                <div class="col-6">
+                    <Images :material.sync="newMaterial" />
+                </div>
+                <!-- Labels -->
+                <div class="col-6">
+                    <Tags :material.sync="newMaterial" />
+                </div>
+            </div>
+            <button class="btn btn-default float-right" type="submit">Voeg materiaal toe</button>
+        </form>
     </div>
 </template>
 
 <script>
-import Navbar from "@/components/dashboard/Navbar.vue";
-import Sidebar from "@/components/dashboard/Sidebar.vue";
-import Footer from "@/components/Footer.vue";
-
 import Info from "@/components/dashboard/materials/Info.vue";
 import Price from "@/components/dashboard/materials/Price.vue";
 import Images from "@/components/dashboard/materials/Images.vue";
@@ -48,6 +37,12 @@ import Tags from "@/components/dashboard/materials/Tags.vue";
 
 export default {
     name: "AddMaterial",
+    components: {
+        Info,
+        Price,
+        Images,
+        Tags
+    },
     data() {
         return {
             amount: 1,
@@ -71,15 +66,7 @@ export default {
             }
         };
     },
-    components: {
-        Sidebar,
-        Navbar,
-        Footer,
-        Info,
-        Price,
-        Images,
-        Tags
-    },
+
     methods: {
         async add() {
             for (let i = 0; i < this.amount; i++) {

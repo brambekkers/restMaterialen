@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 
 // Animate.ccs
+import "vue2-animate/dist/vue2-animate.min.css";
 import "animate.css/animate.css";
 
 // Jquery (for boostrap notify)
