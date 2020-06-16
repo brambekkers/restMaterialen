@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-3 ml-auto">
-                    <Search :searchText.sync="searchText" />
+                    <Search @searchText="searchText = $event" />
                 </div>
             </div>
             <div class="card">
@@ -13,7 +13,7 @@
                     <p class="card-category">Geen filter</p>
                 </div>
                 <div class="card-body">
-                    <MaterialsList v-if="materials" />
+                    <MaterialsList v-if="materials" :materials="filteredMaterials" />
                     <Loading v-else />
                 </div>
                 <div class="card-footer">
@@ -50,10 +50,19 @@ export default {
     },
     computed: {
         searchTags() {
-            this.searchText.split(" ");
+            return this.searchText.split(" ").filter((a) => a != "");
         },
         materials() {
             return this.$store.getters.materials;
+        },
+        filteredMaterials() {
+            if (this.materials && this.searchTags.length) {
+                return this.materials.filter((m) => {
+                    for (const tag of this.searchTags) {
+                        return m.name.includes(tag) || m.type.includes(tag);
+                    }
+                });
+            }
         }
     }
 };
