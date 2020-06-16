@@ -61,8 +61,8 @@ const routes = [
         component: Landing,
         meta: {
             template: "landing",
-            transitionEnter: "slideDown",
-            transitionLeave: "animated slideOutUp"
+            transitionEnter: "animated fadeIn",
+            transitionLeave: "animated fadeOut"
         }
     },
     {
@@ -70,7 +70,7 @@ const routes = [
         name: "Materialen bibliotheek",
         component: Libary,
         meta: {
-            transitionEnter: "slideRight",
+            transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "front"
         }
@@ -80,7 +80,7 @@ const routes = [
         name: "Materiaal details",
         component: Detail,
         meta: {
-            transitionEnter: "slideRight",
+            transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "front"
         }
@@ -90,7 +90,7 @@ const routes = [
         name: "Materiaal reserveren",
         component: Reservation,
         meta: {
-            transitionEnter: "slideRight",
+            transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "front"
         },
@@ -103,8 +103,8 @@ const routes = [
         name: "Login",
         component: Login,
         meta: {
-            transitionEnter: "fade",
-            ttransitionLeave: "fade-leave",
+            transitionEnter: "animated fadeIn",
+            transitionLeave: "animated fadeOut",
             template: "front"
         }
     },
@@ -113,8 +113,8 @@ const routes = [
         name: "Registreer",
         component: Register,
         meta: {
-            transitionEnter: "fade",
-            transitionLeave: "fade-leave",
+            transitionEnter: "animated fadeIn",
+            transitionLeave: "animated fadeOut",
             template: "front"
         }
     },
@@ -123,8 +123,8 @@ const routes = [
         name: "Wachtwoord vergeten",
         component: Forgot,
         meta: {
-            transitionEnter: "fade",
-            transitionLeave: "fade-leave",
+            transitionEnter: "animated fadeIn",
+            transitionLeave: "animated fadeOut",
             template: "front"
         }
     },
@@ -133,7 +133,7 @@ const routes = [
         name: "Profiel",
         component: Profile,
         meta: {
-            transitionEnter: "slideRight",
+            transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "front"
         },
@@ -146,7 +146,7 @@ const routes = [
         name: "Onze missie",
         component: Mission,
         meta: {
-            transitionEnter: "slideRight",
+            transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "front"
         }
@@ -156,7 +156,7 @@ const routes = [
         name: "Over",
         component: About,
         meta: {
-            transitionEnter: "slideRight",
+            transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "front"
         }
@@ -167,7 +167,7 @@ const routes = [
         name: "Overzicht",
         component: Dashboard,
         meta: {
-            transitionEnter: "slideRight",
+            transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
         },
@@ -181,7 +181,7 @@ const routes = [
         name: "Materialen",
         component: Materials,
         meta: {
-            transitionEnter: "slideRight",
+            transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
         },
@@ -194,7 +194,7 @@ const routes = [
         name: "Voeg material toe",
         component: AddMaterial,
         meta: {
-            transitionEnter: "slideRight",
+            transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
         },
@@ -207,7 +207,7 @@ const routes = [
         name: "Materiaal bekijken",
         component: ViewMaterial,
         meta: {
-            transitionEnter: "slideRight",
+            transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
         },
@@ -220,7 +220,7 @@ const routes = [
         name: "Materiaal aanpassen",
         component: EditMaterial,
         meta: {
-            transitionEnter: "slideRight",
+            transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
         },
@@ -234,7 +234,7 @@ const routes = [
         name: "Reserveringen",
         component: Reservations,
         meta: {
-            transitionEnter: "slideRight",
+            transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
         },
@@ -248,7 +248,7 @@ const routes = [
         name: "Gebruikers",
         component: Users,
         meta: {
-            transitionEnter: "slideRight",
+            transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
         },
@@ -261,7 +261,7 @@ const routes = [
         name: "Voeg gebruiker toe",
         component: AddUser,
         meta: {
-            transitionEnter: "slideRight",
+            transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
         },
@@ -274,7 +274,7 @@ const routes = [
         name: "Gebruikersrechten",
         component: UserRights,
         meta: {
-            transitionEnter: "slideRight",
+            transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
         },
