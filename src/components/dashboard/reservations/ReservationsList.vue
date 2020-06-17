@@ -63,11 +63,7 @@
 	export default {
 		name: "ReservationsList",
 		components: { ReservationAdmin, MaterialThumbnail },
-		computed: {
-			materials() {
-				return this.$store.getters.materials;
-			}
-		}
+		props: ["materials"]
 	};
 </script>
 

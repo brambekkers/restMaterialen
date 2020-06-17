@@ -58,6 +58,12 @@ export default {
                         confirmButtonText: "Ik snap het",
                         confirmButtonClass: "btn btn-default"
                     });
+                } else if (type === "image") {
+                    Swal.fire({
+                        imageUrl: msg,
+                        confirmButtonText: "Aight",
+                        confirmButtonClass: "btn btn-success "
+                    });
                 } else if (type === "confirm") {
                     Swal.fire({
                         titleText: msg.title,
