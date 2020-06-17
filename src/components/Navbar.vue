@@ -19,23 +19,19 @@
 		</button>
 		<div class="collapse navbar-collapse py-3 py-lg-0" id="navigation">
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">
-						Libary
-						<span class="sr-only">(current)</span>
-					</a>
+				<li class="nav-item" :class=" $route.path === '/libary' ? 'active' : '' ">
+					<router-link class="nav-link" to="/libary">Libary</router-link>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item" :class=" $route.path === '/mission' ? 'active' : '' ">
 					<router-link class="nav-link" to="/mission">Onze missie</router-link>
 				</li>
-				<!-- Only on Mobile -->
-				<li class="nav-item d-lg-none d-md-block">
+				<li class="nav-item d-lg-none d-sm-block">
 					<router-link class="nav-link" to="/profile" v-if="user">Profiel</router-link>
 				</li>
-				<li class="nav-item d-lg-none d-md-block">
+				<li class="nav-item d-lg-none d-sm-block">
 					<a class="nav-link" href="#" @click="logout">Logout</a>
 				</li>
-				<ul class="navbar-nav d-lg-block d-none" v-if="user">
+				<ul class="navbar-nav d-lg-block d-none pointer" v-if="user">
 					<li class="nav-item btn-rotate dropdown">
 						<a
 							class="nav-link dropdown-toggle"
@@ -45,9 +41,6 @@
 							aria-expanded="false"
 						>
 							<i class="fas fa-cog mr-2"></i>
-							<p>
-								<span class="d-lg-none d-md-block">Some Actions</span>
-							</p>
 						</a>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropDownMenu">
 							<router-link class="dropdown-item" to="/profile">Profiel</router-link>
@@ -97,6 +90,9 @@
 </script>
 
 <style lang="scss" scoped>
+	.pointer {
+		cursor: pointer;
+	}
 	.icon-bar {
 		width: 22px;
 		height: 2px;
