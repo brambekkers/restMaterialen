@@ -1,5 +1,8 @@
 <template>
-	<div class="accordion" id="reservationsCollapse">
+	<div
+		class="accordion"
+		id="reservationsCollapse"
+	>
 		<ul class="list-group list-group-flush border">
 			<template v-for="material of materials">
 				<li
@@ -13,7 +16,11 @@
 				>
 					<div class="material row py-2 px-4">
 						<div class="col-2 d-flex align-items-center">
-							<MaterialThumbnail :images="material.images" :width="40" :height="40" />
+							<MaterialThumbnail
+								:images="material.images"
+								:width="40"
+								:height="40"
+							/>
 						</div>
 						<div class="col-6 d-flex align-items-center">
 							<span class="title">{{material.name}}</span>
@@ -41,7 +48,7 @@
 							</thead>
 							<tbody>
 								<ReservationAdmin
-									v-for="(reservation, i) of material.reservations"
+									v-for="(reservation, key, i) in material.reservations"
 									:key="i"
 									:reservation="reservation"
 									:material="material"
@@ -57,14 +64,14 @@
 </template>
 
 <script>
-	import ReservationAdmin from "@/components/dashboard/reservations/ReservationAdmin.vue";
-	import MaterialThumbnail from "@/components/libary/MaterialThumbnail.vue";
+import ReservationAdmin from "@/components/dashboard/reservations/ReservationAdmin.vue";
+import MaterialThumbnail from "@/components/libary/MaterialThumbnail.vue";
 
-	export default {
-		name: "ReservationsList",
-		components: { ReservationAdmin, MaterialThumbnail },
-		props: ["materials"]
-	};
+export default {
+	name: "ReservationsList",
+	components: { ReservationAdmin, MaterialThumbnail },
+	props: ["materials"]
+};
 </script>
 
 <style lang="scss" scoped>
