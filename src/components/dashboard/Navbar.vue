@@ -38,7 +38,7 @@
 						<router-link tag="a" class="nav-link" to="/profile">Profiel</router-link>
 					</li>
 					<li class="nav-item d-lg-none d-sm-block">
-						<a class="nav-link" href="#" @click="logout">Logout</a>
+						<a class="nav-link" href="#" @click="logout">Uitloggen</a>
 					</li>
 					<li class="nav-item btn-rotate dropdown d-md-block d-none">
 						<a
@@ -51,8 +51,8 @@
 							<i class="fas fa-cog"></i>
 						</a>
 						<div class="dropdown-menu dropdown-menu-right bg-light" aria-labelledby="dropDownMenu">
-							<router-link class="dropdown-item" to="/profile">Profile</router-link>
-							<a class="dropdown-item" href="#" @click="logout">Logout</a>
+							<router-link class="dropdown-item" to="/profile">Profiel</router-link>
+							<a class="dropdown-item" href="#" @click="logout">Uitloggen</a>
 						</div>
 					</li>
 				</ul>

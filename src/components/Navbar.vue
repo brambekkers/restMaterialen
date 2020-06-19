@@ -20,7 +20,7 @@
 		<div class="collapse navbar-collapse py-3 py-lg-0" id="navigation">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item" :class=" $route.path === '/libary' ? 'active' : '' ">
-					<router-link class="nav-link" to="/libary">Libary</router-link>
+					<router-link class="nav-link" to="/libary">Bibliotheek</router-link>
 				</li>
 				<li class="nav-item" :class=" $route.path === '/mission' ? 'active' : '' ">
 					<router-link class="nav-link" to="/mission">Onze missie</router-link>
@@ -29,7 +29,7 @@
 					<router-link class="nav-link" to="/profile" v-if="user">Profiel</router-link>
 				</li>
 				<li class="nav-item d-lg-none d-sm-block">
-					<a class="nav-link" href="#" @click="logout">Logout</a>
+					<a class="nav-link" href="#" @click="logout">Uitloggen</a>
 				</li>
 				<ul class="navbar-nav d-lg-block d-none pointer" v-if="user">
 					<li class="nav-item btn-rotate dropdown">
@@ -44,7 +44,7 @@
 						</a>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropDownMenu">
 							<router-link class="dropdown-item" to="/profile">Profiel</router-link>
-							<a class="dropdown-item" href="#" @click="logout">Logout</a>
+							<a class="dropdown-item" href="#" @click="logout">Uitloggen</a>
 						</div>
 					</li>
 				</ul>
@@ -60,7 +60,7 @@
 						to="/Login"
 						tag="button"
 						class="btn-collapse btn btn-outline-success btn-block my-0 rounded"
-					>Login</router-link>
+					>Inloggen</router-link>
 				</li>
 			</ul>
 		</div>
