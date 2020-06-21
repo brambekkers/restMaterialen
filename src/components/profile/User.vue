@@ -2,11 +2,18 @@
 	<div class="col-md-6">
 		<div class="card card-user">
 			<div class="image">
-				<img src="@/assets/img/background.jpg" alt="..." />
+				<img
+					src="@/assets/img/background.jpg"
+					alt="..."
+				/>
 			</div>
 			<div class="author">
 				<a href="#">
-					<img class="avatar border-gray" src="@/assets/img/noImage.jpg" alt="..." />
+					<img
+						class="avatar border-gray"
+						src="@/assets/img/noImage.jpg"
+						alt="..."
+					/>
 					<h5 class="title">{{ user.firstName }} {{ user.lastName }}</h5>
 				</a>
 			</div>
@@ -16,14 +23,14 @@
 					<div class="row">
 						<div class="col-6 ml-auto">
 							<h5>
-								{{userReservations? userReservations.length : 0}}
+								{{unpaidUserReservations}}
 								<br />
 								<small>Reserveringen</small>
 							</h5>
 						</div>
 						<div class="col-6 ml-auto mr-auto">
 							<h5>
-								0
+								{{paidUserReservations}}
 								<br />
 								<small>Aankopen</small>
 							</h5>
@@ -36,12 +43,24 @@
 </template>
 
 <script>
-	export default {
-		props: ["user"],
-		computed: {
-			userReservations() {
-				return this.$store.getters.userReservations;
+export default {
+	props: ["user"],
+	computed: {
+		userReservations() {
+			return this.$store.getters.userReservations;
+		},
+		unpaidUserReservations() {
+			if (this.userReservations) {
+				return this.userReservations.filter(r => !r.payID).length;
 			}
+			return 0;
+		},
+		paidUserReservations() {
+			if (this.userReservations) {
+				return this.userReservations.filter(r => r.payID).length;
+			}
+			return 0;
 		}
-	};
+	}
+};
 </script>

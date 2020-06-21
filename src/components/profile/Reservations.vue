@@ -1,12 +1,22 @@
 <template>
-	<div class="col-md-6" v-if="materials && userReservations">
+	<div
+		class="col-md-6"
+		v-if="materials && userReservations"
+	>
 		<div class="card">
 			<div class="card-header">
 				<h4 class="card-title">Reserveringen</h4>
 			</div>
 			<div class="card-body">
-				<ul class="list-unstyled" v-if="userReservations.length">
-					<li class="my-2 border-bottom" v-for="reservation of userReservations" :key="reservation.id">
+				<ul
+					class="list-unstyled"
+					v-if="userReservations.length"
+				>
+					<li
+						class="my-2 border-bottom"
+						v-for="reservation of userReservations"
+						:key="reservation.id"
+					>
 						<div class="row">
 							<div class="col-md-2 col-2 pr-0">
 								<div class>
@@ -15,7 +25,10 @@
 										:src="materialById(reservation.id).images[0].url"
 										class="preview_image img-circle img-no-padding img-responsive"
 									/>
-									<img v-else class="preview_image img-circle img-no-padding img-responsive" />
+									<img
+										v-else
+										class="preview_image img-circle img-no-padding img-responsive"
+									/>
 								</div>
 							</div>
 							<div class="col-md-7 col-7">
@@ -25,15 +38,8 @@
 									<small>{{reservation.amount}} {{unit(materialById(reservation.id).priceUnit)}}</small>
 								</span>
 							</div>
-							<div class="col-md-3 col-3 text-right mt-n2">
-								<td class="text-center">
-									<button
-										class="btn btn-sm btn-round btn-icon"
-										:class="reservation.payID ? 'btn-outline-success' : 'btn-outline-danger' "
-									>
-										<i class="fas fa-euro-sign"></i>
-									</button>
-								</td>
+							<div class="col-md-3 col-3 d-flex justify-content-center align-items-center">
+								<PaidLabel :paid="reservation.payID" />
 							</div>
 						</div>
 					</li>
@@ -46,26 +52,28 @@
 </template>
 
 <script>
-	export default {
-		computed: {
-			userReservations() {
-				return this.$store.getters.userReservations;
-			},
-			materials() {
-				return this.$store.getters.materials;
-			}
+import PaidLabel from "@/components/PaidLabel.vue";
+export default {
+	components: { PaidLabel },
+	computed: {
+		userReservations() {
+			return this.$store.getters.userReservations;
 		},
-		methods: {
-			materialById(id) {
-				return this.materials.filter(m => m.id === id)[0];
-			},
-			unit(input) {
-				const unit = input.split(" ")[1];
-				if (unit === "deel") return "delen";
-				return unit.toLowerCase();
-			}
+		materials() {
+			return this.$store.getters.materials;
 		}
-	};
+	},
+	methods: {
+		materialById(id) {
+			return this.materials.filter(m => m.id === id)[0];
+		},
+		unit(input) {
+			const unit = input.split(" ")[1];
+			if (unit === "deel") return "delen";
+			return unit.toLowerCase();
+		}
+	}
+};
 </script>
 
 <style lang="scss" scoped>

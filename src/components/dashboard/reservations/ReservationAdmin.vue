@@ -5,12 +5,7 @@
 		<td>{{ reservation.amount }} {{ material.unit }}</td>
 		<td>{{ reservation.amount * material.price }} euro</td>
 		<td class="text-center">
-			<button
-				class="btn btn-sm btn-round btn-icon"
-				:class="reservation.payID ? 'btn-outline-success' : 'btn-outline-danger'"
-			>
-				<i class="fas fa-euro-sign"></i>
-			</button>
+			<PaidLabel :paid="reservation.payID" />
 		</td>
 		<td class="text-right">
 			<button
@@ -40,7 +35,10 @@
 </template>
 
 <script>
+import PaidLabel from "@/components/PaidLabel.vue";
+
 export default {
+	components: { PaidLabel },
 	props: ["material", "reservation", "index"],
 	watch: {
 		reservation: {
