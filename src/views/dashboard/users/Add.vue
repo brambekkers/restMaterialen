@@ -33,7 +33,32 @@
                                 </div>
                                 <input type="email" v-model="newUser.email" required class="form-control" placeholder="Email" />
                             </div>
-
+                            <!-- School -->
+                            <h5 class="title mb-0 text-warning">School</h5>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-signature"></i>
+                                    </span>
+                                </div>
+                                <input type="text" v-model="newUser.class" required class="form-control" placeholder="Klas" />
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-signature"></i>
+                                    </span>
+                                </div>
+                                <input type="text" v-model="newUser.study" required placeholder="Opleiding" class="form-control" />
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                </div>
+                                <input type="number" v-model.number="newUser.studentNumber" required class="form-control" placeholder="Studentennummer" />
+                            </div>
                             <h5 class="title mb-0 mt-3 text-danger">Beveiliging</h5>
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -69,6 +94,9 @@ export default {
                 firstName: "",
                 lastName: "",
                 email: "",
+                class: "",
+                study: "",
+                studentNumber: "",
                 password: "",
                 passwordCheck: ""
             }
@@ -84,7 +112,7 @@ export default {
             if (this.passwordSame) {
                 try {
                     // add user
-                    await this.$store.dispatch("addUser", this.newUser);
+                    await this.$store.dispatch("addUserAsAdmin", this.newUser);
 
                     // onComplete:
                     this.$store.dispatch("notification", {

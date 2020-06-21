@@ -2,6 +2,7 @@ import * as firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
+import "firebase/functions";
 import firebaseConfig from "@/assets/config/firebaseConfig";
 
 export default {
@@ -17,6 +18,9 @@ export default {
         },
         storage(state) {
             return state.firebase ? state.firebase.storage() : null;
+        },
+        functions(state) {
+            return state.firebase ? state.firebase.functions() : null;
         }
     },
     mutations: {},

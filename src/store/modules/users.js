@@ -117,6 +117,18 @@ export default {
                 }
             });
         },
+        async addUserAsAdmin({ getters }, userInput) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const addUserFunction = await getters.functions.httpsCallable("addUser");
+                    const newUser = await addUserFunction(userInput);
+                    resolve();
+                } catch (err) {
+                    console.log(err);
+                    reject(err);
+                }
+            });
+        },
         async updateUser({ getters }, userInput) {
             return new Promise(async (resolve, reject) => {
                 try {
