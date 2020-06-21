@@ -1,13 +1,13 @@
 <template>
 	<tr>
-		<td class="pl-4">{{index+1}}</td>
-		<td>{{reservation.uid}}</td>
-		<td>{{reservation.amount}} {{material.unit}}</td>
-		<td>{{reservation.amount * material.price}} euro</td>
+		<td class="pl-4">{{ index + 1 }}</td>
+		<td>{{ reservation.uid }}</td>
+		<td>{{ reservation.amount }} {{ material.unit }}</td>
+		<td>{{ reservation.amount * material.price }} euro</td>
 		<td class="text-center">
 			<button
 				class="btn btn-sm btn-round btn-icon"
-				:class="reservation.payID ? 'btn-outline-success' : 'btn-outline-danger' "
+				:class="reservation.payID ? 'btn-outline-success' : 'btn-outline-danger'"
 			>
 				<i class="fas fa-euro-sign"></i>
 			</button>
@@ -48,14 +48,15 @@ export default {
 			deep: true,
 			async handler() {
 				if (this.reservation.payID) {
-					const paymentExist = await this.$store.dispatch(
-						"checkIfPaymentExist",
-						this.reservation.payID
-					);
-					if (!paymentExist) {
-						console.log(this.reservation.id);
-						this.$store.dispatch("removePayment", this.reservation);
-					}
+					try {
+						const paymentExist = await this.$store.dispatch(
+							"checkIfPaymentExist",
+							this.reservation.payID
+						);
+						if (!paymentExist) {
+							this.$store.dispatch("removePayment", this.reservation);
+						}
+					} catch (error) {}
 				}
 			}
 		}

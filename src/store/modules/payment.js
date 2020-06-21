@@ -6,16 +6,21 @@ export default {
         registerPayment({ getters, dispatch }, reservation) {
             return new Promise(async (resolve, reject) => {
                 try {
+                    // Get material
+                    const material = await dispatch("materialToReservate", reservation.id);
+
+                    // Make payment to database
                     const paymentDate = new Date();
                     const payment = await getters.db.collection(`Payments`).add({
                         paymentDate: paymentDate,
                         materialID: reservation.id,
+                        materialName: material.name,
+                        price: material.price * reservation.amount,
                         userID: reservation.uid,
                         amount: reservation.amount,
                         registeredBy: getters.auth.currentUser.uid
                     });
-                    // Get material
-                    const material = await dispatch("materialToReservate", reservation.id);
+
 
                     // Update PayID from material (localy)
                     material.reservations[reservation.uid].payID = payment.id;
@@ -49,8 +54,8 @@ export default {
                 try {
                     const doc = await getters.db.doc(`Payments/${id}`).get();
                     resolve(doc.exists);
-                } catch {
-                    reject();
+                } catch (err) {
+                    reject(err);
                 }
             });
         }

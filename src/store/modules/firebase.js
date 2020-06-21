@@ -25,6 +25,7 @@ export default {
             state.firebase = firebase.initializeApp(firebaseConfig);
             dispatch("materialsListner");
             dispatch("userListner");
+            dispatch("optionListner");
         }
     }
 };

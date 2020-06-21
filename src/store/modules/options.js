@@ -1,19 +1,37 @@
-import router from "@/router";
-
-// boostrap notify
-import "bootstrap-notify";
-// Sweet Alert 2
-import Swal from "sweetalert2";
+import Vue from "vue";
 
 export default {
     state: {
-        reservationExpireDays: 3
-    },
-    getters: {
-        reservationExpireDays(state) {
-            return state.reservationExpireDays;
+        reservation: {
+            reservationExpireDays: 3
         }
     },
+    getters: {
+        reservationOptions(state) {
+            return state.reservation;
+
+        },
+        reservationExpireDays(state) {
+            return state.reservation.reservationExpireDays;
+        },
+
+    },
     mutations: {},
-    actions: {}
+    actions: {
+        optionListner({ getters, state }) {
+            getters.db.doc("Options/reservation").onSnapshot((doc) => {
+                Vue.set(state, "reservation", doc.data());
+            });
+        },
+        updateOptions({ getters }, { type, options }) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    await getters.db.doc(`Options/${type}`).set(options);
+                    resolve();
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }
+    }
 };

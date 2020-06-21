@@ -28,6 +28,9 @@ import Users from "../views/dashboard/users/Users.vue";
 import AddUser from "../views/dashboard/users/Add.vue";
 import UserRights from "../views/dashboard/users/Rights.vue";
 
+import Options from "../views/dashboard/Options.vue";
+
+
 Vue.use(VueRouter);
 
 const permissionFunction = (type, next) => {
@@ -281,7 +284,21 @@ const routes = [
         beforeEnter: (to, from, next) => {
             permissionFunction("admin", next);
         }
-    }
+    },
+    // Options
+    {
+        path: "/dashboard/options",
+        name: "Opties",
+        component: Options,
+        meta: {
+            transitionEnter: "animated slideInRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "back"
+        },
+        beforeEnter: (to, from, next) => {
+            permissionFunction("admin", next);
+        }
+    },
 ];
 
 const router = new VueRouter({
