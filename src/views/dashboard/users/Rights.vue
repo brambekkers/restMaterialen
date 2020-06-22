@@ -1,8 +1,8 @@
 <template>
 	<div class="content h-75">
-		<div class="row" v-show="isLoaded">
+		<div class="row d-flex justify-content-center" v-show="isLoaded">
 			<!-- Editor -->
-			<div class="col-sm-6">
+			<div class="col-sm-6 col-xl-4 col-xxl-3 col-xxxl-2">
 				<div class="card mt-5">
 					<div class="card-header">
 						<h3 class="card-title text-center">Beheerders</h3>
@@ -44,7 +44,7 @@
 				</div>
 			</div>
 			<!-- admin -->
-			<div class="col-sm-6">
+			<div class="col-sm-6 col-xl-4 col-xxl-3 col-xxxl-2">
 				<div class="card mt-5">
 					<div class="card-header">
 						<h3 class="card-title text-center">Admins</h3>
@@ -85,10 +85,6 @@
 				</div>
 			</div>
 		</div>
-		<button
-			class="btn btn-danger"
-			@click="$store.dispatch('TESTROLE', {id: 'Bl6HbmhKOmZszrHyoJAU90jpGol1', admin: true, editor: false})"
-		>TEST</button>
 		<Loading v-if="!isLoaded" />
 	</div>
 </template>
@@ -132,7 +128,7 @@
 			}
 		},
 		methods: {
-			changeRole(type, bool, removeID) {
+			async changeRole(type, bool, removeID) {
 				const editor = type === "editor" && this.selectedEditorID;
 				const admin = type === "admin" && this.selectedAdminID;
 				const id = !bool
@@ -143,18 +139,42 @@
 
 				// prevent from changing your own admin status
 				if (this.changeOwnAdminRole(id, type, bool)) {
-					return console.log("You cant change your own admin role");
+					return this.$store.dispatch("notification", {
+						style: "error",
+						msg: {
+							code: "Geen toegang",
+							message: "Je kunt niet je eigen admin rol aanpassen."
+						}
+					});
 				}
 
+				// If nothing is selected
 				if (!editor && !admin && bool) {
-					return console.log("Nothing selected");
+					return this.$store.dispatch("notification", {
+						style: "warning",
+						msg: {
+							title: "Niets geselecteerd",
+							text: "Je hebt geen gebruiker geselecteerd."
+						}
+					});
 				}
 
-				this.$store.dispatch("changeRole", {
-					id: id,
-					admin: type === "admin" ? bool : this.isAdmin(id),
-					editor: type === "editor" ? bool : this.isEditor(id)
-				});
+				try {
+					await this.$store.dispatch("reauthenticateAlert");
+					this.$store.dispatch("changeRole", {
+						id: id,
+						admin: type === "admin" ? bool : this.isAdmin(id),
+						editor: type === "editor" ? bool : this.isEditor(id)
+					});
+				} catch (err) {
+					this.$store.dispatch("notification", {
+						style: "error",
+						msg: {
+							code: err.code,
+							message: err.message
+						}
+					});
+				}
 			},
 			changeOwnAdminRole(id, type, bool) {
 				return id === this.currentUser.id && type === "admin";
@@ -175,12 +195,6 @@
 				}
 				return false;
 			}
-			// removeRole(type, id) {
-			// 	this.$store.dispatch("removeRole", {
-			// 		type,
-			// 		id
-			// 	});
-			// }
 		},
 		mounted() {
 			setTimeout(() => {

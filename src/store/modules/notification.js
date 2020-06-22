@@ -1,4 +1,5 @@
 import router from "@/router";
+import * as firebase from "firebase";
 
 // boostrap notify
 import "bootstrap-notify";
@@ -135,6 +136,39 @@ export default {
                             msg.onComplete();
                         }
                     });
+                }
+            });
+        },
+        reauthenticateAlert({ getters }) {
+            return new Promise(async (resolve, reject) => {
+                const title = `<img class="border shadow" src="https://www.deviersprong.nl/wp-content/uploads/2017/11/img-person-placeholder.jpg">`;
+                const body = `
+                        <h4 class="card-title mt-0">${getters.user.firstName} ${getters.user.lastName}</h4>
+                        <p>Unlock je account om verder te gaan.</p>`;
+                try {
+                    const result = await Swal.fire({
+                        title: title,
+                        html: body,
+                        customClass: {
+                            popup: "card card-lock",
+                            header: "card-header",
+                            content: "card-body form-group",
+                            input: "form-control",
+                            confirmButton: "btn btn-success btn-round mt-n3"
+                        },
+                        confirmButtonText: "Unlock",
+                        input: "password",
+                        inputPlaceholder: "Vul password in..",
+                        inputAttributes: {
+                            autocapitalize: "off",
+                            autocorrect: "off"
+                        }
+                    });
+                    const credential = firebase.auth.EmailAuthProvider.credential(getters.user.email, result.value);
+                    await getters.auth.currentUser.reauthenticateWithCredential(credential);
+                    resolve();
+                } catch (error) {
+                    reject(error);
                 }
             });
         }

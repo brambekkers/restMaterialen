@@ -25,13 +25,9 @@ export default {
                     await dispatch("updateMaterialAmount", { material, amount: -obj.amount });
                     resolve("Reservation success");
                 } catch (error) {
-                    console.log(error);
                     reject(error);
                 }
             });
-        },
-        checkReservation({ }) {
-            console.log('ik run');
         },
         materialToReservate({ getters }, id) {
             return new Promise((resolve, reject) => {
@@ -43,7 +39,7 @@ export default {
                 }
             });
         },
-        isAmountAvalible({ }, { material, amount }) {
+        isAmountAvalible({}, { material, amount }) {
             return new Promise((resolve, reject) => {
                 if (material.unitAvalible - amount >= 0) {
                     resolve();

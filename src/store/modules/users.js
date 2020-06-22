@@ -56,7 +56,6 @@ export default {
                     const doc = await getters.db.doc(`Users/${user.uid}`).get();
                     resolve(doc.data());
                 } catch (err) {
-                    console.log(err);
                     reject(null);
                 }
             });
@@ -109,7 +108,6 @@ export default {
                     const newUser = await addUserFunction(userInput);
                     resolve();
                 } catch (err) {
-                    console.log(err);
                     reject(err);
                 }
             });
@@ -166,10 +164,8 @@ export default {
                 try {
                     const changeRoleFunction = await getters.functions.httpsCallable("changeRole");
                     const res = await changeRoleFunction(obj);
-                    console.log(res);
                     resolve(res);
                 } catch (err) {
-                    console.log(err);
                     reject(err);
                 }
             });
