@@ -18,19 +18,19 @@ export default {
             return state.users;
         },
         editors(state) {
-            return state.roles.editors;
+            return state.users.length ? state.users.filter((u) => u.editor) : [];
         },
         admins(state) {
-            return state.roles.admins;
+            return state.users.length ? state.users.filter((u) => u.admin) : [];
         },
         role() {
             return state.user.role;
         },
         isEditor(state) {
-            return state.user && (state.user.role === "editor" || state.user.role === "admin");
+            return state.user && (state.user.editor || state.user.admin);
         },
         isAdmin(state) {
-            return state.user && state.user.role === "admin";
+            return state.user && state.user.admin;
         }
     },
     mutations: {},
@@ -40,9 +40,9 @@ export default {
                 const dbUser = user ? await dispatch("getUserFromDatabase", user) : null;
                 Vue.set(state, "user", dbUser);
                 if (user) {
-                    // Get current Role (Admin or editor)
-                    const role = await dispatch("getRole");
-                    Vue.set(state.user, "role", role);
+                    const idTokenResult = await getters.auth.currentUser.getIdTokenResult(true);
+                    Vue.set(state.user, "admin", idTokenResult.claims.admin);
+                    Vue.set(state.user, "editor", idTokenResult.claims.editor);
 
                     // Update user to set last time login
                     Vue.set(state.user, "metadata", getters.auth.currentUser.metadata);
@@ -58,21 +58,6 @@ export default {
                 } catch (err) {
                     console.log(err);
                     reject(null);
-                }
-            });
-        },
-        async getRole({ getters, state }) {
-            return new Promise(async (resolve, reject) => {
-                try {
-                    await getters.db.doc(`Roles/admin`).get();
-                    resolve("admin");
-                } catch (error) {
-                    try {
-                        await getters.db.doc(`Roles/editor`).get();
-                        resolve("editor");
-                    } catch (error) {
-                        resolve("user");
-                    }
                 }
             });
         },
@@ -141,6 +126,8 @@ export default {
                         class: userInput.class,
                         study: userInput.study,
                         id: user.uid,
+                        editor: userInput.editor,
+                        admin: userInput.admin,
                         metadata: {
                             creationTime: user.metadata.creationTime,
                             lastSignInTime: user.metadata.lastSignInTime
@@ -174,21 +161,18 @@ export default {
                 });
             }
         },
-        async getRoles({ state, getters }) {
-            if (getters.db) {
-                getters.db
-                    .collection("Roles")
-                    .doc("editor")
-                    .onSnapshot((editors) => {
-                        state.roles.editors = editors.data().users;
-                    });
-                getters.db
-                    .collection("Roles")
-                    .doc("admin")
-                    .onSnapshot((admins) => {
-                        state.roles.admins = admins.data().users;
-                    });
-            }
+        changeRole({ getters }, obj) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const changeRoleFunction = await getters.functions.httpsCallable("changeRole");
+                    const res = await changeRoleFunction(obj);
+                    console.log(res);
+                    resolve(res);
+                } catch (err) {
+                    console.log(err);
+                    reject(err);
+                }
+            });
         },
         addRole({ getters }, { id, type }) {
             getters.db.doc(`Roles/${type}`).update({ users: firebase.firestore.FieldValue.arrayUnion(id) });
