@@ -15,16 +15,13 @@ export default {
             return state.user;
         },
         users(state) {
-            return state.users;
+            return state.users ? state.users : [];
         },
         editors(state) {
             return state.users.length ? state.users.filter((u) => u.editor) : [];
         },
         admins(state) {
             return state.users.length ? state.users.filter((u) => u.admin) : [];
-        },
-        role() {
-            return state.user.role;
         },
         isEditor(state) {
             return state.user && (state.user.editor || state.user.admin);
@@ -124,8 +121,8 @@ export default {
                         class: userInput.class,
                         study: userInput.study,
                         id: user.uid,
-                        editor: userInput.editor,
-                        admin: userInput.admin,
+                        editor: userInput.editor ? userInput.editor : null,
+                        admin: userInput.admin ? userInput.admin : null,
                         metadata: {
                             creationTime: user.metadata.creationTime,
                             lastSignInTime: user.metadata.lastSignInTime

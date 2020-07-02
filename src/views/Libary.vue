@@ -26,7 +26,7 @@
 </template>
 
 <script>
-	import Header from "@/components/Header.vue";
+	import Header from "@/components/libary/Header.vue";
 	import Search from "@/components/Search.vue";
 	import LastTimeUpdated from "@/components/LastTimeUpdated.vue";
 

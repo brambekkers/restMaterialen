@@ -24,7 +24,12 @@
 						<div class="col-md-3">
 							<div class="form-group">
 								<label>Rol</label>
-								<input type="text" class="form-control" v-model="user.role" disabled />
+								<input
+									type="text"
+									class="form-control"
+									v-model="user.admin ? 'Admin' : user.editor ? 'Beheerder': 'Gebruiker'"
+									disabled
+								/>
 							</div>
 						</div>
 					</div>
