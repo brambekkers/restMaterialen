@@ -91,16 +91,15 @@ export default {
             });
         },
         async addUser({ getters, dispatch }, userInput) {
-            return new Promise(async (resolve, reject) => {
-                try {
-                    const { user } = await getters.auth.createUserWithEmailAndPassword(userInput.email, userInput.password);
-                    await dispatch("updateUser", userInput);
-                    resolve(user);
-                } catch (err) {
-                    reject(err);
-                }
-            });
+            try {
+                const { user } = await getters.auth.createUserWithEmailAndPassword(userInput.email, userInput.password);
+                await dispatch("updateUser", userInput);
+                return user
+            } catch (err) {
+                throw err
+            }
         },
+
         async addUserAsAdmin({ getters }, userInput) {
             return new Promise(async (resolve, reject) => {
                 try {
