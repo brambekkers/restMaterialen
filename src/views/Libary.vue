@@ -29,9 +29,15 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import Header from "@/components/Header.vue";
 import Search from "@/components/Search.vue";
 import LastTimeUpdated from "@/components/LastTimeUpdated.vue";
+=======
+	import Header from "@/components/libary/Header.vue";
+	import Search from "@/components/Search.vue";
+	import LastTimeUpdated from "@/components/LastTimeUpdated.vue";
+>>>>>>> 14c851c35fa8864b248d4b5f7c63d854c7edfaad
 
 import MaterialsList from "@/components/libary/MaterialsList.vue";
 

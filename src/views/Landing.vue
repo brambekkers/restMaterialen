@@ -4,7 +4,7 @@
             <div class="background"></div>
             <div class="content">
                 <p class="brand"><span>HMC</span> mbo vakschool</p>
-                <h1 class="title">Restmaterialen</h1>
+                <h1 class="title">CircuStek</h1>
                 <div class="separator">
                     <span class="line_left"></span>
                     <span class="line_right"></span>

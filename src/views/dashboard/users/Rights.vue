@@ -1,6 +1,6 @@
 <template>
 	<div class="content h-75">
-		<div class="row d-flex justify-content-center" v-show="isLoaded">
+		<div class="row d-flex justify-content-center" v-show="!loading">
 			<!-- Editor -->
 			<div class="col-sm-6 col-xl-4 col-xxl-3 col-xxxl-2">
 				<div class="card mt-5">
@@ -85,7 +85,7 @@
 				</div>
 			</div>
 		</div>
-		<Loading v-if="!isLoaded" />
+		<Loading v-if="loading" />
 	</div>
 </template>
 
@@ -96,26 +96,23 @@
 		name: "Rights",
 		data() {
 			return {
+				loading: false,
 				selectedEditorID: "",
 				selectedAdminID: ""
 			};
 		},
 		components: { Loading },
+		watch: {
+			editors() {
+				if (this.editors.length) $(".selectpicker").selectpicker();
+			},
+			admins() {
+				if (this.admins.length) $(".selectpicker").selectpicker();
+			}
+		},
 		computed: {
 			currentUser() {
 				return this.$store.getters.user;
-			},
-			isLoaded() {
-				if (
-					this.users.length &&
-					this.editors.length &&
-					this.admins.length
-				) {
-					$(".selectpicker").selectpicker();
-					return true;
-				} else {
-					return true;
-				}
 			},
 			users() {
 				return this.$store.getters.users;
@@ -161,11 +158,12 @@
 
 				try {
 					await this.$store.dispatch("reauthenticateAlert");
-					this.$store.dispatch("changeRole", {
+					await this.$store.dispatch("changeRole", {
 						id: id,
 						admin: type === "admin" ? bool : this.isAdmin(id),
 						editor: type === "editor" ? bool : this.isEditor(id)
 					});
+					console.log("done");
 				} catch (err) {
 					this.$store.dispatch("notification", {
 						style: "error",
@@ -198,9 +196,9 @@
 		},
 		mounted() {
 			setTimeout(() => {
-				if (!this.users || !this.users.lenght) {
+				if (!this.users.lenght) {
 					this.$store.dispatch("getUsers");
-					// this.$store.dispatch("getRoles");
+					$(".selectpicker").selectpicker();
 				}
 			}, 500);
 		}
