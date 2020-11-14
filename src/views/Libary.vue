@@ -29,15 +29,9 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-import Header from "@/components/Header.vue";
+import Header from "@/components/libary/Header.vue";
 import Search from "@/components/Search.vue";
 import LastTimeUpdated from "@/components/LastTimeUpdated.vue";
-=======
-	import Header from "@/components/libary/Header.vue";
-	import Search from "@/components/Search.vue";
-	import LastTimeUpdated from "@/components/LastTimeUpdated.vue";
->>>>>>> 14c851c35fa8864b248d4b5f7c63d854c7edfaad
 
 import MaterialsList from "@/components/libary/MaterialsList.vue";
 
@@ -47,7 +41,7 @@ export default {
 	name: "Libary",
 	data() {
 		return {
-			searchText: ""
+			searchText: "",
 		};
 	},
 	components: {
@@ -55,11 +49,11 @@ export default {
 		Search,
 		MaterialsList,
 		LastTimeUpdated,
-		Loading
+		Loading,
 	},
 	computed: {
 		searchTags() {
-			return this.searchText.split(" ").filter(a => a != "");
+			return this.searchText.split(" ").filter((a) => a != "");
 		},
 		materials() {
 			const materials = this.$store.getters.materials;
@@ -74,7 +68,7 @@ export default {
 		filteredMaterials() {
 			if (this.materials) {
 				if (this.searchTags.length) {
-					return this.materials.filter(m => {
+					return this.materials.filter((m) => {
 						for (const tag of this.searchTags) {
 							for (const mTags of m.tags) {
 								if (mTags.toLowerCase().includes(tag.toLowerCase())) {
@@ -90,7 +84,7 @@ export default {
 				}
 				return this.materials;
 			}
-		}
-	}
+		},
+	},
 };
 </script>
