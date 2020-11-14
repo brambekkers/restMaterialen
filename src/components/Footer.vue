@@ -17,8 +17,11 @@
 				</nav>
 				<div class="credits ml-auto">
 					<span class="copyright">
-						© {{ new Date().getFullYear() }}, made by Bram
-						Bekkers
+						© {{ new Date().getFullYear() }}, made by
+						<a href="https://brambekkers.nl">
+							Bram
+							Bekkers
+						</a>
 					</span>
 				</div>
 			</div>
