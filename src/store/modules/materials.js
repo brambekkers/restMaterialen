@@ -10,7 +10,7 @@ export default {
         }
     },
     mutations: {
-        unit({ }, string) {
+        unit({}, string) {
             if (string) {
                 const unit = string.split(" ")[1];
                 if (unit === "deel") return "delen";
@@ -78,7 +78,7 @@ export default {
                 }
             });
         },
-        createQRcode({ }, id) {
+        createQRcode({}, id) {
             return new Promise(async (resolve, reject) => {
                 try {
                     const options = {
@@ -93,24 +93,24 @@ export default {
                     reject(error);
                 }
             });
-        },
-        checkMaterial({ dispatch }, material) {
-            if (material.reservations && Object.values(material.reservations).length) {
-                // Check if material has reservations
-                for (const reservation of Object.values(material.reservations)) {
-                    // Check if the reservation has been paid
-                    // If not go further
-                    if (!reservation.payID) {
-                        const now = new Date()
-                        const expireDay = reservation.expireDate.toDate()
-                        // Check if expireDay has been expired
-                        if (now > expireDay) {
-                            // Remove reservation
-                            dispatch('removeReservation', reservation)
-                        }
-                    }
-                }
-            }
         }
+        // checkMaterial({ dispatch }, material) {
+        //     if (material.reservations && Object.values(material.reservations).length) {
+        //         // Check if material has reservations
+        //         for (const reservation of Object.values(material.reservations)) {
+        //             // Check if the reservation has been paid
+        //             // If not go further
+        //             if (!reservation.payID) {
+        //                 const now = new Date()
+        //                 const expireDay = reservation.expireDate.toDate()
+        //                 // Check if expireDay has been expired
+        //                 if (now > expireDay) {
+        //                     // Remove reservation
+        //                     dispatch('removeReservation', reservation)
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
     }
 };

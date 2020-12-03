@@ -1,8 +1,9 @@
-import * as firebase from "firebase";
+import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 import "firebase/functions";
+import "firebase/performance";
 import firebaseConfig from "@/assets/config/firebaseConfig";
 
 export default {
@@ -27,6 +28,8 @@ export default {
     actions: {
         addFirebase({ state, dispatch }) {
             state.firebase = firebase.initializeApp(firebaseConfig);
+            state.firebase.performance();
+            state.firebase.analytics();
             dispatch("materialsListner");
             dispatch("userListner");
             dispatch("optionListner");

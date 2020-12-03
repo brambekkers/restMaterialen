@@ -69,3 +69,44 @@ exports.changeRole = functions.https.onCall(({ id, admin, editor }, context) => 
         }
     });
 });
+
+exports.scheduledFunction = functions.pubsub.schedule("every 3 hours").onRun(async (context) => {
+    const snapshot = await db.collection("Materials").get();
+    const materialsArray = snapshot.docs.map((doc) => doc.data());
+
+    for (const material of materialsArray) {
+        // Check if material has reservations
+        if (material.reservations && Object.values(material.reservations).length) {
+            // Loop trough reservations
+            for (const reservation of Object.values(material.reservations)) {
+                // Check if the reservation has been paid
+                // If not go further
+                if (!reservation.payID) {
+                    const now = new Date();
+                    const expireDay = reservation.expireDate.toDate();
+                    // Check if expireDay has been expired
+                    if (now > expireDay) {
+                        // Update material amount
+                        // add the amount reservated to the amount avalible
+                        db.collection("Materials")
+                            .doc(material.id)
+                            .update({
+                                unitAvalible: material.unitAvalible + reservation.amount
+                            });
+
+                        // remove reservation from material
+                        // update the reservations
+                        delete material.reservations[reservation.uid];
+                        db.collection("Materials")
+                            .doc(material.id)
+                            .update({
+                                reservations: material.reservations
+                            });
+                    }
+                }
+            }
+        }
+    }
+
+    return null;
+});

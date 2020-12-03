@@ -91,9 +91,9 @@ export default {
             try {
                 const { user } = await getters.auth.createUserWithEmailAndPassword(userInput.email, userInput.password);
                 await dispatch("updateUser", userInput);
-                return user
+                return user;
             } catch (err) {
-                throw err
+                throw err;
             }
         },
 
@@ -113,12 +113,12 @@ export default {
                 try {
                     const user = getters.auth.currentUser;
                     const updatedUser = await getters.db.doc(`Users/${user.uid}`).set({
-                        firstName: userInput.firstName,
-                        lastName: userInput.lastName,
+                        firstName: userInput.firstName ? userInput.firstName : "",
+                        lastName: userInput.lastName ? userInput.lastName : "",
                         email: userInput.email,
-                        studentNumber: userInput.studentNumber,
-                        class: userInput.class,
-                        study: userInput.study,
+                        studentNumber: userInput.studentNumber ? userInput.studentNumber : "",
+                        class: userInput.class ? userInput.class : "",
+                        study: userInput.study ? userInput.study : "",
                         id: user.uid,
                         editor: userInput.editor ? userInput.editor : null,
                         admin: userInput.admin ? userInput.admin : null,

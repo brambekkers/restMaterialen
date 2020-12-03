@@ -1,4 +1,5 @@
 import Vue from "vue";
+import firebase from "firebase/app";
 
 export default {
     state: {},
@@ -57,8 +58,8 @@ export default {
                     const reservations = material.reservations ? material.reservations : {};
 
                     // Update reservation
-                    const reservationDate = new Date();
-                    const expireDate = new Date();
+                    const reservationDate = firebase.firestore.Timestamp.now().toDate();
+                    const expireDate = firebase.firestore.Timestamp.now().toDate();
 
                     reservations[uid] = {
                         id: material.id,
