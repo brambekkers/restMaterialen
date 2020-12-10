@@ -72,7 +72,9 @@
 								</p>
 							</div>
 							<div class="tab-pane" id="archive">
-								<PaymentList :payments="payments" />
+								<div class="card border">
+									<PaymentList :payments="payments" />
+								</div>
 							</div>
 						</div>
 					</div>
@@ -83,10 +85,11 @@
 </template>
 
 <script>
+	import { mapGetters } from "vuex";
+
 	import MaterialsListAdmin from "@/components/dashboard/materials/MaterialsListAdmin.vue";
 	import PaymentList from "@/components/dashboard/materials/PaymentList.vue";
 	import Search from "@/components/Search.vue";
-	import { mapGetters } from "vuex";
 
 	export default {
 		name: "Materials",

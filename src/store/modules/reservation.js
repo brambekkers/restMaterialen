@@ -5,14 +5,8 @@ export default {
     state: {},
     getters: {
         userReservations(state, getters) {
-            const userReservations = [];
-            const uid = getters.auth.currentUser.uid;
-            for (const material of getters.materials) {
-                if (material.reservations && material.reservations[uid]) {
-                    userReservations.push(material.reservations[uid]);
-                }
-            }
-            return userReservations;
+            const id = getters.auth.currentUser.uid;
+            return getters.materials.filter((m) => m.reservations && m.reservations[id]).map((m) => m.reservations[id]);
         }
     },
     mutations: {},

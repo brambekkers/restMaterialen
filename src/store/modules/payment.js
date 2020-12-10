@@ -1,6 +1,6 @@
 export default {
     state: {
-        payments: null
+        payments: []
     },
     getters: {
         payments: (s) => s.payments

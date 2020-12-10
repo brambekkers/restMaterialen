@@ -1,5 +1,5 @@
 <template>
-	<div class="table-responsive-lg">
+	<div class="table-responsive-lg" v-if="isAdmin">
 		<table class="table table-striped">
 			<thead class="text-primary">
 				<tr>
@@ -35,7 +35,7 @@
 
 <script>
 	export default {
-		props: ["payments"],
+		props: ["payments", "isAdmin"],
 		methods: {
 			toTime(timestamp) {
 				return timestamp.toDate();

@@ -11,14 +11,24 @@
 						<div class="col-md-5">
 							<div class="form-group">
 								<label>UID</label>
-								<input type="text" class="form-control" v-model="user.id" disabled />
+								<input
+									type="text"
+									class="form-control"
+									:value="user.id"
+									disabled
+								/>
 							</div>
 						</div>
 
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Email adres</label>
-								<input type="email" class="form-control" v-model="user.email" disabled />
+								<input
+									type="email"
+									class="form-control"
+									:value="user.email"
+									disabled
+								/>
 							</div>
 						</div>
 						<div class="col-md-3">
@@ -27,7 +37,13 @@
 								<input
 									type="text"
 									class="form-control"
-									v-model="user.admin ? 'Admin' : user.editor ? 'Beheerder': 'Gebruiker'"
+									:value="
+										user.admin
+											? 'Admin'
+											: user.editor
+											? 'Beheerder'
+											: 'Gebruiker'
+									"
 									disabled
 								/>
 							</div>
@@ -37,25 +53,45 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Voornaam</label>
-								<input type="text" class="form-control" v-model="user.firstName" placeholder="Voornaam" />
+								<input
+									type="text"
+									class="form-control"
+									v-model="user.firstName"
+									placeholder="Voornaam"
+								/>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Achternaam</label>
-								<input type="text" class="form-control" placeholder="Achternaam" v-model="user.lastName" />
+								<input
+									type="text"
+									class="form-control"
+									placeholder="Achternaam"
+									v-model="user.lastName"
+								/>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Klas</label>
-								<input type="text" class="form-control" placeholder="Klas" v-model="user.class" />
+								<input
+									type="text"
+									class="form-control"
+									placeholder="Klas"
+									v-model="user.class"
+								/>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Opleiding</label>
-								<input type="text" class="form-control" placeholder="Opleiding" v-model="user.study" />
+								<input
+									type="text"
+									class="form-control"
+									placeholder="Opleiding"
+									v-model="user.study"
+								/>
 							</div>
 						</div>
 						<div class="col-md-4">
@@ -78,6 +114,6 @@
 
 <script>
 	export default {
-		props: ["user"]
+		props: ["user"],
 	};
 </script>
