@@ -13,7 +13,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				<Material v-for="material of materials" :key="material.id" :material="material" />
+				<Material
+					v-for="material of materials"
+					:key="material.id"
+					:material="material"
+				/>
 			</tbody>
 		</table>
 	</div>
@@ -24,6 +28,6 @@
 
 	export default {
 		components: { Material },
-		props: ["materials"]
+		props: ["materials"],
 	};
 </script>

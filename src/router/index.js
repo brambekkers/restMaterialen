@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from "@/store";
+// import store from "@/store";
+
+import firebase from "firebase";
 
 // Pages
 import Landing from "../views/Landing.vue";
@@ -12,6 +14,7 @@ import Register from "../views/Register.vue";
 import Forgot from "../views/ForgotPassword.vue";
 import Profile from "../views/Profile.vue";
 import Mission from "../views/Mission.vue";
+import Donate from "../views/Donate.vue";
 import About from "../views/About.vue";
 
 // Dashboard pages
@@ -30,31 +33,7 @@ import UserRights from "../views/dashboard/users/Rights.vue";
 
 import Options from "../views/dashboard/Options.vue";
 
-
 Vue.use(VueRouter);
-
-const permissionFunction = (type, next) => {
-    if ((type === "admin" && !store.getters.isAdmin) || (type === "editor" && !store.getters.isEditor)) {
-        store.dispatch("alert", {
-            type: "noPermission",
-            msg: {
-                rightsNeeded: type,
-                onComplete: next
-            }
-        });
-    }
-    if (type === "user" && !store.getters.user) {
-        store.dispatch("alert", {
-            type: "notLogedIn",
-            msg: {
-                rightsNeeded: type,
-                onComplete: next
-            }
-        });
-    } else {
-        next();
-    }
-};
 
 const routes = [
     { path: "*", component: Landing },
@@ -65,7 +44,7 @@ const routes = [
         meta: {
             template: "landing",
             transitionEnter: "animated fadeIn",
-            transitionLeave: "animated fadeOut"
+            transitionLeave: "animated slideInRight"
         }
     },
     {
@@ -93,12 +72,10 @@ const routes = [
         name: "Materiaal reserveren",
         component: Reservation,
         meta: {
+            requiresAuth: true,
             transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "front"
-        },
-        beforeEnter: (to, from, next) => {
-            permissionFunction("user", next);
         }
     },
     {
@@ -136,18 +113,26 @@ const routes = [
         name: "Profiel",
         component: Profile,
         meta: {
+            requiresAuth: true,
             transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "front"
-        },
-        beforeEnter: (to, from, next) => {
-            permissionFunction("user", next);
         }
     },
     {
         path: "/mission",
         name: "Onze missie",
         component: Mission,
+        meta: {
+            transitionEnter: "animated slideInRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "front"
+        }
+    },
+    {
+        path: "/donate",
+        name: "Doneer",
+        component: Donate,
         meta: {
             transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
@@ -170,12 +155,11 @@ const routes = [
         name: "Overzicht",
         component: Dashboard,
         meta: {
+            requiresAuth: true,
+            requiresRight: "editor",
             transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
-        },
-        beforeEnter: (to, from, next) => {
-            permissionFunction("editor", next);
         }
     },
     // Materials (ADMIN and EDITOR ONLY)
@@ -184,12 +168,11 @@ const routes = [
         name: "Materialen",
         component: Materials,
         meta: {
+            requiresAuth: true,
+            requiresRight: "editor",
             transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
-        },
-        beforeEnter: (to, from, next) => {
-            permissionFunction("editor", next);
         }
     },
     {
@@ -197,12 +180,11 @@ const routes = [
         name: "Voeg material toe",
         component: AddMaterial,
         meta: {
+            requiresAuth: true,
+            requiresRight: "editor",
             transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
-        },
-        beforeEnter: (to, from, next) => {
-            permissionFunction("editor", next);
         }
     },
     {
@@ -210,12 +192,11 @@ const routes = [
         name: "Materiaal bekijken",
         component: ViewMaterial,
         meta: {
+            requiresAuth: true,
+            requiresRight: "editor",
             transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
-        },
-        beforeEnter: (to, from, next) => {
-            permissionFunction("editor", next);
         }
     },
     {
@@ -223,12 +204,11 @@ const routes = [
         name: "Materiaal aanpassen",
         component: EditMaterial,
         meta: {
+            requiresAuth: true,
+            requiresRight: "editor",
             transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
-        },
-        beforeEnter: (to, from, next) => {
-            permissionFunction("editor", next);
         }
     },
     // Reservations (Admin and Editors)
@@ -237,12 +217,11 @@ const routes = [
         name: "Reserveringen",
         component: Reservations,
         meta: {
+            requiresAuth: true,
+            requiresRight: "editor",
             transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
-        },
-        beforeEnter: (to, from, next) => {
-            permissionFunction("editor", next);
         }
     },
     // Users (ADMIN ONLY)
@@ -251,12 +230,11 @@ const routes = [
         name: "Gebruikers",
         component: Users,
         meta: {
+            requiresAuth: true,
+            requiresRight: "admin",
             transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
-        },
-        beforeEnter: (to, from, next) => {
-            permissionFunction("admin", next);
         }
     },
     {
@@ -264,12 +242,11 @@ const routes = [
         name: "Voeg gebruiker toe",
         component: AddUser,
         meta: {
+            requiresAuth: true,
+            requiresRight: "admin",
             transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
-        },
-        beforeEnter: (to, from, next) => {
-            permissionFunction("admin", next);
         }
     },
     {
@@ -277,12 +254,11 @@ const routes = [
         name: "Gebruikersrechten",
         component: UserRights,
         meta: {
+            requiresAuth: true,
+            requiresRight: "admin",
             transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
-        },
-        beforeEnter: (to, from, next) => {
-            permissionFunction("admin", next);
         }
     },
     // Options
@@ -291,19 +267,42 @@ const routes = [
         name: "Opties",
         component: Options,
         meta: {
+            requiresAuth: true,
+            requiresRight: "admin",
             transitionEnter: "animated slideInRight",
             transitionLeave: "animated slideOutLeft",
             template: "back"
-        },
-        beforeEnter: (to, from, next) => {
-            permissionFunction("admin", next);
         }
-    },
+    }
 ];
 
 const router = new VueRouter({
     mode: "history",
     routes
+});
+
+router.beforeEach(async (to, from, next) => {
+    const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+    const requiresRight = to.matched[0].meta.requiresRight;
+
+    // Check if your logged in
+    if (requiresRight) {
+        const user = await firebase.getCurrentUser();
+        const token = await user.getIdTokenResult(true);
+        if (requiresRight === "editor" && !(token.claims.editor || token.claims.admin)) {
+            next("/");
+        }
+
+        if (requiresRight === "admin" && !token.claims.admin) {
+            next("/");
+        }
+    }
+    // Check if your logged in
+    if (requiresAuth && !(await firebase.getCurrentUser())) {
+        next("/login");
+    } else {
+        next();
+    }
 });
 
 export default router;

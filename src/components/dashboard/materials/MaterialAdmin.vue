@@ -1,13 +1,25 @@
 <template>
 	<tr class="item">
 		<td>
-			<MaterialThumbnail :images="material.images" :width="50" :height="50" />
+			<MaterialThumbnail
+				:images="material.images"
+				:width="50"
+				:height="50"
+			/>
 		</td>
 		<td>{{ material.name }}</td>
 		<td>{{ material.type }}</td>
-		<td>{{ material.length }} x {{ material.width }} x {{ material.thickness }}</td>
-		<td>{{ material.price }} euro {{ material.priceUnit.toLowerCase() }}</td>
-		<td class="text-center">{{material.unitAvalible}} / {{material.unitAmount}} {{material.unit}}</td>
+		<td>
+			{{ material.length }} x {{ material.width }} x
+			{{ material.thickness }}
+		</td>
+		<td>
+			{{ material.price }} euro {{ material.priceUnit.toLowerCase() }}
+		</td>
+		<td class="text-center">
+			{{ material.unitAvalible }} / {{ material.unitAmount }}
+			{{ material.unit }}
+		</td>
 		<td class="text-right">
 			<router-link
 				type="button"
@@ -60,8 +72,8 @@
 						msg: {
 							title: "Materiaal verwijderen?",
 							text:
-								"Weet je zeker dat je dit materiaal wilt verwijderen? Wanneer je dit materiaal verwijderd verlies je al de data en dit kan niet meer ongedaan worden gemaakt."
-						}
+								"Weet je zeker dat je dit materiaal wilt verwijderen? Wanneer je dit materiaal verwijderd verlies je al de data en dit kan niet meer ongedaan worden gemaakt.",
+						},
 					});
 					this.deleteMaterial();
 				} catch (error) {
@@ -76,22 +88,22 @@
 						style: "success",
 						msg: {
 							title: "Verwijderd!",
-							text: "Het materiaal is succesvol verwijderd!"
-						}
+							text: "Het materiaal is succesvol verwijderd!",
+						},
 					});
 					// Redirect
 					this.$router.push("/dashboard/materials");
 				} catch (err) {
 					this.$store.dispatch("notification", {
 						style: "error",
-						msg: err
+						msg: err,
 					});
 				}
-			}
+			},
 		},
 		mounted() {
 			$('[data-toggle="tooltip"]').tooltip();
-		}
+		},
 	};
 </script>
 

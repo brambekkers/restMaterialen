@@ -9,7 +9,12 @@
 			</p>
 			<p>
 				<a href="#" class="btn btn-primary my-2">Reserveer</a>
-				<a href="#" class="btn btn-secondary my-2">Doneer</a>
+				<router-link
+					href="#"
+					class="btn btn-secondary my-2"
+					to="/donate"
+					>Doneer</router-link
+				>
 			</p>
 		</div>
 	</section>
