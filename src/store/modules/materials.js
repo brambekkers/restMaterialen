@@ -5,9 +5,7 @@ export default {
         materials: null
     },
     getters: {
-        materials(state) {
-            return state.materials;
-        }
+        materials: (s) => s.materials
     },
     mutations: {
         unit({}, string) {

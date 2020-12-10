@@ -1,8 +1,23 @@
 export default {
-    state: {},
-    getters: {},
+    state: {
+        payments: null
+    },
+    getters: {
+        payments: (s) => s.payments
+    },
     mutations: {},
     actions: {
+        async paymentListner({ state, getters }) {
+            getters.db.collection("Payments").onSnapshot((payments) => {
+                state.payments = [];
+                payments.forEach((payment) => {
+                    state.payments.push({
+                        ...payment.data(),
+                        id: payment.id
+                    });
+                });
+            });
+        },
         registerPayment({ getters, dispatch }, reservation) {
             return new Promise(async (resolve, reject) => {
                 try {
@@ -20,7 +35,6 @@ export default {
                         amount: reservation.amount,
                         registeredBy: getters.auth.currentUser.uid
                     });
-
 
                     // Update PayID from material (localy)
                     material.reservations[reservation.uid].payID = payment.id;

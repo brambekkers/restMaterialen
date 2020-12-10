@@ -288,13 +288,15 @@ router.beforeEach(async (to, from, next) => {
     // Check if your logged in
     if (requiresRight) {
         const user = await firebase.getCurrentUser();
-        const token = await user.getIdTokenResult(true);
-        if (requiresRight === "editor" && !(token.claims.editor || token.claims.admin)) {
-            next("/");
-        }
+        if (user) {
+            const token = await user.getIdTokenResult(true);
+            if (requiresRight === "editor" && !(token.claims.editor || token.claims.admin)) {
+                next("/");
+            }
 
-        if (requiresRight === "admin" && !token.claims.admin) {
-            next("/");
+            if (requiresRight === "admin" && !token.claims.admin) {
+                next("/");
+            }
         }
     }
     // Check if your logged in

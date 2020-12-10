@@ -8,11 +8,10 @@
 				vaak nog goed gebruiken.
 			</p>
 			<p>
-				<a href="#" class="btn btn-primary my-2">Reserveer</a>
-				<router-link
-					href="#"
-					class="btn btn-secondary my-2"
-					to="/donate"
+				<router-link to="/profile" class="btn btn-primary my-2"
+					>Reserveringen</router-link
+				>
+				<router-link class="btn btn-secondary my-2" to="/donate"
 					>Doneer</router-link
 				>
 			</p>

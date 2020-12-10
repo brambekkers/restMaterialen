@@ -70,6 +70,32 @@ exports.changeRole = functions.https.onCall(({ id, admin, editor }, context) => 
     });
 });
 
+// Delete users from db en auth
+exports.deleteUser = functions.https.onCall(({ id }, context) => {
+    return new Promise((resolve, reject) => {
+        if (context.auth.token.admin) {
+            // Delete database
+            db.doc(`Users/${id}`)
+                .delete()
+                .then(() => {
+                    // Delete Auth
+                    auth.deleteUser(id)
+                        .then(() => {
+                            resolve("Successfully deleted user");
+                        })
+                        .catch((error) => {
+                            reject(new functions.https.HttpsError("error", `Error deleting user auth: ${error}`));
+                        });
+                })
+                .catch((error) => {
+                    reject(new functions.https.HttpsError("error", `Error deleting user database: ${error}`));
+                });
+        } else {
+            reject(new functions.https.HttpsError("unauthenticated", "Request not authorized. User must be a admin to fulfull request."));
+        }
+    });
+});
+
 exports.scheduledFunction = functions.pubsub.schedule("every 3 hours").onRun(async (context) => {
     const snapshot = await db.collection("Materials").get();
     const materialsArray = snapshot.docs.map((doc) => doc.data());

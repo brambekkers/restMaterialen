@@ -1,8 +1,5 @@
 <template>
-	<tr
-		class="item"
-		@click="toItem"
-	>
+	<tr class="item">
 		<td>{{ user.id }}</td>
 		<td>{{ user.email }}</td>
 		<td>{{ user.firstName }} {{ user.lastName }}</td>
@@ -14,6 +11,7 @@
 				data-toggle="tooltip"
 				data-placement="top"
 				title="Bekijk gebruiker"
+				@click="toItem"
 			>
 				<i class="fa fa-user"></i>
 			</button>
@@ -34,6 +32,7 @@
 				data-toggle="tooltip"
 				data-placement="top"
 				title="Verwijder gebruiker"
+				@click="deleteUser"
 			>
 				<i class="fa fa-times"></i>
 			</button>
@@ -42,19 +41,52 @@
 </template>
 
 <script>
-export default {
-	props: ["user"],
-	methods: {
-		toItem() {
-			this.$router.push(`${this.$route.fullPath}/${this.user.id}`);
-		}
-	},
-	mounted() {
-		$(() => {
-			$('[data-toggle="tooltip"]').tooltip();
-		});
-	}
-};
+	export default {
+		props: ["user"],
+		computed: {
+			uid() {
+				return this.$store.getters.user.id;
+			},
+		},
+		methods: {
+			toItem() {
+				this.$router.push(`${this.$route.fullPath}/${this.user.id}`);
+			},
+			async deleteUser() {
+				if (this.user.id === this.uid) {
+					this.$store.dispatch("alert", {
+						type: "warning",
+						msg: {
+							title: "Dit kan niet",
+							text: "Je kunt je eigen account niet verwijderen",
+						},
+					});
+					return;
+				}
+				try {
+					await this.$store.dispatch("alert", {
+						type: "confirm",
+						msg: {
+							title: "Gebruiker verwijderen?",
+							text:
+								"Weet je zeker dat je deze gebruiker wilt verwijderen? Wanneer je deze gebruiker verwijderd kan dit niet meer ongedaan worden gemaakt.",
+						},
+					});
+					this.$store.dispatch("deleteUserAsAdmin", this.user.id);
+				} catch (err) {
+					this.$store.dispatch("notification", {
+						style: "error",
+						msg: err,
+					});
+				}
+			},
+		},
+		mounted() {
+			$(() => {
+				$('[data-toggle="tooltip"]').tooltip();
+			});
+		},
+	};
 </script>
 
 <style lang="scss" scoped>

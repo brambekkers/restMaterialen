@@ -23,9 +23,6 @@
 									href="#active"
 									role="tablist"
 								>
-									<i
-										class="now-ui-icons objects_umbrella-13"
-									></i>
 									Actief
 								</a>
 							</li>
@@ -36,7 +33,6 @@
 									href="#reservated"
 									role="tablist"
 								>
-									<i class="now-ui-icons shopping_shop"></i>
 									Gereserveerd
 								</a>
 							</li>
@@ -47,9 +43,6 @@
 									href="#archive"
 									role="tablist"
 								>
-									<i
-										class="now-ui-icons ui-2_settings-90"
-									></i>
 									Betaald
 								</a>
 							</li>
@@ -79,14 +72,7 @@
 								</p>
 							</div>
 							<div class="tab-pane" id="archive">
-								Completely synergize resource taxing
-								relationships via premier niche markets.
-								Professionally cultivate one-to-one customer
-								service with robust ideas.
-								<br />
-								<br />Dynamically innovate resource-leveling
-								customer service for state of the art customer
-								service.
+								<PaymentList :payments="payments" />
 							</div>
 						</div>
 					</div>
@@ -98,22 +84,22 @@
 
 <script>
 	import MaterialsListAdmin from "@/components/dashboard/materials/MaterialsListAdmin.vue";
+	import PaymentList from "@/components/dashboard/materials/PaymentList.vue";
 	import Search from "@/components/Search.vue";
+	import { mapGetters } from "vuex";
 
 	export default {
 		name: "Materials",
-		components: { MaterialsListAdmin, Search },
+		components: { MaterialsListAdmin, PaymentList, Search },
 		data() {
 			return {
 				searchText: "",
 			};
 		},
 		computed: {
+			...mapGetters(["materials", "payments"]),
 			searchTags() {
 				return this.searchText.split(" ").filter((a) => a != "");
-			},
-			materials() {
-				return this.$store.getters.materials;
 			},
 			filteredMaterials() {
 				if (this.materials) {

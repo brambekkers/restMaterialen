@@ -41,6 +41,10 @@ export default {
                     Vue.set(state.user, "admin", idTokenResult.claims.admin);
                     Vue.set(state.user, "editor", idTokenResult.claims.editor);
 
+                    if (idTokenResult.claims.admin) {
+                        dispatch("paymentListner");
+                    }
+
                     // Update user to set last time login
                     Vue.set(state.user, "metadata", getters.auth.currentUser.metadata);
                     dispatch("updateUser", state.user);
@@ -138,6 +142,17 @@ export default {
                 try {
                     await getters.db.doc(`Users/${id}`).delete();
                     await getters.auth.currentUser.delete();
+                    resolve();
+                } catch (err) {
+                    reject(err);
+                }
+            });
+        },
+        async deleteUserAsAdmin({ getters }, id) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const deleteUserFunction = await getters.functions.httpsCallable("deleteUser");
+                    await deleteUserFunction({ id });
                     resolve();
                 } catch (err) {
                     reject(err);
