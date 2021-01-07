@@ -95,11 +95,11 @@
 			</div>
 			<div class="form-group" v-if="material.price && material.unitAmount">
 				<label
-					>(Prijs per {{ material.unitAmount }} {{ material.priceUnit }})</label
+					>(Prijs per {{ material.unitAvalible }} {{ material.priceUnit }})</label
 				>
-				Totale prijs voor dit onderdeel:
+				Totale prijs voor de beschikbare onderdelen:
 				<h5 class="ml-5 title mt-0 ">
-					{{ material.price * material.unitAmount }} euro
+					{{ material.price * material.unitAvalible }} euro
 				</h5>
 			</div>
 		</div>
