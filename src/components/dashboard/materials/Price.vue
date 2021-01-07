@@ -33,56 +33,70 @@
 					>
 						<option class="bs-title-option" :value="null" hidden disabled></option>
 						<optgroup label="Losse producten">
-							<option value="Per stuk">Per stuk</option>
-							<option value="Per rol">Per rol</option>
-							<option value="Per meter">Per meter</option>
+							<option value="stuk">Per stuk</option>
+							<option value="rol">Per rol</option>
+							<option value="meter">Per meter</option>
 						</optgroup>
 						<optgroup label="Plaatmateriaal">
-							<option value="Per plaat">Per plaat</option>
-							<option value="Per halve plaat">Per halve plaat</option>
-							<option value="Per kwart plaat">Per kwart plaat</option>
+							<option value="plaat">Per plaat</option>
+							<option value="halve plaat">Per halve plaat</option>
+							<option value="kwart plaat">Per kwart plaat</option>
 						</optgroup>
 						<!-- <option value="Per m3">Per m3</option> -->
 						<!-- <option value="Per m2">Per m2</option> -->
 					</select>
 				</div>
 				<!-- Amount -->
-				<div
-					class="col form-group"
-					v-if="this.unit != 'plaat' && this.unit != 'stuk' && this.unit != 'rol'"
-				>
-					<label>Dit materiaal (één stuk) bestaat uit hoeveel {{ unit }}?</label>
+				<template v-if="material.priceUnit && !edit">
+					<div class="col form-group" v-if="material.priceUnit === 'meter'">
+						<label
+							>Dit materiaal (één stuk) bestaat uit hoeveel
+							{{ material.priceUnit }}?</label
+						>
+						<input
+							type="number"
+							v-model.number="material.unitAmount"
+							placeholder="Aantal stuks uit dit materiaal"
+							class="form-control border-input "
+							required
+							min="1"
+						/>
+					</div>
+					<!-- Amount -->
+					<div class="col form-group" v-else>
+						<label>Hoeveel stuk heb je van deze {{ material.priceUnit }}?</label>
+						<input
+							type="number"
+							v-model.number="material.unitAmount"
+							placeholder="Aantal stuks"
+							class="form-control border-input "
+							required
+							min="1"
+						/>
+					</div>
+				</template>
+				<!-- Amount left-->
+				<div class="col-md-6 col-xl form-group" v-if="edit">
+					<label
+						>Hoeveel {{ material.priceUnit }} is er nog over van de
+						{{ material.unitAmount }}</label
+					>
+
 					<input
 						type="number"
-						v-model.number="material.unitAmount"
-						placeholder="Aantal stuks uit dit materiaal"
+						v-model.number="material.unitAvalible"
+						placeholder="Aantal stuks nog beschikbaar"
 						class="form-control border-input "
 						required
-						min="1"
+						min="0"
+						:max="material.unitAmount"
 					/>
-				</div>
-				<!-- Amount left-->
-				<div class="col-md-6 col-xl-6 form-group" v-if="edit">
-					<label
-						>Hoeveel {{ unit }} is er nog over van de {{ material.unitAmount }}</label
-					>
-					<div class="row">
-						<div class="col-6 col-md-10 col-xl-8">
-							<input
-								type="number"
-								v-model.number="material.unitAvalible"
-								placeholder="Aantal stuks nog beschikbaar"
-								class="form-control border-input "
-								required
-								min="0"
-								:max="material.unitAmount"
-							/>
-						</div>
-					</div>
 				</div>
 			</div>
 			<div class="form-group" v-if="material.price && material.unitAmount">
-				<label>(Prijs per {{ material.unitAmount }} {{ unit }})</label>
+				<label
+					>(Prijs per {{ material.unitAmount }} {{ material.priceUnit }})</label
+				>
 				Totale prijs voor dit onderdeel:
 				<h5 class="ml-5 title mt-0 ">
 					{{ material.price * material.unitAmount }} euro
@@ -98,24 +112,6 @@ import Information from "@/components/Information";
 export default {
 	components: { Information },
 	props: ["material", "edit"],
-	watch: {
-		unit() {
-			this.$set(this.material, "unit", this.unit);
-			if (this.unit === "plaat" || this.unit === "stuk" || this.unit === "rol") {
-				this.material.unitAmount = 1;
-			}
-		},
-	},
-	computed: {
-		unit() {
-			if (this.material.priceUnit) {
-				const unit = this.material.priceUnit.split(" ")[1];
-				if (unit === "deel") return "delen";
-				return unit;
-			}
-			return "eenheden";
-		},
-	},
 	data() {
 		return {
 			info: {
