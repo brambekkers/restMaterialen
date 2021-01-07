@@ -1,4 +1,3 @@
-import Vue from "vue";
 import * as firebase from "firebase";
 
 export default {
@@ -30,23 +29,27 @@ export default {
             return state.user && state.user.admin;
         }
     },
-    mutations: {},
+    mutations: {
+        admins(state, val) {
+            state.user.length ? state.users.filter((u) => u.admin) : [];
+        }
+    },
     actions: {
         userListner({ state, getters, commit, dispatch }) {
             getters.auth.onAuthStateChanged(async (user) => {
-                const dbUser = user ? await dispatch("getUserFromDatabase", user) : null;
-                Vue.set(state, "user", dbUser);
+                state.user = user ? await dispatch("getUserFromDatabase", user) : null;
                 if (user) {
                     const idTokenResult = await getters.auth.currentUser.getIdTokenResult(true);
-                    Vue.set(state.user, "admin", idTokenResult.claims.admin);
-                    Vue.set(state.user, "editor", idTokenResult.claims.editor);
+                    state.user.admin = idTokenResult.claims.admin;
+                    state.user.editor = idTokenResult.claims.editor;
 
                     if (idTokenResult.claims.admin) {
                         dispatch("paymentListner");
                     }
 
                     // Update user to set last time login
-                    Vue.set(state.user, "metadata", getters.auth.currentUser.metadata);
+                    state.user.metadata = getters.auth.currentUser.metadata;
+
                     dispatch("updateUser", state.user);
                 }
             });
@@ -161,7 +164,7 @@ export default {
         async getUsers({ state, getters }) {
             if (getters.db) {
                 getters.db.collection("Users").onSnapshot((users) => {
-                    Vue.set(state, "users", []);
+                    state.users = [];
 
                     users.forEach((user) => {
                         state.users.push(user.data());

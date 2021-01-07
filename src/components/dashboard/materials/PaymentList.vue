@@ -34,8 +34,13 @@
 </template>
 
 <script>
+	import { mapGetters } from "vuex";
+
 	export default {
-		props: ["payments", "isAdmin"],
+		props: ["payments"],
+		computed: {
+			...mapGetters(["isAdmin"]),
+		},
 		methods: {
 			toTime(timestamp) {
 				return timestamp.toDate();

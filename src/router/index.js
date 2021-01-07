@@ -1,8 +1,7 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 // import store from "@/store";
 
-import firebase from "firebase";
+import firebase from "firebase/app";
 
 // Pages
 import Landing from "../views/Landing.vue";
@@ -33,10 +32,8 @@ import UserRights from "../views/dashboard/users/Rights.vue";
 
 import Options from "../views/dashboard/Options.vue";
 
-Vue.use(VueRouter);
-
 const routes = [
-    { path: "*", component: Landing },
+    { path: "/:pathMatch(.*)*", name: "not-found", component: Landing },
     {
         path: "/",
         name: "Landing",
@@ -288,7 +285,8 @@ const routes = [
     }
 ];
 
-const router = new VueRouter({
+const router = new createRouter({
+    history: createWebHistory(process.env.BASE_URL),
     mode: "history",
     routes
 });

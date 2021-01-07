@@ -40,7 +40,7 @@
 								<a
 									class="nav-link"
 									data-toggle="tab"
-									href="#archive"
+									href="#payments"
 									role="tablist"
 								>
 									Betaald
@@ -59,7 +59,10 @@
 							<div class="tab-pane" id="reservated">
 								<div
 									class="card border"
-									v-if="reservatedMaterials"
+									v-if="
+										reservatedMaterials &&
+										reservatedMaterials.length
+									"
 								>
 									<MaterialsListAdmin
 										:materials="reservatedMaterials"
@@ -71,7 +74,7 @@
 									afgerond.
 								</p>
 							</div>
-							<div class="tab-pane" id="archive">
+							<div class="tab-pane" id="payments">
 								<div class="card border">
 									<PaymentList :payments="payments" />
 								</div>

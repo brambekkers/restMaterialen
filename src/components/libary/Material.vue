@@ -1,14 +1,18 @@
 <template>
 	<tr class="item" @click="toItem" v-if="material.unitAvalible > 0">
 		<td>
-			<MaterialThumbnail :images="material.images" :width="50" :height="50" />
+			<MaterialThumbnail
+				:images="material.images"
+				:width="50"
+				:height="50"
+			/>
 		</td>
 		<td>{{ material.name }}</td>
 		<td>{{ material.type }}</td>
 		<td>{{ material.length }}</td>
 		<td>{{ material.width }}</td>
 		<td>{{ material.thickness }}</td>
-		<td>{{ material.price }} {{ material.priceUnit }}</td>
+		<td>€{{ material.price }} per {{ material.priceUnit }}</td>
 	</tr>
 </template>
 
@@ -21,8 +25,8 @@
 		methods: {
 			toItem() {
 				this.$router.push(`${this.$route.fullPath}/${this.material.id}`);
-			}
-		}
+			},
+		},
 	};
 </script>
 

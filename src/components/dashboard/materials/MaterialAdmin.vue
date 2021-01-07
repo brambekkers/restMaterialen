@@ -14,11 +14,11 @@
 			{{ material.thickness }}
 		</td>
 		<td>
-			{{ material.price }} euro {{ material.priceUnit.toLowerCase() }}
+			{{ material.price }} euro per {{ material.priceUnit.toLowerCase() }}
 		</td>
 		<td class="text-center">
 			{{ material.unitAvalible }} / {{ material.unitAmount }}
-			{{ material.unit }}
+			{{ unit }}
 		</td>
 		<td class="text-right">
 			<router-link
@@ -64,6 +64,13 @@
 	export default {
 		props: ["material"],
 		components: { MaterialThumbnail },
+		computed: {
+			unit() {
+				if (this.material.unitAvalible > 1) {
+					return this.material.priceUnit.replace("plaat", "platen");
+				}
+			},
+		},
 		methods: {
 			async deleteButton() {
 				try {
