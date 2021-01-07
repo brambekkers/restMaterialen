@@ -137,16 +137,15 @@ export default {
                 }
             });
         },
-        async deleteUser({ getters }, id) {
-            return new Promise(async (resolve, reject) => {
-                try {
-                    await getters.db.doc(`Users/${id}`).delete();
-                    await getters.auth.currentUser.delete();
-                    resolve();
-                } catch (err) {
-                    reject(err);
-                }
-            });
+        async deleteUser({ getters, dispatch }, id) {
+            try {
+                await dispatch("reauthenticateAlert");
+                await getters.db.doc(`Users/${id}`).delete();
+                await getters.auth.currentUser.delete();
+                return true;
+            } catch (err) {
+                throw err;
+            }
         },
         async deleteUserAsAdmin({ getters }, id) {
             return new Promise(async (resolve, reject) => {

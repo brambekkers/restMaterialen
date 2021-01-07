@@ -16,25 +16,45 @@
 								data-style="btn-neutral border"
 								v-model="selectedEditorID"
 							>
-								<option selected disabled hidden>Choose...</option>
+								<option selected disabled hidden>
+									Choose...
+								</option>
 								<option
 									v-for="user of users"
 									:key="user.id"
 									:value="user.id"
-								>{{ user.firstName }} {{ user.lastName }}</option>
+								>
+									{{ user.firstName }} {{ user.lastName }}
+								</option>
 							</select>
 						</div>
 						<button
 							class="btn btn-default d-block mt-0 ml-auto"
 							@click="changeRole('editor', true)"
-						>Maak beheerder</button>
+						>
+							Maak beheerder
+						</button>
 						<table class="table table-sm tabel-hover">
 							<tbody>
 								<tr v-for="user of editors" :key="user.id">
-									<th scope="row">{{ user.firstName }} {{ user.lastName }}</th>
+									<th scope="row">
+										{{ user.firstName }} {{ user.lastName }}
+									</th>
 									<td>
-										<button class="close" aria-label="Close" @click="changeRole('editor', false, user.id)">
-											<span aria-hidden="true">&times;</span>
+										<button
+											class="close"
+											aria-label="Close"
+											@click="
+												changeRole(
+													'editor',
+													false,
+													user.id
+												)
+											"
+										>
+											<span aria-hidden="true"
+												>&times;</span
+											>
 										</button>
 									</td>
 								</tr>
@@ -62,20 +82,38 @@
 									v-for="user of users"
 									:key="user.id"
 									:value="user.id"
-								>{{ user.firstName }} {{ user.lastName }}</option>
+								>
+									{{ user.firstName }} {{ user.lastName }}
+								</option>
 							</select>
 						</div>
 						<button
 							class="btn btn-default d-block mt-0 ml-auto"
 							@click="changeRole('admin', true)"
-						>Maak admin</button>
+						>
+							Maak admin
+						</button>
 						<table class="table table-sm tabel-hover">
 							<tbody>
 								<tr v-for="user of admins" :key="user.id">
-									<th scope="row">{{ user.firstName }} {{ user.lastName }}</th>
+									<th scope="row">
+										{{ user.firstName }} {{ user.lastName }}
+									</th>
 									<td>
-										<button class="close" aria-label="Close" @click="changeRole('admin', false, user.id)">
-											<span aria-hidden="true">&times;</span>
+										<button
+											class="close"
+											aria-label="Close"
+											@click="
+												changeRole(
+													'admin',
+													false,
+													user.id
+												)
+											"
+										>
+											<span aria-hidden="true"
+												>&times;</span
+											>
 										</button>
 									</td>
 								</tr>
@@ -98,7 +136,7 @@
 			return {
 				loading: false,
 				selectedEditorID: "",
-				selectedAdminID: ""
+				selectedAdminID: "",
 			};
 		},
 		components: { Loading },
@@ -108,7 +146,7 @@
 			},
 			admins() {
 				if (this.admins.length) $(".selectpicker").selectpicker();
-			}
+			},
 		},
 		computed: {
 			currentUser() {
@@ -122,7 +160,7 @@
 			},
 			admins() {
 				return this.$store.getters.admins;
-			}
+			},
 		},
 		methods: {
 			async changeRole(type, bool, removeID) {
@@ -140,8 +178,8 @@
 						style: "error",
 						msg: {
 							code: "Geen toegang",
-							message: "Je kunt niet je eigen admin rol aanpassen."
-						}
+							message: "Je kunt niet je eigen admin rol aanpassen.",
+						},
 					});
 				}
 
@@ -151,8 +189,8 @@
 						style: "warning",
 						msg: {
 							title: "Niets geselecteerd",
-							text: "Je hebt geen gebruiker geselecteerd."
-						}
+							text: "Je hebt geen gebruiker geselecteerd.",
+						},
 					});
 				}
 
@@ -161,16 +199,15 @@
 					await this.$store.dispatch("changeRole", {
 						id: id,
 						admin: type === "admin" ? bool : this.isAdmin(id),
-						editor: type === "editor" ? bool : this.isEditor(id)
+						editor: type === "editor" ? bool : this.isEditor(id),
 					});
-					console.log("done");
 				} catch (err) {
 					this.$store.dispatch("notification", {
 						style: "error",
 						msg: {
 							code: err.code,
-							message: err.message
-						}
+							message: err.message,
+						},
 					});
 				}
 			},
@@ -179,7 +216,7 @@
 			},
 			isAdmin(id) {
 				if (this.admins) {
-					return this.admins.filter(e => e.id === id).length > 0
+					return this.admins.filter((e) => e.id === id).length > 0
 						? true
 						: false;
 				}
@@ -187,12 +224,12 @@
 			},
 			isEditor(id) {
 				if (this.editors) {
-					return this.editors.filter(e => e.id === id).length > 0
+					return this.editors.filter((e) => e.id === id).length > 0
 						? true
 						: false;
 				}
 				return false;
-			}
+			},
 		},
 		mounted() {
 			setTimeout(() => {
@@ -201,6 +238,6 @@
 					$(".selectpicker").selectpicker();
 				}
 			}, 500);
-		}
+		},
 	};
 </script>

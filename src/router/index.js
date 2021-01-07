@@ -238,18 +238,6 @@ const routes = [
         }
     },
     {
-        path: "/dashboard/users/:uid",
-        name: "User details",
-        component: Profile,
-        meta: {
-            requiresAuth: true,
-            requiresRight: "admin",
-            transitionEnter: "animated slideInRight",
-            transitionLeave: "animated slideOutLeft",
-            template: "back"
-        }
-    },
-    {
         path: "/dashboard/users/add",
         name: "Voeg gebruiker toe",
         component: AddUser,
@@ -265,6 +253,18 @@ const routes = [
         path: "/dashboard/users/rights",
         name: "Gebruikersrechten",
         component: UserRights,
+        meta: {
+            requiresAuth: true,
+            requiresRight: "admin",
+            transitionEnter: "animated slideInRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "back"
+        }
+    },
+    {
+        path: "/dashboard/users/details/:uid",
+        name: "User details",
+        component: Profile,
         meta: {
             requiresAuth: true,
             requiresRight: "admin",

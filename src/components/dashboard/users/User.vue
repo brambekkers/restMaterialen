@@ -50,7 +50,9 @@
 		},
 		methods: {
 			toItem() {
-				this.$router.push(`${this.$route.fullPath}/${this.user.id}`);
+				this.$router.push(
+					`${this.$route.fullPath}/details/${this.user.id}`
+				);
 			},
 			async deleteUser() {
 				if (this.user.id === this.uid) {
