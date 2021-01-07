@@ -6,7 +6,7 @@
 		</div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-8 col-xl-5">
+				<div class="col-12 col-xl-5">
 					<div class="form-group">
 						<label>Naam</label>
 						<input
@@ -19,7 +19,7 @@
 					</div>
 				</div>
 				<!-- TYPE -->
-				<div class="col-4 col-xl-3 form-group">
+				<div class="col-6 col-xl-3 form-group">
 					<label>Type</label>
 					<select
 						class="selectpicker form-control border-input show-tick"
@@ -28,11 +28,7 @@
 						required
 						title="Selecteer..."
 					>
-						<option
-							class="bs-title-option"
-							:value="null"
-							hidden
-						>Selecteer...</option>
+						<option class="bs-title-option" :value="null" hidden>Selecteer...</option>
 						<option value="Plaatmateriaal">Plaatmateriaal</option>
 						<option value="Massief hout">Massief hout</option>
 						<option value="Meubelstoffen">Meubelstoffen</option>
@@ -40,7 +36,7 @@
 					</select>
 				</div>
 
-				<div class="col-8 col-xl-4">
+				<div class="col-6 col-xl-4">
 					<div class="form-group">
 						<label>Herkomst</label>
 						<input
@@ -55,7 +51,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col-sm-3">
+				<div class="col-sm">
 					<div class="form-group">
 						<label>Lengte</label>
 						<input
@@ -68,7 +64,7 @@
 						/>
 					</div>
 				</div>
-				<div class="col-sm-3">
+				<div class="col-sm">
 					<div class="form-group">
 						<label>Breedte</label>
 						<input
@@ -81,29 +77,13 @@
 						/>
 					</div>
 				</div>
-				<div class="col-sm-3">
+				<div class="col-sm">
 					<div class="form-group">
 						<label>Dikte</label>
 						<input
 							type="number"
 							v-model.number="material.thickness"
 							placeholder="Dikte"
-							class="form-control"
-							min="1"
-							required
-						/>
-					</div>
-				</div>
-				<div
-					class="col-sm-3"
-					v-if="isNewMaterial"
-				>
-					<div class="form-group">
-						<label>Aantal</label>
-						<input
-							type="number"
-							v-model.number="amount"
-							placeholder="Aantal"
 							class="form-control"
 							min="1"
 							required
@@ -122,11 +102,11 @@
 							placeholder="Omschrijving van het materiaal"
 							class="form-control border-input"
 						/>
-						</div>
-                </div>
-            </div>
-        </div>
-    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -149,14 +129,14 @@ export default {
 
 				<b>Let op:</b> Wanneer je bij het aantal meer dan één invult komen er ook meerdere materialen in de database. 
 				Elk materiaal is dus een uniek stuk. Wil je het materiaal in stukken verkopen dat doe je dat <b>niet hier<b> maar bij de prijs
-				</div>`
-			}
+				</div>`,
+			},
 		};
 	},
-	props: ["material", "amount", "isNewMaterial"],
+	props: ["material", "isNewMaterial"],
 	updated() {
 		$(".selectpicker").selectpicker();
-	}
+	},
 };
 </script>
 

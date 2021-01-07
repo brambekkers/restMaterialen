@@ -1,98 +1,122 @@
 <template>
-    <div class="card">
-        <div class="card-header d-flex">
-            <h4 class="card-title mb-0">Prijs</h4>
-            <Information :info="info" />
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <!-- Price -->
-                <div class="col-sm-6 col-md-3">
-                    <div class="form-group">
-                        <label>Prijs</label>
-                        <input type="number" v-model.number="material.price" step="any" min="1" placeholder="Wat is de prijs" class="form-control border-input" required />
-                    </div>
-                </div>
-                <!-- Type -->
-                <div class="col-sm-6 col-md-3 form-group">
-                    <label>Eenheid</label>
-                    <select class="selectpicker form-control border-input show-tick" data-style="btn btn-neutral btn-block mt-0 border " v-model="material.priceUnit" required title="Selecteer...">
-                        <option class="bs-title-option" :value="null" hidden disabled></option>
+	<div class="card">
+		<div class="card-header d-flex">
+			<h4 class="card-title mb-0">Prijs</h4>
+			<Information :info="info" />
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<!-- Price -->
+				<div class="col-sm-6 col-md-3">
+					<div class="form-group">
+						<label>Prijs</label>
+						<input
+							type="number"
+							v-model.number="material.price"
+							step="any"
+							min="1"
+							placeholder="Wat is de prijs"
+							class="form-control border-input"
+							required
+						/>
+					</div>
+				</div>
+				<!-- Type -->
+				<div class="col-sm-6 col-md-3 form-group">
+					<label>Eenheid</label>
+					<select
+						class="selectpicker form-control border-input show-tick"
+						data-style="btn btn-neutral btn-block mt-0 border "
+						v-model="material.priceUnit"
+						required
+						title="Selecteer..."
+					>
+						<option class="bs-title-option" :value="null" hidden disabled></option>
+						<optgroup label="Losse producten">
+							<option value="stuk">Per stuk</option>
+							<option value="rol">Per rol</option>
+							<option value="meter">Per meter</option>
+						</optgroup>
+						<optgroup label="Plaatmateriaal">
+							<option value="plaat">Per plaat</option>
+							<option value="halve plaat">Per halve plaat</option>
+							<option value="kwart plaat">Per kwart plaat</option>
+						</optgroup>
+						<!-- <option value="Per m3">Per m3</option> -->
+						<!-- <option value="Per m2">Per m2</option> -->
+					</select>
+				</div>
+				<!-- Amount -->
+				<template v-if="material.priceUnit && !edit">
+					<div class="col form-group" v-if="material.priceUnit === 'meter'">
+						<label
+							>Dit materiaal (één stuk) bestaat uit hoeveel
+							{{ material.priceUnit }}?</label
+						>
+						<input
+							type="number"
+							v-model.number="material.unitAmount"
+							placeholder="Aantal stuks uit dit materiaal"
+							class="form-control border-input "
+							required
+							min="1"
+						/>
+					</div>
+					<!-- Amount -->
+					<div class="col form-group" v-else>
+						<label>Hoeveel stuk heb je van deze {{ material.priceUnit }}?</label>
+						<input
+							type="number"
+							v-model.number="material.unitAmount"
+							placeholder="Aantal stuks"
+							class="form-control border-input "
+							required
+							min="1"
+						/>
+					</div>
+				</template>
+				<!-- Amount left-->
+				<div class="col-md-6 col-xl form-group" v-if="edit">
+					<label
+						>Hoeveel {{ material.priceUnit }} is er nog over van de
+						{{ material.unitAmount }}</label
+					>
 
-                        <option value="Per stuk">Per stuk</option>
-                        <option value="Per meter">Per meter</option>
-                        <option value="Per m3">Per m3</option>
-                        <option value="Per plaat">Per plaat</option>
-                        <option value="Per m2">Per m2</option>
-                        <option value="Per deel">Per deel</option>
-                        <option value="Per rol">Per rol</option>
-                    </select>
-                </div>
-                <!-- Amount -->
-                <div class="col-md-6 col-xl-6 form-group" v-if="this.unit != 'plaat' && this.unit != 'stuk' && this.unit != 'rol'">
-                    <label>Dit materiaal (één stuk) bestaat uit hoeveel {{ unit }}?</label>
-                    <div class="row">
-                        <div class="col-6 col-md-10 col-xl-8">
-                            <input type="number" v-model.number="material.unitAmount" placeholder="Aantal stuks uit dit materiaal" class="form-control border-input " required min="1" />
-                        </div>
-                    </div>
-                </div>
-                <!-- Amount left-->
-                <div class="col-md-6 col-xl-6 form-group" v-if="edit">
-                    <label>Hoeveel {{ unit }} is er nog over van de {{ material.unitAmount }}</label>
-                    <div class="row">
-                        <div class="col-6 col-md-10 col-xl-8">
-                            <input
-                                type="number"
-                                v-model.number="material.unitAvalible"
-                                placeholder="Aantal stuks nog beschikbaar"
-                                class="form-control border-input "
-                                required
-                                min="0"
-                                :max="material.unitAmount"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group" v-if="material.price && material.unitAmount">
-                <label>(Prijs per {{ material.unitAmount }} {{ unit }})</label>
-                Totale prijs voor dit onderdeel:
-                <h5 class="ml-5 title mt-0 ">{{ material.price * material.unitAmount }} euro</h5>
-            </div>
-        </div>
-    </div>
+					<input
+						type="number"
+						v-model.number="material.unitAvalible"
+						placeholder="Aantal stuks nog beschikbaar"
+						class="form-control border-input "
+						required
+						min="0"
+						:max="material.unitAmount"
+					/>
+				</div>
+			</div>
+			<div class="form-group" v-if="material.price && material.unitAmount">
+				<label
+					>(Prijs per {{ material.unitAvalible }} {{ material.priceUnit }})</label
+				>
+				Totale prijs voor de beschikbare onderdelen:
+				<h5 class="ml-5 title mt-0 ">
+					{{ material.price * material.unitAvalible }} euro
+				</h5>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
 import Information from "@/components/Information";
 
 export default {
-    components: { Information },
-    props: ["material", "edit"],
-    watch: {
-        unit() {
-            this.$set(this.material, "unit", this.unit);
-            if (this.unit === "plaat" || this.unit === "stuk" || this.unit === "rol") {
-                this.material.unitAmount = 1;
-            }
-        }
-    },
-    computed: {
-        unit() {
-            if (this.material.priceUnit) {
-                const unit = this.material.priceUnit.split(" ")[1];
-                if (unit === "deel") return "delen";
-                return unit;
-            }
-            return "eenheden";
-        }
-    },
-    data() {
-        return {
-            info: {
-                title: "Prijs informatie",
-                msg: `
+	components: { Information },
+	props: ["material", "edit"],
+	data() {
+		return {
+			info: {
+				title: "Prijs informatie",
+				msg: `
                 <div class="text-left">
                 Bij dit blok geef je de gebruiker informatie over de prijs van het materiaal en de afnamehoeveelheid. 
                 Het is hierbij belangrijk dat je besluit hoeveel de gebruiker mag/kan afnemen.<br><br>
@@ -106,21 +130,21 @@ export default {
                 Daarna geef je aan dat er 50 eenheden uit het totaal kunnen worden gehaald.<br><br>
 
                 Het is dus belangrijk dat in dit formulier de prijs, éénheid en het totaal moet worden aangegeven. Controleer de waardes goed.
-                </div>`
-            }
-        };
-    }
+                </div>`,
+			},
+		};
+	},
 };
 </script>
 
 <style lang="scss" scoped>
 .information {
-    font-size: 2.5rem;
+	font-size: 2.5rem;
 
-    &:hover {
-        cursor: pointer;
-        animation: jello; /* referring directly to the animation's @keyframe declaration */
-        animation-duration: 2s; /* don't forget to set a duration! */
-    }
+	&:hover {
+		cursor: pointer;
+		animation: jello; /* referring directly to the animation's @keyframe declaration */
+		animation-duration: 2s; /* don't forget to set a duration! */
+	}
 }
 </style>
