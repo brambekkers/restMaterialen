@@ -164,13 +164,25 @@ export default {
         async getUsers({ state, getters }) {
             if (getters.db) {
                 getters.db.collection("Users").onSnapshot((users) => {
-                    state.users = [];
+                    state.users = {};
 
                     users.forEach((user) => {
-                        state.users.push(user.data());
+                        console.log(user);
+                        state.users[user.id] = user.data();
                     });
                 });
             }
+        },
+        async getUserName({ getters }, id) {
+            let user = null;
+            if (getters.users && Object.values(getters.users).length) {
+                user = getters.users[id];
+            } else {
+                console.log("ik heb nog geen users");
+                const doc = await getters.db.doc(`Users/${id}`).get();
+                user = doc.data();
+            }
+            return user ? `${user.firstName} ${user.lastName}` : "Onbekende gebruiker";
         },
         changeRole({ getters }, obj) {
             return new Promise(async (resolve, reject) => {
