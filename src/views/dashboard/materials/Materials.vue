@@ -133,6 +133,29 @@
 					return this.materials;
 				}
 			},
+			filteredPayments() {
+				if (this.payments) {
+					if (this.searchTags.length) {
+						return this.payments.filter((p) => {
+							for (const tag of this.searchTags) {
+								for (const mTags of m.tags) {
+									if (
+										mTags
+											.toLowerCase()
+											.includes(tag.toLowerCase())
+									) {
+										return true;
+									}
+								}
+								return p.name
+									.toLowerCase()
+									.includes(tag.toLowerCase());
+							}
+						});
+					}
+					return this.materials;
+				}
+			},
 			activeMaterials() {
 				if (this.materials)
 					return this.filteredMaterials.filter((m) => m.unitAvalible);

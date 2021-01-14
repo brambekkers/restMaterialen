@@ -3,7 +3,7 @@ import * as firebase from "firebase";
 export default {
     state: {
         user: null,
-        users: [],
+        users: {},
         roles: {
             editors: [],
             admins: []
@@ -17,10 +17,10 @@ export default {
             return state.users ? state.users : [];
         },
         editors(state) {
-            return state.users.length ? state.users.filter((u) => u.editor) : [];
+            return Object.values(state.users).filter((u) => u.editor);
         },
         admins(state) {
-            return state.users.length ? state.users.filter((u) => u.admin) : [];
+            return Object.values(state.users).filter((u) => u.admin);
         },
         isEditor(state) {
             return state.user && (state.user.editor || state.user.admin);
@@ -30,8 +30,8 @@ export default {
         }
     },
     mutations: {
-        admins(state, val) {
-            state.user.length ? state.users.filter((u) => u.admin) : [];
+        users(state, val) {
+            state.users = { ...state.users, ...val };
         }
     },
     actions: {
@@ -161,14 +161,15 @@ export default {
                 }
             });
         },
-        async getUsers({ state, getters }) {
+        async getUsers({ state, getters, commit }) {
             if (getters.db) {
                 getters.db.collection("Users").onSnapshot((users) => {
                     state.users = {};
 
                     users.forEach((user) => {
-                        console.log(user);
-                        state.users[user.id] = user.data();
+                        const obj = {};
+                        obj[user.id] = user.data();
+                        commit("users", obj);
                     });
                 });
             }
@@ -178,7 +179,6 @@ export default {
             if (getters.users && Object.values(getters.users).length) {
                 user = getters.users[id];
             } else {
-                console.log("ik heb nog geen users");
                 const doc = await getters.db.doc(`Users/${id}`).get();
                 user = doc.data();
             }

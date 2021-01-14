@@ -76,69 +76,9 @@ export default {
                         cancelButtonText: "Nope",
                         cancelButtonClass: "btn btn-default"
                     }).then((result) => {
-                        console.log("test");
                         result.value ? resolve() : reject();
                     });
                 }
-                // else if (type === "notLogedIn") {
-                //     let interval;
-                //     let hasRights = false;
-                //     Swal.fire({
-                //         titleText: `Geen rechten`,
-                //         html: `Je moet ingelogd zijn om deze pagina te bereiken. `,
-                //         width: "70%",
-                //         icon: "error",
-                //         confirmButtonText: "Ik snap het",
-                //         confirmButtonClass: "btn btn-default",
-                //         onBeforeOpen: () => {
-                //             interval = setInterval(() => {
-                //                 if (getters.user) {
-                //                     hasRights = true;
-                //                     Swal.close();
-                //                 }
-                //             }, 100);
-                //         },
-                //         onClose: () => {
-                //             clearInterval(interval);
-                //         }
-                //     }).then(() => {
-                //         if (!hasRights) {
-                //             router.push("/login");
-                //         } else {
-                //             msg.onComplete();
-                //         }
-                //     });
-                // } else if (type === "noPermission") {
-                //     let interval;
-                //     let hasRights = false;
-                //     Swal.fire({
-                //         titleText: `Geen rechten`,
-                //         html: `Het lijkt erop dat je <b>niet</b> de juiste rechten voor deze pagina bezit.`,
-                //         width: "70%",
-                //         icon: "error",
-                //         confirmButtonText: "Ik snap het",
-                //         confirmButtonClass: "btn btn-default",
-                //         onBeforeOpen: () => {
-                //             interval = setInterval(() => {
-                //                 const admin = msg.rightsNeeded === "admin" && getters.isAdmin;
-                //                 const editor = msg.rightsNeeded === "editor" && getters.isEditor;
-                //                 if (admin || editor) {
-                //                     hasRights = true;
-                //                     Swal.close();
-                //                 }
-                //             }, 100);
-                //         },
-                //         onClose: () => {
-                //             clearInterval(interval);
-                //         }
-                //     }).then(() => {
-                //         if (!hasRights) {
-                //             router.push("/");
-                //         } else {
-                //             msg.onComplete();
-                //         }
-                //     });
-                // }
             });
         },
         reauthenticateAlert({ getters }) {

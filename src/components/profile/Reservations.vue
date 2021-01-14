@@ -38,10 +38,8 @@
 									<small
 										>{{ reservation.amount }}
 										{{
-											unit(
-												materialById(reservation.id)
-													.priceUnit
-											)
+											materialById(reservation.id)
+												.priceUnit
 										}}</small
 									>
 								</span>
@@ -87,11 +85,6 @@
 		methods: {
 			materialById(id) {
 				return this.materials.filter((m) => m.id === id)[0];
-			},
-			unit(input) {
-				const unit = input.split(" ")[1];
-				if (unit === "deel") return "delen";
-				return unit.toLowerCase();
 			},
 		},
 	};
