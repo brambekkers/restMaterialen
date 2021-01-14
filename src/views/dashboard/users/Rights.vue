@@ -11,9 +11,7 @@
 						<div class="form-group mb-0">
 							<label>Kies gebruiker</label>
 							<select
-								class="selectpicker form-control"
-								data-live-search="true"
-								data-style="btn-neutral border"
+								class="form-select form-control"
 								v-model="selectedEditorID"
 							>
 								<option selected disabled hidden>
@@ -29,7 +27,7 @@
 							</select>
 						</div>
 						<button
-							class="btn btn-default d-block mt-0 ml-auto"
+							class="btn btn-default d-block mt-0 ms-auto"
 							@click="changeRole('editor', true)"
 						>
 							Maak beheerder
@@ -73,9 +71,7 @@
 						<div class="form-group mb-0">
 							<label>Kies gebruiker</label>
 							<select
-								class="selectpicker form-control"
-								data-live-search="true"
-								data-style="btn-neutral border"
+								class="form-select form-control"
 								v-model="selectedAdminID"
 							>
 								<option
@@ -88,7 +84,7 @@
 							</select>
 						</div>
 						<button
-							class="btn btn-default d-block mt-0 ml-auto"
+							class="btn btn-default d-block mt-0 ms-auto"
 							@click="changeRole('admin', true)"
 						>
 							Maak admin
@@ -140,14 +136,7 @@
 			};
 		},
 		components: { Loading },
-		watch: {
-			editors() {
-				if (this.editors.length) $(".selectpicker").selectpicker();
-			},
-			admins() {
-				if (this.admins.length) $(".selectpicker").selectpicker();
-			},
-		},
+
 		computed: {
 			currentUser() {
 				return this.$store.getters.user;
@@ -235,7 +224,6 @@
 			setTimeout(() => {
 				if (!this.users.lenght) {
 					this.$store.dispatch("getUsers");
-					$(".selectpicker").selectpicker();
 				}
 			}, 500);
 		},

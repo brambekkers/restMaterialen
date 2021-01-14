@@ -1,5 +1,5 @@
 <template>
-	<section class="jumbotron text-center bg-white">
+	<section class="text-center bg-white p-5 mb-4">
 		<div class="container">
 			<h1>HMC CircuStek</h1>
 			<p class="lead text-muted">

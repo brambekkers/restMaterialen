@@ -8,7 +8,7 @@
 					</div>
 					<div class="card-body">
 						<div class="row">
-							<div class="col-md-5 col-lg-5 col-xl-3 ml-auto">
+							<div class="col-md-5 col-lg-5 col-xl-3 ms-auto">
 								<Search @searchText="searchText = $event" />
 							</div>
 						</div>
@@ -19,7 +19,7 @@
 							<li class="nav-item">
 								<a
 									class="nav-link active"
-									data-toggle="tab"
+									data-bs-toggle="tab"
 									href="#active"
 									role="tablist"
 								>
@@ -30,7 +30,7 @@
 							<li class="nav-item">
 								<a
 									class="nav-link"
-									data-toggle="tab"
+									data-bs-toggle="tab"
 									href="#payments"
 									role="tablist"
 								>

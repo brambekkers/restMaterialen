@@ -1,5 +1,7 @@
 <template>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg mb-0 px-5">
+	<nav
+		class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg mb-0 px-5"
+	>
 		<router-link class="navbar-brand" to="/">
 			<i class="fas fa-recycle"></i>
 			Restmaterialen
@@ -7,7 +9,7 @@
 		<button
 			class="navbar-toggler collapsed"
 			type="button"
-			data-toggle="collapse"
+			data-bs-toggle="collapse"
 			data-target="#navigation"
 			aria-controls="navigation"
 			aria-expanded="false"
@@ -18,33 +20,54 @@
 			<span class="icon-bar bottom-bar"></span>
 		</button>
 		<div class="collapse navbar-collapse py-3 py-lg-0" id="navigation">
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item" :class=" $route.path === '/libary' ? 'active' : '' ">
-					<router-link class="nav-link" to="/libary">Bibliotheek</router-link>
+			<ul class="navbar-nav ms-auto">
+				<li
+					class="nav-item"
+					:class="$route.path === '/libary' ? 'active' : ''"
+				>
+					<router-link class="nav-link" to="/libary"
+						>Bibliotheek</router-link
+					>
 				</li>
-				<li class="nav-item" :class=" $route.path === '/mission' ? 'active' : '' ">
-					<router-link class="nav-link" to="/mission">Onze missie</router-link>
+				<li
+					class="nav-item"
+					:class="$route.path === '/mission' ? 'active' : ''"
+				>
+					<router-link class="nav-link" to="/mission"
+						>Onze missie</router-link
+					>
 				</li>
-				<li class="nav-item d-lg-none d-sm-block">
-					<router-link class="nav-link" to="/profile" v-if="user">Profiel</router-link>
+				<li class="nav-item d-lg-none">
+					<router-link class="nav-link" to="/profile" v-if="user"
+						>Profiel</router-link
+					>
 				</li>
-				<li class="nav-item d-lg-none d-sm-block">
+				<li class="nav-item d-lg-none">
 					<a class="nav-link" href="#" @click="logout">Uitloggen</a>
 				</li>
+
 				<ul class="navbar-nav d-lg-block d-none pointer" v-if="user">
 					<li class="nav-item btn-rotate dropdown">
 						<a
 							class="nav-link dropdown-toggle"
 							id="dropDownMenu"
-							data-toggle="dropdown"
+							role="button"
+							data-bs-toggle="dropdown"
 							aria-haspopup="true"
 							aria-expanded="false"
 						>
-							<i class="fas fa-cog mr-2"></i>
+							<i class="fas fa-cog me-2"></i>
 						</a>
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropDownMenu">
-							<router-link class="dropdown-item" to="/profile">Profiel</router-link>
-							<a class="dropdown-item" href="#" @click="logout">Uitloggen</a>
+						<div
+							class="dropdown-menu dropdown-menu-end"
+							aria-labelledby="dropDownMenu"
+						>
+							<router-link class="dropdown-item" to="/profile"
+								>Profiel</router-link
+							>
+							<a class="dropdown-item" href="#" @click="logout"
+								>Uitloggen</a
+							>
 						</div>
 					</li>
 				</ul>
@@ -53,14 +76,16 @@
 						to="/dashboard"
 						tag="button"
 						class="btn-collapse btn btn-outline-success btn-block my-0 rounded"
-					>Dashboard</router-link>
+						>Dashboard</router-link
+					>
 				</li>
 				<li class="nav-item" v-if="!user">
 					<router-link
 						to="/Login"
 						tag="button"
 						class="btn-collapse btn btn-outline-success btn-block my-0 rounded"
-					>Inloggen</router-link>
+						>Inloggen</router-link
+					>
 				</li>
 			</ul>
 		</div>
@@ -78,14 +103,14 @@
 			},
 			isAdmin() {
 				return this.$store.getters.isAdmin;
-			}
+			},
 		},
 		methods: {
 			logout() {
 				this.$store.dispatch("logout");
 				this.$router.push("/libary");
-			}
-		}
+			},
+		},
 	};
 </script>
 

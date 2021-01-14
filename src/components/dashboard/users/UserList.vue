@@ -6,7 +6,7 @@
 					<th>ID</th>
 					<th>Email</th>
 					<th>Naam</th>
-					<th class="text-right">Acties</th>
+					<th class="text-end">Acties</th>
 				</tr>
 			</thead>
 			<tbody>

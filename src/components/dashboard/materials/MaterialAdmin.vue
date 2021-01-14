@@ -20,13 +20,13 @@
 			{{ material.unitAvalible }} / {{ material.unitAmount }}
 			{{ unit }}
 		</td>
-		<td class="text-right">
+		<td class="text-end">
 			<router-link
 				type="button"
 				rel="tooltip"
 				:to="`/dashboard/materials/${material.id}`"
 				class="btn btn-success btn-sm btn-icon mx-1"
-				data-toggle="tooltip"
+				data-bs-toggle="tooltip"
 				data-placement="top"
 				title="Bekijk materiaal"
 			>
@@ -37,7 +37,7 @@
 				rel="tooltip"
 				:to="`/dashboard/materials/edit/${material.id}`"
 				class="btn btn-info btn-sm btn-icon mx-1"
-				data-toggle="tooltip"
+				data-bs-toggle="tooltip"
 				data-placement="top"
 				title="Bewerk materiaal"
 			>
@@ -47,7 +47,7 @@
 				type="button"
 				rel="tooltip"
 				class="btn btn-danger btn-sm btn-icon mx-1"
-				data-toggle="tooltip"
+				data-bs-toggle="tooltip"
 				data-placement="top"
 				title="Verwijder materiaal"
 				@click.stop="deleteButton()"
@@ -107,9 +107,6 @@
 					});
 				}
 			},
-		},
-		mounted() {
-			$('[data-toggle="tooltip"]').tooltip();
 		},
 	};
 </script>

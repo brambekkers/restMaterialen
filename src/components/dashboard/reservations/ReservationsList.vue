@@ -9,7 +9,7 @@
 						material.reservations &&
 						Object.values(material.reservations).length
 					"
-					data-toggle="collapse"
+					data-bs-toggle="collapse"
 					:data-target="`#collapse_${material.id}`"
 					aria-expanded="true"
 					:aria-controls="`collapse_${material.id}`"
@@ -50,12 +50,12 @@
 						>
 							<thead class>
 								<tr>
-									<th class="pl-4">#</th>
+									<th class="ps-4">#</th>
 									<th>Gebruiker</th>
 									<th>Hoeveelheid</th>
 									<th>Prijs</th>
 									<th class="text-center">Betaalt</th>
-									<th class="text-right pr-4">Acties</th>
+									<th class="text-end pe-4">Acties</th>
 								</tr>
 							</thead>
 							<tbody>

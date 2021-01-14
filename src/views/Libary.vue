@@ -3,7 +3,7 @@
 		<Header />
 		<div class="container">
 			<div class="row">
-				<div class="col-3 ml-auto">
+				<div class="col-3 ms-auto">
 					<Search @searchText="searchText = $event" />
 				</div>
 			</div>

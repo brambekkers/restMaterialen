@@ -13,7 +13,7 @@
 				<h6 class="card-title mt-0">{{material.name}}</h6>
 
 			</div>
-			<div class="card-body text-left py-0">
+			<div class="card-body text-start py-0">
 				<hr class="my-0">
 
 				<div class="my-2">
@@ -37,7 +37,7 @@
 						</div>
 						<input
 							type="number"
-							class="form-control rounded-0 border-right-0"
+							class="form-control rounded-0 border-end-0"
 							placeholder="Aantal"
 							v-model.number="amount"
 							min="1"
@@ -51,7 +51,7 @@
 				</div>
 
 				<div
-					class="form-group text-right"
+					class="form-group text-end"
 					v-if="material.price && material.unitAmount"
 				>
 					<label>De totale prijs:</label>

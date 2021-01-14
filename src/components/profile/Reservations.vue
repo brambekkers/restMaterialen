@@ -12,7 +12,7 @@
 						:key="reservation.id"
 					>
 						<div class="row">
-							<div class="col-md-2 col-2 pr-0">
+							<div class="col-md-2 col-2 pe-0">
 								<div class>
 									<img
 										v-if="

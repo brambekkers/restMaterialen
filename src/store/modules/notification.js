@@ -1,17 +1,48 @@
-import router from "@/router";
 import * as firebase from "firebase";
+import { useToast } from "vue-toastification";
 
-// boostrap notify
-import "bootstrap-notify";
 // Sweet Alert 2
 import Swal from "sweetalert2";
 
 export default {
-    state: {},
-    getters: {},
-    mutations: {},
+    state: {
+        toast: null
+    },
+
+    getters: {
+        toast(state) {
+            return state.toast;
+        }
+    },
+
+    mutations: {
+        toast(state, val) {
+            state.toast = val;
+        }
+    },
     actions: {
-        notification({}, { style, msg }) {
+        notification({ getters }, { style, msg }) {
+            console.log(getters.toast);
+            console.log(style, msg);
+            if (style === "success") {
+                console.log("ik draai");
+                const icon = "fas fa-thumbs-up fa-2x";
+                getters.toast.success(msg.text, { icon });
+            }
+
+            if (style === "error") {
+                console.log("ik draai error");
+
+                const icon = "fas fa-exclamation-triangle fa-2x";
+                getters.toast.error(msg.message, { icon });
+            }
+
+            if (style === "warning") {
+                const icon = "fas fa-exclamation-triangle fa-2x";
+                getters.toast.warning(msg.text, { icon });
+            }
+        },
+        kanNogWeg({}, { style, msg }) {
             let title, message, type, icon;
             const template = `
                 <div class="alert alert-{0} alert-with-icon alert-dismissible fade show col-10 col-md-8 col-lg-6 col-xl-4 col-xxl-3" data-notify="container">

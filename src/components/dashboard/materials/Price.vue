@@ -25,8 +25,7 @@
 				<div class="col-sm-6 col-md-3 form-group">
 					<label>Eenheid</label>
 					<select
-						class="selectpicker form-control border-input show-tick"
-						data-style="btn btn-neutral btn-block mt-0 border "
+						class="form-select form-control border-input show-tick"
 						v-model="material.priceUnit"
 						required
 						title="Selecteer..."
@@ -135,20 +134,20 @@
 				info: {
 					title: "Prijs informatie",
 					msg: `
-																											                <div class="text-left">
-																											                Bij dit blok geef je de gebruiker informatie over de prijs van het materiaal en de afnamehoeveelheid. 
-																											                Het is hierbij belangrijk dat je besluit hoeveel de gebruiker mag/kan afnemen.<br><br>
+																													                <div class="text-start">
+																													                Bij dit blok geef je de gebruiker informatie over de prijs van het materiaal en de afnamehoeveelheid. 
+																													                Het is hierbij belangrijk dat je besluit hoeveel de gebruiker mag/kan afnemen.<br><br>
 
-																											                <b>Voorbeeld 1:</b><br>
-																											                Je besluit dat een stuk plaatmateriaal per kwart kan worden verkocht. De gebruiker moet dus minimaal 1/4de deel van het materiaal afnemen. 
-																											                In dit speciefieke voorbeeld geld dus dat een hele plaat uit 4 delen bestaat. Je geeft de prijs per deel op en vervolgens het aantal delen (vier in dit geval).<br><br> 
-																											                
-																											                <b>Voorbeeld 2:</b><br>
-																											                Je hebt een rol van 50 meter stof om aan te bieden. De gebruiker mag per meter inkopen. In dit voorbeeld zet je de eenheid op prijs 'per meter' en je geeft aan hoeveel één meter stof kost. 
-																											                Daarna geef je aan dat er 50 eenheden uit het totaal kunnen worden gehaald.<br><br>
+																													                <b>Voorbeeld 1:</b><br>
+																													                Je besluit dat een stuk plaatmateriaal per kwart kan worden verkocht. De gebruiker moet dus minimaal 1/4de deel van het materiaal afnemen. 
+																													                In dit speciefieke voorbeeld geld dus dat een hele plaat uit 4 delen bestaat. Je geeft de prijs per deel op en vervolgens het aantal delen (vier in dit geval).<br><br> 
+																													                
+																													                <b>Voorbeeld 2:</b><br>
+																													                Je hebt een rol van 50 meter stof om aan te bieden. De gebruiker mag per meter inkopen. In dit voorbeeld zet je de eenheid op prijs 'per meter' en je geeft aan hoeveel één meter stof kost. 
+																													                Daarna geef je aan dat er 50 eenheden uit het totaal kunnen worden gehaald.<br><br>
 
-																											                Het is dus belangrijk dat in dit formulier de prijs, éénheid en het totaal moet worden aangegeven. Controleer de waardes goed.
-																											                </div>`,
+																													                Het is dus belangrijk dat in dit formulier de prijs, éénheid en het totaal moet worden aangegeven. Controleer de waardes goed.
+																													                </div>`,
 				},
 			};
 		},

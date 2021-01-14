@@ -1,5 +1,8 @@
 <template>
-	<nav id="navbar" class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+	<nav
+		id="navbar"
+		class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent"
+	>
 		<div class="container-fluid">
 			<div class="navbar-wrapper">
 				<div class="navbar-toggle">
@@ -14,7 +17,7 @@
 			<button
 				class="navbar-toggler"
 				type="button"
-				data-toggle="collapse"
+				data-bs-toggle="collapse"
 				data-target="#navigation"
 				aria-controls="navigation-index"
 				aria-expanded="false"
@@ -24,7 +27,10 @@
 				<span class="navbar-toggler-bar navbar-kebab"></span>
 				<span class="navbar-toggler-bar navbar-kebab"></span>
 			</button>
-			<div class="collapse navbar-collapse justify-content-end" id="navigation">
+			<div
+				class="collapse navbar-collapse justify-content-end"
+				id="navigation"
+			>
 				<Search class="d-lg-block d-sm-none" />
 				<ul class="navbar-nav text-center">
 					<li class="nav-item d-lg-none d-sm-block">
@@ -32,27 +38,39 @@
 							to="/dashboard"
 							tag="button"
 							class="btn-collapse btn btn-outline-success my-0 rounded"
-						>Dashboard</router-link>
+							>Dashboard</router-link
+						>
 					</li>
 					<li class="nav-item d-lg-none d-sm-block">
-						<router-link tag="a" class="nav-link" to="/profile">Profiel</router-link>
+						<router-link tag="a" class="nav-link" to="/profile"
+							>Profiel</router-link
+						>
 					</li>
 					<li class="nav-item d-lg-none d-sm-block">
-						<a class="nav-link" href="#" @click="logout">Uitloggen</a>
+						<a class="nav-link" href="#" @click="logout"
+							>Uitloggen</a
+						>
 					</li>
 					<li class="nav-item btn-rotate dropdown d-md-block d-none">
 						<a
 							class="nav-link dropdown-toggle"
 							id="dropDownMenu"
-							data-toggle="dropdown"
+							data-bs-toggle="dropdown"
 							aria-haspopup="true"
 							aria-expanded="false"
 						>
 							<i class="fas fa-cog"></i>
 						</a>
-						<div class="dropdown-menu dropdown-menu-right bg-light" aria-labelledby="dropDownMenu">
-							<router-link class="dropdown-item" to="/profile">Profiel</router-link>
-							<a class="dropdown-item" href="#" @click="logout">Uitloggen</a>
+						<div
+							class="dropdown-menu dropdown-menu-right bg-light"
+							aria-labelledby="dropDownMenu"
+						>
+							<router-link class="dropdown-item" to="/profile"
+								>Profiel</router-link
+							>
+							<a class="dropdown-item" href="#" @click="logout"
+								>Uitloggen</a
+							>
 						</div>
 					</li>
 				</ul>
@@ -71,8 +89,8 @@
 			logout() {
 				this.$store.dispatch("logout");
 				this.$router.push("/libary");
-			}
-		}
+			},
+		},
 	};
 </script>
 

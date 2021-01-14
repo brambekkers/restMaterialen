@@ -17,7 +17,7 @@
 				Verwijder account
 			</button>
 			<button
-				class="btn btn-default float-right"
+				class="btn btn-default float-end"
 				@click.prevent="updateButton()"
 				v-if="!UID"
 			>

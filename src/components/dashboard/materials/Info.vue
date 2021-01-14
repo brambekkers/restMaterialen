@@ -22,8 +22,7 @@
 				<div class="col-6 col-xl-3 form-group">
 					<label>Type</label>
 					<select
-						class="selectpicker form-control border-input show-tick"
-						data-style="btn btn-neutral btn-block mt-0 border "
+						class="form-select form-control border-input"
 						v-model="material.type"
 						required
 						title="Selecteer..."
@@ -136,17 +135,17 @@
 				info: {
 					title: "Algemene informatie",
 					msg: `
-																													<div class="text-left">
-																													Bij dit blok geef je de algemene informatie over het materiaal op. Dit is onder andere <b> Type, 
-																													herkomst, afmetingen</b> en <b>omschrijving</b>. Hierdoor weet de gebruiker met welk materiaal hij 
-																													te maken heeft. <br><br> 
+																																		<div class="text-start">
+																																		Bij dit blok geef je de algemene informatie over het materiaal op. Dit is onder andere <b> Type, 
+																																		herkomst, afmetingen</b> en <b>omschrijving</b>. Hierdoor weet de gebruiker met welk materiaal hij 
+																																		te maken heeft. <br><br> 
 
-																													Het is belangrijk om in de omschrijvining <b>eventuele schade</b> aan het materiaal te vermelden. 
-																													Zo ontstaat er achteraf geen verwarring over wat er is gekocht. <br><br>
+																																		Het is belangrijk om in de omschrijvining <b>eventuele schade</b> aan het materiaal te vermelden. 
+																																		Zo ontstaat er achteraf geen verwarring over wat er is gekocht. <br><br>
 
-																													<b>Let op:</b> Wanneer je bij het aantal meer dan één invult komen er ook meerdere materialen in de database. 
-																													Elk materiaal is dus een uniek stuk. Wil je het materiaal in stukken verkopen dat doe je dat <b>niet hier<b> maar bij de prijs
-																													</div>`,
+																																		<b>Let op:</b> Wanneer je bij het aantal meer dan één invult komen er ook meerdere materialen in de database. 
+																																		Elk materiaal is dus een uniek stuk. Wil je het materiaal in stukken verkopen dat doe je dat <b>niet hier<b> maar bij de prijs
+																																		</div>`,
 				},
 			};
 		},
@@ -166,9 +165,6 @@
 			},
 		},
 		props: ["material", "isNewMaterial"],
-		updated() {
-			$(".selectpicker").selectpicker();
-		},
 	};
 </script>
 

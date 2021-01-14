@@ -22,10 +22,10 @@
 		<router-link
 			:to="`/dashboard/materials/edit/${$route.params.id}`"
 			tag="button"
-			class="btn btn-secondary float-right"
+			class="btn btn-secondary float-end"
 		>
 			Materiaal aanpassen
-			<i class="fas fa-pencil-alt ml-3"></i>
+			<i class="fas fa-pencil-alt ms-3"></i>
 		</router-link>
 	</div>
 </template>
@@ -144,15 +144,11 @@
 					this.material = this.materials.filter(
 						(item) => item.id === id
 					)[0];
-					$(".selectpicker").selectpicker();
 				}
 			},
 		},
 		mounted() {
 			this.syncMaterial();
-		},
-		updated() {
-			$(".selectpicker").selectpicker();
 		},
 	};
 </script>

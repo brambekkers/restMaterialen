@@ -11,7 +11,7 @@
 					</div>
 					<div class="card-body">
 						<div class="row">
-							<div class="col-3 ml-auto">
+							<div class="col-3 ms-auto">
 								<Search />
 							</div>
 						</div>

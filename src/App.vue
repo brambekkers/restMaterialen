@@ -94,7 +94,14 @@
 	import NavbarBack from "@/components/dashboard/Navbar.vue";
 	import FooterBack from "@/components/Footer.vue";
 
+	import { useToast } from "vue-toastification";
+
 	export default {
+		setup() {
+			// Get toast interface
+			const toast = useToast();
+			return { toast };
+		},
 		components: {
 			NavbarFront,
 			FooterFront,
@@ -135,6 +142,7 @@
 
 				next();
 			});
+			this.$store.commit("toast", this.toast);
 		},
 	};
 </script>

@@ -1,17 +1,17 @@
 <template>
 	<tr>
-		<td class="pl-4">{{ index + 1 }}</td>
+		<td class="ps-4">{{ index + 1 }}</td>
 		<td>{{ name }}</td>
 		<td>{{ reservation.amount }} {{ material.unit }}</td>
 		<td>{{ reservation.amount * material.price }} euro</td>
 		<td class="text-center">
 			<PaidLabel :paid="reservation.payID" />
 		</td>
-		<td class="text-right">
+		<td class="text-end">
 			<button
 				type="button"
 				rel="tooltip"
-				data-toggle="tooltip"
+				data-bs-toggle="tooltip"
 				data-placement="top"
 				title="Pas betaling aan"
 				class="btn btn-info btn-sm btn-icon mx-1"
@@ -22,7 +22,7 @@
 			<button
 				type="button"
 				rel="tooltip"
-				data-toggle="tooltip"
+				data-bs-toggle="tooltip"
 				data-placement="top"
 				title="Verwijder reservering"
 				class="btn btn-danger btn-sm btn-icon mx-1"
@@ -153,10 +153,6 @@
 					});
 				}
 			},
-		},
-		async mounted() {
-			$('[data-toggle="tooltip"]').tooltip();
-			this.name = await this.getUserName(this.reservation.uid);
 		},
 	};
 </script>

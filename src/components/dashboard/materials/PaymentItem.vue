@@ -1,6 +1,6 @@
 <template>
 	<tr class="item">
-		<td class="font-weight-bold pl-4">
+		<td class="font-weight-bold ps-4">
 			{{ payment.materialName }}
 		</td>
 		<td>

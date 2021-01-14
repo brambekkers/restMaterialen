@@ -24,7 +24,7 @@
 					<Tags :material.sync="newMaterial" />
 				</div>
 			</div>
-			<button class="btn btn-default float-right" type="submit">
+			<button class="btn btn-default float-end" type="submit">
 				Voeg materiaal toe
 			</button>
 		</form>
@@ -97,7 +97,6 @@
 			},
 		},
 		mounted() {
-			$(".selectpicker").selectpicker();
 			this.$store.dispatch("createQRcode");
 		},
 	};

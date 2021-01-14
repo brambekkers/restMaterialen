@@ -31,7 +31,7 @@
 			<button class="btn btn-danger" @click.prevent="deleteButton">
 				Delete materiaal
 			</button>
-			<button class="btn btn-default float-right" type="submit">
+			<button class="btn btn-default float-end" type="submit">
 				Update materiaal
 			</button>
 		</form>
@@ -150,16 +150,11 @@
 					this.material = this.materials.filter(
 						(item) => item.id === id
 					)[0];
-
-					$(".selectpicker").selectpicker();
 				}
 			},
 		},
 		mounted() {
 			this.syncMaterial();
-		},
-		updated() {
-			$(".selectpicker").selectpicker();
 		},
 	};
 </script>
