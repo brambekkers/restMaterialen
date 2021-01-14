@@ -26,16 +26,7 @@
 									Actief
 								</a>
 							</li>
-							<li class="nav-item">
-								<a
-									class="nav-link"
-									data-toggle="tab"
-									href="#reservated"
-									role="tablist"
-								>
-									Gereserveerd
-								</a>
-							</li>
+
 							<li class="nav-item">
 								<a
 									class="nav-link"
@@ -56,24 +47,7 @@
 									/>
 								</div>
 							</div>
-							<div class="tab-pane" id="reservated">
-								<div
-									class="card border"
-									v-if="
-										reservatedMaterials &&
-										reservatedMaterials.length
-									"
-								>
-									<MaterialsListAdmin
-										:materials="reservatedMaterials"
-									/>
-								</div>
-								<p v-else>
-									Er staat geen materiaal open wat volledig is
-									gereserveerd maar nog niet compleet is
-									afgerond.
-								</p>
-							</div>
+
 							<div class="tab-pane" id="payments">
 								<div class="card border">
 									<PaymentList :payments="payments" />

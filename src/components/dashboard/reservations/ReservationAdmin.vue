@@ -96,7 +96,7 @@
 						msg: {
 							title: "Betaling aanpassen",
 							text: `Weet je zeker dat je de betaling wilt aanpassen naar: <strong> ${
-								this.reservation.payID ? "" : "niet"
+								!this.reservation.payID ? "" : "niet"
 							} betaald.</strong>`,
 						},
 					});
@@ -126,7 +126,7 @@
 						msg: {
 							title: "Betaling aangepast!",
 							text: `Je hebt succesvol de betaling aangepast. De reservering is <strong> ${
-								this.reservation.payID ? "" : "niet"
+								!this.reservation.payID ? "" : "niet"
 							} betaald.</strong>`,
 						},
 					});

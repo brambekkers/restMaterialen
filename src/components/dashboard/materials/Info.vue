@@ -28,7 +28,9 @@
 						required
 						title="Selecteer..."
 					>
-						<option class="bs-title-option" :value="null" hidden>Selecteer...</option>
+						<option class="bs-title-option" :value="null" hidden>
+							Selecteer...
+						</option>
 						<option value="Plaatmateriaal">Plaatmateriaal</option>
 						<option value="Massief hout">Massief hout</option>
 						<option value="Meubelstoffen">Meubelstoffen</option>
@@ -90,8 +92,23 @@
 						/>
 					</div>
 				</div>
+				<div class="col-12" v-if="material.surfaceArea">
+					<!-- Oppervlakte -->
+					<label v-if="material.type === 'Plaatmateriaal'">
+						Totale oppervlakte:
+						<span class="title display-inline text-dark">
+							{{ material.surfaceArea.toFixed(2) }}m2
+						</span>
+					</label>
+					<!-- Inhoud -->
+					<label v-if="material.type === 'Massief hout'">
+						Totale inhoud:
+						<span class="title display-inline text-dark">
+							{{ material.volume.toFixed(4) }}m3
+						</span>
+					</label>
+				</div>
 			</div>
-
 			<div class="row">
 				<div class="col-12">
 					<div class="form-group">
@@ -110,34 +127,49 @@
 </template>
 
 <script>
-import Information from "@/components/Information";
+	import Information from "@/components/Information";
 
-export default {
-	components: { Information },
-	data() {
-		return {
-			info: {
-				title: "Algemene informatie",
-				msg: `
-				<div class="text-left">
-				Bij dit blok geef je de algemene informatie over het materiaal op. Dit is onder andere <b> Type, 
-				herkomst, afmetingen</b> en <b>omschrijving</b>. Hierdoor weet de gebruiker met welk materiaal hij 
-				te maken heeft. <br><br> 
+	export default {
+		components: { Information },
+		data() {
+			return {
+				info: {
+					title: "Algemene informatie",
+					msg: `
+																													<div class="text-left">
+																													Bij dit blok geef je de algemene informatie over het materiaal op. Dit is onder andere <b> Type, 
+																													herkomst, afmetingen</b> en <b>omschrijving</b>. Hierdoor weet de gebruiker met welk materiaal hij 
+																													te maken heeft. <br><br> 
 
-				Het is belangrijk om in de omschrijvining <b>eventuele schade</b> aan het materiaal te vermelden. 
-				Zo ontstaat er achteraf geen verwarring over wat er is gekocht. <br><br>
+																													Het is belangrijk om in de omschrijvining <b>eventuele schade</b> aan het materiaal te vermelden. 
+																													Zo ontstaat er achteraf geen verwarring over wat er is gekocht. <br><br>
 
-				<b>Let op:</b> Wanneer je bij het aantal meer dan één invult komen er ook meerdere materialen in de database. 
-				Elk materiaal is dus een uniek stuk. Wil je het materiaal in stukken verkopen dat doe je dat <b>niet hier<b> maar bij de prijs
-				</div>`,
+																													<b>Let op:</b> Wanneer je bij het aantal meer dan één invult komen er ook meerdere materialen in de database. 
+																													Elk materiaal is dus een uniek stuk. Wil je het materiaal in stukken verkopen dat doe je dat <b>niet hier<b> maar bij de prijs
+																													</div>`,
+				},
+			};
+		},
+		watch: {
+			material: {
+				handler(val) {
+					if (val.length && val.width) {
+						this.material.surfaceArea =
+							(val.length * val.width) / 1000000;
+					}
+					if (val.length && val.width && val.thickness) {
+						this.material.volume =
+							(val.length * val.width * val.thickness) / 1000000000;
+					}
+				},
+				deep: true,
 			},
-		};
-	},
-	props: ["material", "isNewMaterial"],
-	updated() {
-		$(".selectpicker").selectpicker();
-	},
-};
+		},
+		props: ["material", "isNewMaterial"],
+		updated() {
+			$(".selectpicker").selectpicker();
+		},
+	};
 </script>
 
 <style lang="scss" scoped></style>

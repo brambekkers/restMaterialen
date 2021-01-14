@@ -31,7 +31,12 @@
 						required
 						title="Selecteer..."
 					>
-						<option class="bs-title-option" :value="null" hidden disabled></option>
+						<option
+							class="bs-title-option"
+							:value="null"
+							hidden
+							disabled
+						></option>
 						<optgroup label="Losse producten">
 							<option value="stuk">Per stuk</option>
 							<option value="rol">Per rol</option>
@@ -48,7 +53,10 @@
 				</div>
 				<!-- Amount -->
 				<template v-if="material.priceUnit && !edit">
-					<div class="col form-group" v-if="material.priceUnit === 'meter'">
+					<div
+						class="col form-group"
+						v-if="material.priceUnit === 'meter'"
+					>
 						<label
 							>Dit materiaal (één stuk) bestaat uit hoeveel
 							{{ material.priceUnit }}?</label
@@ -57,19 +65,22 @@
 							type="number"
 							v-model.number="material.unitAmount"
 							placeholder="Aantal stuks uit dit materiaal"
-							class="form-control border-input "
+							class="form-control border-input"
 							required
 							min="1"
 						/>
 					</div>
 					<!-- Amount -->
 					<div class="col form-group" v-else>
-						<label>Hoeveel stuk heb je van deze {{ material.priceUnit }}?</label>
+						<label
+							>Hoeveel stuk heb je van deze
+							{{ material.priceUnit }}?</label
+						>
 						<input
 							type="number"
 							v-model.number="material.unitAmount"
 							placeholder="Aantal stuks"
-							class="form-control border-input "
+							class="form-control border-input"
 							required
 							min="1"
 						/>
@@ -86,65 +97,72 @@
 						type="number"
 						v-model.number="material.unitAvalible"
 						placeholder="Aantal stuks nog beschikbaar"
-						class="form-control border-input "
+						class="form-control border-input"
 						required
-						min="0"
+						min="1"
 						:max="material.unitAmount"
+						disabled
 					/>
 				</div>
 			</div>
-			<div class="form-group" v-if="material.price && material.unitAmount">
-				<label
-					>(Prijs per {{ material.unitAvalible }} {{ material.priceUnit }})</label
-				>
-				Totale prijs voor de beschikbare onderdelen:
-				<h5 class="ml-5 title mt-0 ">
-					{{ material.price * material.unitAvalible }} euro
-				</h5>
+			<div
+				class="form-group"
+				v-if="
+					material.price &&
+					material.unitAmount &&
+					material.unitAmount > 1
+				"
+			>
+				<label>
+					Totale prijs:
+					<span class="title display-inline text-dark">
+						{{ material.price * material.unitAmount }} euro
+					</span>
+				</label>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-import Information from "@/components/Information";
+	import Information from "@/components/Information";
 
-export default {
-	components: { Information },
-	props: ["material", "edit"],
-	data() {
-		return {
-			info: {
-				title: "Prijs informatie",
-				msg: `
-                <div class="text-left">
-                Bij dit blok geef je de gebruiker informatie over de prijs van het materiaal en de afnamehoeveelheid. 
-                Het is hierbij belangrijk dat je besluit hoeveel de gebruiker mag/kan afnemen.<br><br>
+	export default {
+		components: { Information },
+		props: ["material", "edit"],
+		data() {
+			return {
+				info: {
+					title: "Prijs informatie",
+					msg: `
+																											                <div class="text-left">
+																											                Bij dit blok geef je de gebruiker informatie over de prijs van het materiaal en de afnamehoeveelheid. 
+																											                Het is hierbij belangrijk dat je besluit hoeveel de gebruiker mag/kan afnemen.<br><br>
 
-                <b>Voorbeeld 1:</b><br>
-                Je besluit dat een stuk plaatmateriaal per kwart kan worden verkocht. De gebruiker moet dus minimaal 1/4de deel van het materiaal afnemen. 
-                In dit speciefieke voorbeeld geld dus dat een hele plaat uit 4 delen bestaat. Je geeft de prijs per deel op en vervolgens het aantal delen (vier in dit geval).<br><br> 
-                
-                <b>Voorbeeld 2:</b><br>
-                Je hebt een rol van 50 meter stof om aan te bieden. De gebruiker mag per meter inkopen. In dit voorbeeld zet je de eenheid op prijs 'per meter' en je geeft aan hoeveel één meter stof kost. 
-                Daarna geef je aan dat er 50 eenheden uit het totaal kunnen worden gehaald.<br><br>
+																											                <b>Voorbeeld 1:</b><br>
+																											                Je besluit dat een stuk plaatmateriaal per kwart kan worden verkocht. De gebruiker moet dus minimaal 1/4de deel van het materiaal afnemen. 
+																											                In dit speciefieke voorbeeld geld dus dat een hele plaat uit 4 delen bestaat. Je geeft de prijs per deel op en vervolgens het aantal delen (vier in dit geval).<br><br> 
+																											                
+																											                <b>Voorbeeld 2:</b><br>
+																											                Je hebt een rol van 50 meter stof om aan te bieden. De gebruiker mag per meter inkopen. In dit voorbeeld zet je de eenheid op prijs 'per meter' en je geeft aan hoeveel één meter stof kost. 
+																											                Daarna geef je aan dat er 50 eenheden uit het totaal kunnen worden gehaald.<br><br>
 
-                Het is dus belangrijk dat in dit formulier de prijs, éénheid en het totaal moet worden aangegeven. Controleer de waardes goed.
-                </div>`,
-			},
-		};
-	},
-};
+																											                Het is dus belangrijk dat in dit formulier de prijs, éénheid en het totaal moet worden aangegeven. Controleer de waardes goed.
+																											                </div>`,
+				},
+			};
+		},
+	};
 </script>
 
 <style lang="scss" scoped>
-.information {
-	font-size: 2.5rem;
+	.information {
+		font-size: 2.5rem;
 
-	&:hover {
-		cursor: pointer;
-		animation: jello; /* referring directly to the animation's @keyframe declaration */
-		animation-duration: 2s; /* don't forget to set a duration! */
+		&:hover {
+			cursor: pointer;
+			animation: jello; /* referring directly to the animation's @keyframe declaration */
+			animation-duration: 2s; /* don't forget to set a duration! */
+		}
 	}
-}
 </style>
