@@ -2,10 +2,12 @@ import QRCode from "qrcode";
 
 export default {
     state: {
-        materials: null
+        materials: null,
+        sheetMaterials: []
     },
     getters: {
-        materials: (s) => s.materials
+        materials: (s) => s.materials,
+        sheetMaterials: (s) => s.sheetMaterials
     },
     mutations: {
         unit({}, string) {
@@ -31,6 +33,13 @@ export default {
                 });
             });
         },
+        async sheetMaterialsListner({ state, getters }) {
+            getters.db.doc("Options/sheetMaterials").onSnapshot((doc) => {
+                if (doc.exists) {
+                    state.sheetMaterials = doc.data().sheetMaterials;
+                }
+            });
+        },
         addMaterial({ dispatch, getters }, material) {
             return new Promise(async (resolve, reject) => {
                 try {
@@ -48,6 +57,20 @@ export default {
                 if (material && material.id) {
                     try {
                         await getters.db.doc(`Materials/${material.id}`).set(material);
+                        resolve(true);
+                    } catch (error) {
+                        reject(error);
+                    }
+                } else {
+                    reject();
+                }
+            });
+        },
+        updatesheetMaterials({ getters }, sheetMaterials) {
+            return new Promise(async (resolve, reject) => {
+                if (sheetMaterials) {
+                    try {
+                        await getters.db.doc(`Options/sheetMaterials`).set({ sheetMaterials });
                         resolve(true);
                     } catch (error) {
                         reject(error);

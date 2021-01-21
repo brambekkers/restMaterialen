@@ -12,7 +12,7 @@
     "@popperjs/core": "^2.6.0",
     "animate.css": "^4.1.1",
     "bootstrap": "^5.0.0-beta1",
-    "core-js": "^3.8.0",
+    "core-js": "^3.8.3",
     "firebase": "^7.24.0",
     "nanoid": "^3.1.20",
     "popper.js": "^1.16.1",

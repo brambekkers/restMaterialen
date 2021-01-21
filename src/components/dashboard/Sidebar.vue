@@ -58,6 +58,24 @@
 									<span class="sidebar-normal">Voeg toe</span>
 								</router-link>
 							</li>
+							<li
+								v-if="isAdmin"
+								:class="
+									$route.path ===
+									'/dashboard/materials/sheetmaterials'
+										? 'active'
+										: ''
+								"
+							>
+								<router-link
+									to="/dashboard/materials/sheetmaterials"
+								>
+									<i class="fas fa-layer-group"></i>
+									<span class="sidebar-normal"
+										>Plaat opties</span
+									>
+								</router-link>
+							</li>
 						</ul>
 					</div>
 				</li>

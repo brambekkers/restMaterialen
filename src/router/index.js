@@ -23,6 +23,7 @@ import Materials from "../views/dashboard/materials/Materials.vue";
 import AddMaterial from "../views/dashboard/materials/Add.vue";
 import ViewMaterial from "../views/dashboard/materials/View.vue";
 import EditMaterial from "../views/dashboard/materials/Edit.vue";
+import SheetMaterials from "../views/dashboard/materials/SheetMaterials.vue";
 
 import Reservations from "../views/dashboard/Reservations.vue";
 
@@ -176,6 +177,18 @@ const routes = [
         path: "/dashboard/materials/add",
         name: "Voeg material toe",
         component: AddMaterial,
+        meta: {
+            requiresAuth: true,
+            requiresRight: "editor",
+            transitionEnter: "animated slideInRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "back"
+        }
+    },
+    {
+        path: "/dashboard/materials/sheetmaterials",
+        name: "Plaatmateriaal opties",
+        component: SheetMaterials,
         meta: {
             requiresAuth: true,
             requiresRight: "editor",

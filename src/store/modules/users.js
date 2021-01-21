@@ -45,6 +45,7 @@ export default {
 
                     if (idTokenResult.claims.admin) {
                         dispatch("paymentListner");
+                        dispatch("sheetMaterialsListner");
                     }
 
                     // Update user to set last time login
