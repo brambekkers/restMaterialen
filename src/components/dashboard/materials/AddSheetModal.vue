@@ -99,6 +99,7 @@
 </template>
 
 <script>
+	import * as bootstrap from "bootstrap";
 	import { mapActions, mapGetters } from "vuex";
 	export default {
 		data() {
@@ -121,6 +122,18 @@
 				console.log("test");
 				this.sheetMaterials.push(this.newOption);
 				this.updatesheetMaterials(this.sheetMaterials);
+				this.closeModal();
+			},
+			closeModal() {
+				const modal = document.getElementById("addSheetOption");
+				const modalInstance = bootstrap.Modal.getInstance(modal);
+				modalInstance.hide();
+				this.newOption = {
+					type: "",
+					name: "",
+					originalPrice: 0,
+					price: 0,
+				};
 			},
 		},
 	};

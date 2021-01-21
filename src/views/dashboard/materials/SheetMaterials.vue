@@ -80,16 +80,18 @@
 		data() {
 			return {
 				info: {
-					title: "Programmaopties",
+					title: "Plaatopties",
 					msg: `
-																																																													<div class="text-start">
-																																																													In het programmaopties menu zijn diverse technische instellingen te vinden voor het programma. Dit zijn algemene instellingen en gelden voor <b>alle gebruikers</b>.<br><br> 
+								<div class="text-start">
+								Je kunt hier de plaatopties toevoegen. Plaatopties zijn variabelen die het mogelijk maken om bij het toevoegen van een nieuw materiaal de prijs van plaatmateriaal te berekenen.</b>.<br><br> 
 
-																																																													<h6 class="mb-0">Reserveringsdagen</h6>
-																																																													De optie reserveringsdagen is gemaakt om het aantal dagen dat een reserving onbetaald open blijft bestaan te beperken. Door een aantal dagen 
-																																																													in te stellen komt het materiaal nadat de tijd is verlopen automatisch weer op beschikbaar te staan. De reservering wordt definietief wanneer deze is betaald en door een beheerder is geaccrediteerd.<br><br>
+								<h6 class="mb-0">Materiaal vs. Dekking</h6>
+								Een stuk plaatmateriaal is altijd opgebouwd uit een basismateriaal bijv. MDF 18mm. Daarnaast is het mogelijk dat een materiaal is voorzien van een dekking. De dekking kan aan een enkele kant zitten of aan beide kanten. Er zijn vele verschillende soorten dekkingen. HPL, fineer, folie, enz...<br><br>
 
-																																																													</div>`,
+								<h6 class="mb-0">Prijs</h6>
+								De prijs die het materiaal orgineel kost kan verschillen van de prijs die het HMC rekend voor dit materiaal. In de berekening wordt alleen de HMC prijs meegenomen.<br><br>
+
+								</div>`,
 				},
 			};
 		},
