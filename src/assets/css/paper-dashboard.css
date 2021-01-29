@@ -7904,7 +7904,7 @@ a[data-bs-toggle="collapse"][aria-expanded="true"] .caret {
     vertical-align: middle;
 }
 .navbar a:not(.btn):not(.dropdown-item) {
-    color: #fff;
+    color: #66615b;
 }
 .navbar.bg-white .input-group .form-control,
 .navbar.bg-white .input-group.no-border .form-control,
@@ -8131,6 +8131,7 @@ a[data-bs-toggle="collapse"][aria-expanded="true"] .caret {
 }
 .navbar .navbar-collapse .nav-item a {
     font-size: 14px;
+    font-weight: 700;
 }
 .bg-default {
     background-color: #66615b !important;
@@ -10625,13 +10626,13 @@ img {
     background: hsla(0, 0%, 78%, 0.2);
 }
 .main-content {
-    min-height: calc(100vh - 140px);
+    min-height: calc(100vh - 210px);
 }
 .main-panel {
     position: relative;
     float: right;
     width: calc(100% - 260px);
-    background-color: #f4f3ef;
+    background-color: #fffef9;
     transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
 }
 .main-panel > .content {

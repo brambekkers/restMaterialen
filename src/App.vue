@@ -1,26 +1,24 @@
 <template>
-	<div id="app">
+	<div id="app-main">
 		<!-- FRONDEND -->
 		<!-- front Header -->
-		<router-view v-slot="{ Component }">
+		<!-- <router-view v-slot="{ Component }">
 			<transition
 				:enter-active-class="transitionEnter"
 				:leave-active-class="transitionLeave"
 				mode="out-in"
 			>
-				<component
-					:is="Component"
-					style="animation-duration: 0.5s"
-					v-if="landing"
-				/>
 			</transition>
-		</router-view>
+		</router-view> -->
 		<transition
 			enter-active-class="animated slideInTop"
 			leave-active-class="animated slideOutUp"
 			mode="out-in"
 		>
-			<NavbarFront v-if="front" style="animation-duration: 0.5s" />
+			<NavbarFront
+				v-if="front || landing"
+				style="animation-duration: 0.5s"
+			/>
 		</transition>
 
 		<!--  Front Router View-->
@@ -34,6 +32,11 @@
 					:is="Component"
 					style="animation-duration: 0.5s"
 					v-if="front"
+				/>
+				<component
+					:is="Component"
+					style="animation-duration: 0.5s"
+					v-else-if="landing"
 				/>
 			</transition>
 		</router-view>
@@ -52,14 +55,14 @@
 		>
 			<SidebarBack style="animation-duration: 0.8s" v-if="back" />
 		</transition>
-		<div class="main-panel h-100">
+		<div class="main-panel h-100" v-if="back">
 			<!-- back Header -->
 			<transition
 				name="slideDown"
 				leave-active-class="animated slideOutUp"
 				mode="out-in"
 			>
-				<NavbarBack :title="$route.name" v-if="back" />
+				<NavbarBack :title="$route.name" />
 			</transition>
 			<!-- back Main-->
 			<router-view v-slot="{ Component }">
@@ -71,7 +74,6 @@
 					<component
 						:is="Component"
 						style="animation-duration: 0.8s"
-						v-if="back"
 					/>
 				</transition>
 			</router-view>
@@ -81,7 +83,7 @@
 				leave-active-class="animated slideOutDown"
 				mode="out-in"
 			>
-				<FooterBack v-if="back" />
+				<FooterBack />
 			</transition>
 		</div>
 	</div>
@@ -148,11 +150,12 @@
 </script>
 
 <style lang="scss">
-	#app {
+	#app-main {
 		font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
-		background-color: #f4f3ef;
+		background-color: #fffef9;
 		width: 100vw;
 		overflow-x: hidden;
+		height: 100vh;
 		min-height: 100vh;
 	}
 

@@ -1,16 +1,19 @@
 <template>
 	<nav
-		class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg mb-0 px-5"
+		class="navbar navbar-expand-lg align-items-lg-end shadow-lg mb-0 px-5 border-bottom"
 	>
 		<router-link class="navbar-brand" to="/">
-			<i class="fas fa-recycle"></i>
-			Restmaterialen
+			<img
+				class="hmcLogo"
+				src="@/assets/img/hmc-logo.svg"
+				alt="HMC mbo vakschool"
+			/>
 		</router-link>
 		<button
 			class="navbar-toggler collapsed"
 			type="button"
 			data-bs-toggle="collapse"
-			data-target="#navigation"
+			data-bs-target="#navigation"
 			aria-controls="navigation"
 			aria-expanded="false"
 			aria-label="Toggle navigation"
@@ -21,6 +24,12 @@
 		</button>
 		<div class="collapse navbar-collapse py-3 py-lg-0" id="navigation">
 			<ul class="navbar-nav ms-auto">
+				<li
+					class="nav-item"
+					:class="$route.path === '/' ? 'active' : ''"
+				>
+					<router-link class="nav-link" to="/">Home</router-link>
+				</li>
 				<li
 					class="nav-item"
 					:class="$route.path === '/libary' ? 'active' : ''"
@@ -46,44 +55,13 @@
 					<a class="nav-link" href="#" @click="logout">Uitloggen</a>
 				</li>
 
-				<ul class="navbar-nav d-lg-block d-none pointer" v-if="user">
-					<li class="nav-item btn-rotate dropdown">
-						<a
-							class="nav-link dropdown-toggle"
-							id="dropDownMenu"
-							role="button"
-							data-bs-toggle="dropdown"
-							aria-haspopup="true"
-							aria-expanded="false"
-						>
-							<i class="fas fa-cog me-2"></i>
-						</a>
-						<div
-							class="dropdown-menu dropdown-menu-end"
-							aria-labelledby="dropDownMenu"
-						>
-							<router-link class="dropdown-item" to="/profile"
-								>Profiel</router-link
-							>
-							<a class="dropdown-item" href="#" @click="logout"
-								>Uitloggen</a
-							>
-						</div>
-					</li>
-				</ul>
 				<li class="nav-item" v-if="isEditor || isAdmin">
-					<router-link
-						to="/dashboard"
-						tag="button"
-						class="btn-collapse btn btn-outline-success btn-block my-0 rounded"
+					<router-link to="/dashboard" class="nav-link"
 						>Dashboard</router-link
 					>
 				</li>
 				<li class="nav-item" v-if="!user">
-					<router-link
-						to="/Login"
-						tag="button"
-						class="btn-collapse btn btn-outline-success btn-block my-0 rounded"
+					<router-link to="/Login" class="nav-link"
 						>Inloggen</router-link
 					>
 				</li>
@@ -155,5 +133,20 @@
 
 	.navbar-toggler.collapsed .bottom-bar {
 		transform: rotate(0);
+	}
+
+	.navbar-brand {
+		overflow-y: none;
+		max-height: 130px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.hmcLogo {
+			bottom: 2rem;
+			right: 2rem;
+			height: 200px;
+			max-width: calc(25px + 15vmin);
+		}
 	}
 </style>

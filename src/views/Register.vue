@@ -478,10 +478,14 @@
 
 <style lang="scss" scoped>
 	#register {
-		position: relative;
-		height: calc(100vh - 62px);
-		margin-bottom: -70px;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		z-index: 9999;
+		background: white;
 		display: flex;
+		overflow: none;
+		overflow: hidden;
 
 		.background {
 			position: absolute;
@@ -495,10 +499,10 @@
 		}
 
 		#content {
-			height: calc(100vh - 62px);
 			width: 100vw;
+			height: 80vh;
 			z-index: 2;
-			box-shadow: 0 25px 30px -13px rgba(40, 40, 40, 0.4);
+			// box-shadow: 0 25px 30px -13px rgba(40, 40, 40, 0.4);
 			border-radius: 6px;
 			min-width: 400px;
 			display: flex;

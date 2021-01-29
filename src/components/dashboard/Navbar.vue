@@ -1,7 +1,7 @@
 <template>
 	<nav
 		id="navbar"
-		class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent"
+		class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-light bg-white border-bottom"
 	>
 		<div class="container-fluid">
 			<div class="navbar-wrapper">
