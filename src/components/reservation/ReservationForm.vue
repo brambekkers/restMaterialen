@@ -1,35 +1,27 @@
 <template>
-
-	<div
-		class="card card-signup"
-		v-if="material"
-	>
-		<form
-			class="form"
-			@submit.prevent="makeReservation()"
-		>
-			<div class="card-header ">
+	<div class="card card-signup" v-if="material">
+		<form class="w-100" @submit.prevent="makeReservation()">
+			<div class="card-header">
 				<h4 class="card-title mb-0">Reserveer</h4>
-				<h6 class="card-title mt-0">{{material.name}}</h6>
-
+				<h6 class="card-title mt-0">{{ material.name }}</h6>
 			</div>
 			<div class="card-body text-start py-0">
-				<hr class="my-0">
+				<hr class="my-0" />
 
 				<div class="my-2">
 					<label class="row">
 						<div class="col-6 title">Totaal beschikbaar:</div>
-						<div class="col-6">{{material.unitAvalible}}</div>
-						<div class="col-6 title">Prijs {{material.priceUnit.toLowerCase()}}: </div>
-						<div class="col-6">{{material.price}} euro</div>
+						<div class="col-6">{{ material.unitAvalible }}</div>
+						<div class="col-6 title">
+							Prijs {{ material.priceUnit.toLowerCase() }}:
+						</div>
+						<div class="col-6">{{ material.price }} euro</div>
 					</label>
 				</div>
-				<hr class="my-0">
+				<hr class="my-0" />
 				<div class="my-3">
-					<label>
-						Hoeveel wil je reserveren?
-					</label>
-					<div class="input-group ">
+					<label> Hoeveel wil je reserveren? </label>
+					<div class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">
 								<i class="fas fa-calculator"></i>
@@ -43,9 +35,11 @@
 							min="1"
 							:max="material.unitAvalible"
 							required
-						>
+						/>
 						<div class="input-group-append text-size-sm">
-							<label class="input-group-text mb-0">{{material.unit}}</label>
+							<label class="input-group-text mb-0">{{
+								unit
+							}}</label>
 						</div>
 					</div>
 				</div>
@@ -55,18 +49,21 @@
 					v-if="material.price && material.unitAmount"
 				>
 					<label>De totale prijs:</label>
-					<p class="mb-0"><h5 class="title mt-0 ">{{ material.price * amount}} euro</h5></p>
+					<h5 class="title mt-0">
+						{{ material.price * amount }} euro
+					</h5>
 				</div>
-				<Checkbox @toggleCheck="policyCheck = $event" :link="'/policy'"/>
+				<Checkbox
+					@toggleCheck="policyCheck = $event"
+					:link="'/policy'"
+				/>
 			</div>
-			<div class="card-footer ">
-				<button
-					type="submit"
-					class="btn btn-info btn-round"
-				>Reserveer</button>
+			<div class="card-footer text-end">
+				<button type="submit" class="btn btn-info btn-round">
+					Reserveer
+				</button>
 			</div>
 		</form>
-
 	</div>
 </template>
 
@@ -100,6 +97,12 @@
 				if (this.material && this.material.reservations) {
 					return this.material.reservations[this.user.id];
 				}
+			},
+			unit() {
+				if (this.material.unitAvalible > 1 && this.amount > 1) {
+					return this.material.priceUnit.replace("plaat", "platen");
+				}
+				return this.material.priceUnit;
 			},
 		},
 		methods: {
@@ -175,10 +178,15 @@
 		text-align: center;
 		justify-content: space-evenly;
 		align-items: center;
+		padding: 0 0.5rem;
 		flex-wrap: wrap;
 
 		.card-body {
 			flex: 0 1 auto;
+		}
+
+		.input-group-text {
+			height: 100%;
 		}
 	}
 </style>

@@ -97,7 +97,7 @@
 									</th>
 									<td>
 										<button
-											class="close"
+											class="btn-close float-end"
 											aria-label="Close"
 											@click="
 												changeRole(

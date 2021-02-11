@@ -12215,6 +12215,7 @@ img {
     background-color: transparent;
     border-color: hsla(0, 0%, 100%, 0.5);
     color: #fff;
+    height: 100%;
 }
 [data-background-color]:not([data-background-color="gray"]) .input-group-focus .input-group-append .input-group-text,
 [data-background-color]:not([data-background-color="gray"]) .input-group-focus .input-group-prepend .input-group-text {

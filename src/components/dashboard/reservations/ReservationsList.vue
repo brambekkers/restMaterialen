@@ -10,7 +10,7 @@
 						Object.values(material.reservations).length
 					"
 					data-bs-toggle="collapse"
-					:data-target="`#collapse_${material.id}`"
+					:data-bs-target="`#collapse_${material.id}`"
 					aria-expanded="true"
 					:aria-controls="`collapse_${material.id}`"
 				>

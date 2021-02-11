@@ -17,7 +17,7 @@
 			</div>
 			<div class="d-flex justify-content-between">
 				<router-link tag="button" to="/libary" class="btn btn-default">
-					<i class="fas fa-arrow-circle-start me-3"></i>Terug
+					<i class="fas fa-arrow-circle-left me-3"></i>Terug
 				</router-link>
 
 				<router-link
