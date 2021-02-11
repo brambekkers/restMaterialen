@@ -51,7 +51,6 @@ export default {
                     <span data-notify="title" class="font-weight-bold">{1}</span>
                     <span data-notify="message">{2}</span>
                 </div>`;
-
             if (style === "error") {
                 title = `Error - ${msg.code}`;
                 message = msg.message;

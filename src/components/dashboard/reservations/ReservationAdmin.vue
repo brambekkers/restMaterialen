@@ -154,5 +154,8 @@
 				}
 			},
 		},
+		async mounted() {
+			this.name = await this.getUserName(this.reservation.uid);
+		},
 	};
 </script>

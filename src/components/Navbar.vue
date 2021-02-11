@@ -38,14 +38,14 @@
 						>Bibliotheek</router-link
 					>
 				</li>
-				<li
+				<!-- <li
 					class="nav-item"
 					:class="$route.path === '/mission' ? 'active' : ''"
 				>
 					<router-link class="nav-link" to="/mission"
 						>Onze missie</router-link
 					>
-				</li>
+				</li> -->
 				<li class="nav-item d-lg-none">
 					<router-link class="nav-link" to="/profile" v-if="user"
 						>Profiel</router-link
