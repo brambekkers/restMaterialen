@@ -1,7 +1,7 @@
 <template>
 	<footer class="footer pb-2">
 		<div class="container-fluid">
-			<nav class="footer-nav">
+			<!-- <nav class="footer-nav">
 				<ul>
 					<li>
 						<router-link to="/about">Over</router-link>
@@ -13,7 +13,7 @@
 						<router-link to="/Licences">Voorwaarden</router-link>
 					</li>
 				</ul>
-			</nav>
+			</nav> -->
 			<div class="credits ms-auto">
 				<span class="copyright">
 					© {{ new Date().getFullYear() }}, made by
