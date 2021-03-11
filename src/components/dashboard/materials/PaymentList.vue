@@ -13,7 +13,7 @@
 			</thead>
 			<tbody>
 				<PaymentItem
-					v-for="(payment, i) of payments"
+					v-for="(payment, i) of sortPayments"
 					:payment="payment"
 					:key="i"
 				/>
@@ -31,6 +31,11 @@
 		components: { PaymentItem },
 		computed: {
 			...mapGetters(["isAdmin"]),
+			sortPayments() {
+				return this.payments.sort(
+					(a, b) => b.paymentDate.seconds - a.paymentDate.seconds
+				);
+			},
 		},
 		methods: {
 			toTime(timestamp) {

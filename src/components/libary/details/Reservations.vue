@@ -8,7 +8,7 @@
 				class="table mx-0 table-striped border-top mb-0 table-hover border"
 				v-if="
 					material.reservations &&
-					Object.values(material.reservations)
+					Object.values(material.reservations).length
 				"
 			>
 				<thead class>

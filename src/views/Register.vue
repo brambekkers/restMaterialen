@@ -143,7 +143,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="pull-end mt-5">
+											<div class="float-end mt-5">
 												<button
 													type="submit"
 													class="btn btn-next btn-fill btn-rose btn-wd valid"
@@ -274,7 +274,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="pull-end mt-5">
+											<div class="float-end mt-5">
 												<button
 													type="submit"
 													class="btn btn-next btn-fill btn-rose btn-wd valid"
@@ -282,7 +282,7 @@
 													Volgende
 												</button>
 											</div>
-											<div class="pull-start mt-5">
+											<div class="float-start mt-5">
 												<button
 													class="btn btn-next btn-fill btn-rose btn-wd valid"
 													@click="step--"
@@ -361,7 +361,8 @@
 													/>
 												</div>
 											</div>
-											<div class="pull-end mt-5">
+
+											<div class="float-end mt-5">
 												<button
 													type="submit"
 													class="btn btn-next btn-fill btn-rose btn-wd valid"
@@ -369,7 +370,7 @@
 													Klaar
 												</button>
 											</div>
-											<div class="pull-start mt-5">
+											<div class="float-start mt-5">
 												<button
 													class="btn btn-next btn-fill btn-rose btn-wd valid"
 													@click="step--"
