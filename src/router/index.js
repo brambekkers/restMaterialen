@@ -42,7 +42,7 @@ const routes = [
         meta: {
             template: "landing",
             transitionEnter: "animated fadeIn",
-            transitionLeave: "animated slideInRight"
+            transitionLeave: "animated slideOutLeft"
         }
     },
     {

@@ -4,6 +4,10 @@ import router from "@/router";
 import store from "./store";
 import App from "./App.vue";
 
+// Perfect scrollbar
+import PerfectScrollbar from "vue3-perfect-scrollbar";
+import "vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css";
+
 // Bootstrap
 import "popper.js";
 import "bootstrap";
@@ -31,4 +35,5 @@ createApp(App)
     .use(router)
     .use(store)
     .use(Toast)
+    .use(PerfectScrollbar)
     .mount("#app");

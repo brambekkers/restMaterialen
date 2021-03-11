@@ -1,5 +1,5 @@
 import * as firebase from "firebase";
-import { useToast } from "vue-toastification";
+// import { useToast } from "vue-toastification";
 
 // Sweet Alert 2
 import Swal from "sweetalert2";
@@ -22,8 +22,6 @@ export default {
     },
     actions: {
         notification({ getters }, { style, msg }) {
-            console.log(getters.toast);
-            console.log(style, msg);
             if (style === "success") {
                 console.log("ik draai");
                 const icon = "fas fa-thumbs-up fa-2x";

@@ -1,5 +1,8 @@
 <template>
-	<div class="table-responsive-lg" v-if="isAdmin && payments">
+	<div
+		class="table-responsive-lg"
+		v-if="isAdmin && payments && payments.length"
+	>
 		<table class="table table-striped">
 			<thead class="text-primary">
 				<tr>
@@ -19,6 +22,10 @@
 				/>
 			</tbody>
 		</table>
+	</div>
+	<div class="p-3" v-else>
+		<h6>Geen betalingen</h6>
+		Op dit moment staan er geen betalingen in de database.
 	</div>
 </template>
 
