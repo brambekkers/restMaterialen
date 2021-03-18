@@ -1,16 +1,6 @@
 <template>
 	<perfect-scrollbar>
 		<div id="app-main">
-			<!-- FRONDEND -->
-			<!-- front Header -->
-			<!-- <router-view v-slot="{ Component }">
-			<transition
-				:enter-active-class="transitionEnter"
-				:leave-active-class="transitionLeave"
-				mode="out-in"
-			>
-			</transition>
-		</router-view> -->
 			<transition
 				enter-active-class="animated slideInDown"
 				leave-active-class="animated slideOutUp"
@@ -59,7 +49,7 @@
 			>
 				<SidebarBack style="animation-duration: 0.8s" v-if="back" />
 			</transition>
-			<div class="main-panel h-100" v-if="back">
+			<div class="main-panel" v-if="back">
 				<!-- back Header -->
 				<transition
 					name="slideDown"
@@ -138,12 +128,6 @@
 		},
 		created() {
 			this.$router.beforeEach((to, from, next) => {
-				// if (transitionName === "slide") {
-				//     const toDepth = to.path.split("/").length;
-				//     const fromDepth = from.path.split("/").length;
-				//     transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
-				// }
-
 				this.transitionEnter = to.meta.transitionEnter;
 				this.transitionLeave = from.meta.transitionLeave;
 
@@ -155,6 +139,19 @@
 </script>
 
 <style lang="scss">
+	body {
+		@media (max-width: 1200px) and (min-width: 768px) {
+			p {
+				font-size: 12px !important;
+			}
+		}
+
+		@media (max-width: 768px) {
+			p {
+				font-size: 11px !important;
+			}
+		}
+	}
 	#app {
 		overflow: hidden;
 	}

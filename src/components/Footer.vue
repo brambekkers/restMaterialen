@@ -29,5 +29,6 @@
 		position: absolute;
 		bottom: 0;
 		width: 100%;
+		pointer-events: none;
 	}
 </style>

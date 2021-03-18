@@ -6,19 +6,27 @@
 		<div class="container-fluid">
 			<div class="navbar-wrapper">
 				<div class="navbar-toggle">
-					<button type="button" class="navbar-toggler">
-						<span class="navbar-toggler-bar bar1"></span>
-						<span class="navbar-toggler-bar bar2"></span>
-						<span class="navbar-toggler-bar bar3"></span>
+					<button
+						class="navbar-toggler collapsed"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#navigation"
+						aria-controls="navigation"
+						aria-expanded="false"
+						aria-label="Toggle navigation"
+					>
+						<span class="icon-bar top-bar"></span>
+						<span class="icon-bar middle-bar"></span>
+						<span class="icon-bar bottom-bar"></span>
 					</button>
 				</div>
-				<a class="navbar-brand" href="javascript:;">{{ title }}</a>
+				<span class="navbar-brand">{{ title }}</span>
 			</div>
-			<button
+			<!-- <button
 				class="navbar-toggler"
 				type="button"
 				data-bs-toggle="collapse"
-				data-target="#navigation"
+				data-bs-target="#navigation"
 				aria-controls="navigation-index"
 				aria-expanded="false"
 				aria-label="Toggle navigation"
@@ -26,7 +34,7 @@
 				<span class="navbar-toggler-bar navbar-kebab"></span>
 				<span class="navbar-toggler-bar navbar-kebab"></span>
 				<span class="navbar-toggler-bar navbar-kebab"></span>
-			</button>
+			</button> -->
 			<div
 				class="collapse navbar-collapse justify-content-end"
 				id="navigation"
@@ -35,23 +43,54 @@
 				<ul class="navbar-nav text-center">
 					<li class="nav-item d-lg-none d-sm-block">
 						<router-link
-							to="/dashboard"
+							to="/libary"
 							tag="button"
-							class="btn-collapse btn btn-outline-success my-0 rounded"
+							class="btn-collapse btn px-5 btn-outline-success my-0 rounded"
+							>Bibliotheek</router-link
+						>
+					</li>
+					<hr />
+					<li class="nav-item d-lg-none d-sm-block">
+						<router-link tag="a" class="nav-link" to="/dashboard"
 							>Dashboard</router-link
 						>
 					</li>
+					<li class="nav-item d-lg-none d-sm-block">
+						<router-link
+							tag="a"
+							class="nav-link"
+							to="/dashboard/materials"
+							>Materialen</router-link
+						>
+					</li>
+					<li class="nav-item d-lg-none d-sm-block">
+						<router-link
+							tag="a"
+							class="nav-link"
+							to="/dashboard/reservations"
+							>Reserveringen</router-link
+						>
+					</li>
+					<li class="nav-item d-lg-none d-sm-block">
+						<router-link
+							tag="a"
+							class="nav-link"
+							to="/dashboard/users"
+							>Gebruikers</router-link
+						>
+					</li>
+					<hr />
 					<li class="nav-item d-lg-none d-sm-block">
 						<router-link tag="a" class="nav-link" to="/profile"
 							>Profiel</router-link
 						>
 					</li>
-					<li class="nav-item d-lg-none d-sm-block">
-						<a class="nav-link" href="#" @click="logout"
+					<li class="nav-item d-lg-none d-sm-block text-danger">
+						<a class="nav-link text-danger" href="#" @click="logout"
 							>Uitloggen</a
 						>
 					</li>
-					<li class="nav-item btn-rotate dropdown d-md-block d-none">
+					<li class="nav-item btn-rotate dropdown d-none d-lg-block">
 						<a
 							class="nav-link dropdown-toggle"
 							id="dropDownMenu"
@@ -68,7 +107,10 @@
 							<router-link class="dropdown-item" to="/profile"
 								>Profiel</router-link
 							>
-							<a class="dropdown-item" href="#" @click="logout"
+							<a
+								class="dropdown-item text-danger"
+								href="#"
+								@click="logout"
 								>Uitloggen</a
 							>
 						</div>
@@ -97,5 +139,47 @@
 <style lang="scss" scoped>
 	#navbar.navbar-transparent {
 		background-color: #f4f3ef !important;
+	}
+
+	.pointer {
+		cursor: pointer;
+	}
+	.icon-bar {
+		width: 22px;
+		height: 2px;
+		background-color: #b6b6b6;
+		display: block;
+		transition: all 0.2s;
+		margin-top: 4px;
+	}
+
+	.navbar-toggler {
+		border: none;
+		background: transparent !important;
+	}
+	.navbar-toggler .top-bar {
+		transform: rotate(45deg);
+		transform-origin: 10% 10%;
+	}
+
+	.navbar-toggler .middle-bar {
+		opacity: 0;
+	}
+
+	.navbar-toggler .bottom-bar {
+		transform: rotate(-45deg);
+		transform-origin: 10% 90%;
+	}
+
+	.navbar-toggler.collapsed .top-bar {
+		transform: rotate(0);
+	}
+
+	.navbar-toggler.collapsed .middle-bar {
+		opacity: 1;
+	}
+
+	.navbar-toggler.collapsed .bottom-bar {
+		transform: rotate(0);
 	}
 </style>

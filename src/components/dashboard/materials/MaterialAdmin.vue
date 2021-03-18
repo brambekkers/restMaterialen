@@ -20,7 +20,7 @@
 			{{ material.unitAvalible }} / {{ material.unitAmount }}
 			{{ unit }}
 		</td>
-		<td class="text-end">
+		<td class="text-end" nowrap>
 			<router-link
 				type="button"
 				rel="tooltip"

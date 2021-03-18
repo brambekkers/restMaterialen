@@ -69,6 +69,8 @@
 			justify-content: center;
 			text-align: center;
 
+			min-height: 400px;
+
 			.background {
 				position: absolute;
 				opacity: 0.5;
