@@ -125,9 +125,9 @@
 						style: "success",
 						msg: {
 							title: "Betaling aangepast!",
-							text: `Je hebt succesvol de betaling aangepast. De reservering is <strong> ${
+							text: `Je hebt succesvol de betaling aangepast. De reservering is  ${
 								!this.reservation.payID ? "" : "niet"
-							} betaald.</strong>`,
+							} betaald.`,
 						},
 					});
 				} catch (error) {}
