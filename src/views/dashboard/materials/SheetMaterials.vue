@@ -44,7 +44,18 @@
 													m2
 												</td>
 												<td>€{{ mat.price }} per m2</td>
-												<td class="text-end">
+												<td class="text-end" nowrap>
+													<button
+														type="button"
+														class="btn btn-info btn-sm btn-icon mx-1"
+														data-bs-toggle="modal"
+														data-bs-target="#editSheetOption"
+														@click="
+															editMaterial = mat
+														"
+													>
+														<i class="fa fa-pen" />
+													</button>
 													<button
 														type="button"
 														class="btn btn-danger btn-sm btn-icon mx-1"
@@ -101,7 +112,18 @@
 													m2
 												</td>
 												<td>€{{ mat.price }} per m2</td>
-												<td class="text-end">
+												<td class="text-end" nowrap>
+													<button
+														type="button"
+														class="btn btn-info btn-sm btn-icon mx-1"
+														data-bs-toggle="modal"
+														data-bs-target="#editSheetOption"
+														@click="
+															editMaterial = mat
+														"
+													>
+														<i class="fa fa-pen" />
+													</button>
 													<button
 														type="button"
 														class="btn btn-danger btn-sm btn-icon mx-1"
@@ -128,37 +150,40 @@
 							data-bs-toggle="modal"
 							data-bs-target="#addSheetOption"
 						>
-							Voeg optie toe
+							Aanpassen
 						</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<AddSheetModal />
+		<EditSheetModal :material="editMaterial" />
 	</div>
 </template>
 
 <script>
 	import Information from "@/components/Information";
-	import AddSheetModal from "@/components/dashboard/materials/AddSheetModal";
+	import AddSheetModal from "@/components/dashboard/materials/sheet/AddSheetModal";
+	import EditSheetModal from "@/components/dashboard/materials/sheet/EditSheetModal";
 	import { mapGetters, mapActions } from "vuex";
 
 	export default {
-		components: { Information, AddSheetModal },
+		components: { Information, AddSheetModal, EditSheetModal },
 		data() {
 			return {
+				editMaterial: null,
 				info: {
 					title: "Plaatopties",
 					msg: `<div class="text-start">
-																																							Je kunt hier de plaatopties toevoegen. Plaatopties zijn variabelen die het mogelijk maken om bij het toevoegen van een nieuw materiaal de prijs van plaatmateriaal te berekenen.</b>.<br><br> 
+																								Je kunt hier de plaatopties toevoegen. Plaatopties zijn variabelen die het mogelijk maken om bij het toevoegen van een nieuw materiaal de prijs van plaatmateriaal te berekenen.</b>.<br><br> 
 
-																																							<h6 class="mb-0">Drager vs. dekfineer</h6>
-																																							Een stuk plaatmateriaal is altijd opgebouwd uit een basismateriaal bijv. MDF 18mm. Dit basismateriaal noemen we de drager. Daarnaast is het mogelijk dat een materiaal is voorzien van een draagfineer. Het dekfineer kan aan een enkele kant zitten of aan beide kanten. Er zijn vele verschillende soorten dekkingen. HPL, fineer, folie, enz...<br><br>
+																								<h6 class="mb-0">Drager vs. dekfineer</h6>
+																								Een stuk plaatmateriaal is altijd opgebouwd uit een basismateriaal bijv. MDF 18mm. Dit basismateriaal noemen we de drager. Daarnaast is het mogelijk dat een materiaal is voorzien van een draagfineer. Het dekfineer kan aan een enkele kant zitten of aan beide kanten. Er zijn vele verschillende soorten dekkingen. HPL, fineer, folie, enz...<br><br>
 
-																																							<h6 class="mb-0">Prijs</h6>
-																																							De prijs die het materiaal orgineel kost kan verschillen van de prijs die het HMC rekend voor dit materiaal. In de berekening wordt alleen de HMC prijs meegenomen.<br><br>
+																								<h6 class="mb-0">Prijs</h6>
+																								De prijs die het materiaal orgineel kost kan verschillen van de prijs die het HMC rekend voor dit materiaal. In de berekening wordt alleen de HMC prijs meegenomen.<br><br>
 
-																																							</div>`,
+																								</div>`,
 				},
 			};
 		},
@@ -167,6 +192,9 @@
 		},
 		methods: {
 			...mapActions(["updatesheetMaterials", "alert", "notification"]),
+			editSheetMaterial(i) {
+				console.log("edit");
+			},
 			async deleteSheetMaterial(i) {
 				try {
 					await this.alert({
