@@ -27,7 +27,7 @@
 							</select>
 						</div>
 						<button
-							class="btn btn-default d-block mt-0 ms-auto"
+							class="btn btn-default d-block mt-3 ms-auto"
 							@click="changeRole('editor', true)"
 						>
 							Maak beheerder
@@ -84,7 +84,7 @@
 							</select>
 						</div>
 						<button
-							class="btn btn-default d-block mt-0 ms-auto"
+							class="btn btn-default d-block mt-3 ms-auto"
 							@click="changeRole('admin', true)"
 						>
 							Maak admin
@@ -97,7 +97,7 @@
 									</th>
 									<td>
 										<button
-											class="close"
+											class="btn-close float-end"
 											aria-label="Close"
 											@click="
 												changeRole(

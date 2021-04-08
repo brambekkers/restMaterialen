@@ -1,70 +1,18 @@
 <template>
-	<div id="app-main">
-		<!-- FRONDEND -->
-		<!-- front Header -->
-		<!-- <router-view v-slot="{ Component }">
+	<perfect-scrollbar>
+		<div id="app-main">
 			<transition
-				:enter-active-class="transitionEnter"
-				:leave-active-class="transitionLeave"
-				mode="out-in"
-			>
-			</transition>
-		</router-view> -->
-		<transition
-			enter-active-class="animated slideInTop"
-			leave-active-class="animated slideOutUp"
-			mode="out-in"
-		>
-			<NavbarFront
-				v-if="front || landing"
-				style="animation-duration: 0.5s"
-			/>
-		</transition>
-
-		<!--  Front Router View-->
-		<router-view v-slot="{ Component }">
-			<transition
-				:enter-active-class="transitionEnter"
-				:leave-active-class="transitionLeave"
-				mode="out-in"
-			>
-				<component
-					:is="Component"
-					style="animation-duration: 0.5s"
-					v-if="front"
-				/>
-				<component
-					:is="Component"
-					style="animation-duration: 0.5s"
-					v-else-if="landing"
-				/>
-			</transition>
-		</router-view>
-
-		<!-- Front Footer  -->
-		<transition name="slideUp" leave-active-class="animated slideOutDown">
-			<FooterFront v-if="front" style="animation-duration: 0.5s" />
-		</transition>
-
-		<!-- BACKEND -->
-		<!-- back Sidebar -->
-		<transition
-			name="slideLeft"
-			leave-active-class="animated slideOutLeft"
-			mode="out-in"
-		>
-			<SidebarBack style="animation-duration: 0.8s" v-if="back" />
-		</transition>
-		<div class="main-panel h-100" v-if="back">
-			<!-- back Header -->
-			<transition
-				name="slideDown"
+				enter-active-class="animated slideInDown"
 				leave-active-class="animated slideOutUp"
 				mode="out-in"
 			>
-				<NavbarBack :title="$route.name" />
+				<NavbarFront
+					v-if="front || landing"
+					style="animation-duration: 0.5s"
+				/>
 			</transition>
-			<!-- back Main-->
+
+			<!--  Front Router View-->
 			<router-view v-slot="{ Component }">
 				<transition
 					:enter-active-class="transitionEnter"
@@ -73,20 +21,67 @@
 				>
 					<component
 						:is="Component"
-						style="animation-duration: 0.8s"
+						style="animation-duration: 0.5s"
+						v-if="front"
+					/>
+					<component
+						:is="Component"
+						style="animation-duration: 0.5s"
+						v-else-if="landing"
 					/>
 				</transition>
 			</router-view>
-			<!-- back Footer-->
+
+			<!-- Front Footer  -->
 			<transition
-				name="slideUp"
-				leave-active-class="animated slideOutDown"
+				enter-active-class="animated slideInUp"
+				leave-active-class="animated slideOutDown "
+			>
+				<FooterFront v-if="front" style="animation-duration: 0.5s" />
+			</transition>
+
+			<!-- BACKEND -->
+			<!-- back Sidebar -->
+			<transition
+				name="slideLeft"
+				leave-active-class="animated slideOutLeft"
 				mode="out-in"
 			>
-				<FooterBack />
+				<SidebarBack style="animation-duration: 0.8s" v-if="back" />
 			</transition>
+			<div class="main-panel" v-if="back">
+				<!-- back Header -->
+				<transition
+					name="slideDown"
+					leave-active-class="animated slideOutUp"
+					mode="out-in"
+				>
+					<NavbarBack :title="$route.name" />
+				</transition>
+				<!-- back Main-->
+				<router-view v-slot="{ Component }">
+					<transition
+						:enter-active-class="transitionEnter"
+						:leave-active-class="transitionLeave"
+						mode="out-in"
+					>
+						<component
+							:is="Component"
+							style="animation-duration: 0.8s"
+						/>
+					</transition>
+				</router-view>
+				<!-- back Footer-->
+				<transition
+					name="slideUp"
+					leave-active-class="animated slideOutDown"
+					mode="out-in"
+				>
+					<FooterBack />
+				</transition>
+			</div>
 		</div>
-	</div>
+	</perfect-scrollbar>
 </template>
 
 <script>
@@ -133,12 +128,6 @@
 		},
 		created() {
 			this.$router.beforeEach((to, from, next) => {
-				// if (transitionName === "slide") {
-				//     const toDepth = to.path.split("/").length;
-				//     const fromDepth = from.path.split("/").length;
-				//     transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
-				// }
-
 				this.transitionEnter = to.meta.transitionEnter;
 				this.transitionLeave = from.meta.transitionLeave;
 
@@ -150,6 +139,22 @@
 </script>
 
 <style lang="scss">
+	body {
+		@media (max-width: 1200px) and (min-width: 768px) {
+			p {
+				font-size: 12px !important;
+			}
+		}
+
+		@media (max-width: 768px) {
+			p {
+				font-size: 11px !important;
+			}
+		}
+	}
+	#app {
+		overflow: hidden;
+	}
 	#app-main {
 		font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
 		background-color: #fffef9;

@@ -10,12 +10,20 @@
 			<div class="card">
 				<div class="card-header">
 					<h5 class="card-title">Restmaterialen database</h5>
-					<p class="card-category">Geen filter</p>
+					<p class="card-category mb-1" v-if="searchTags.length">
+						<span
+							class="mx-1 badge rounded-pill bg-light text-dark"
+							v-for="(tag, i) of searchTags"
+							:key="i"
+							>{{ tag }}</span
+						>
+					</p>
 				</div>
-				<div class="card-body">
+				<div class="card-body pt-1">
 					<MaterialsList
 						v-if="materials"
 						:materials="filteredMaterials"
+						:unfilteredMaterials="materials"
 					/>
 					<Loading v-else />
 				</div>

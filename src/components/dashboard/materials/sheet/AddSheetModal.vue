@@ -104,7 +104,7 @@
 	export default {
 		data() {
 			return {
-				types: ["materiaal", "dekking"],
+				types: ["drager", "dekfineer"],
 				newOption: {
 					type: "",
 					name: "",
@@ -119,7 +119,6 @@
 		methods: {
 			...mapActions(["updatesheetMaterials"]),
 			update() {
-				console.log("test");
 				this.sheetMaterials.push(this.newOption);
 				this.updatesheetMaterials(this.sheetMaterials);
 				this.closeModal();

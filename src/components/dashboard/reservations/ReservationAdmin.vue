@@ -5,7 +5,7 @@
 		<td>{{ reservation.amount }} {{ material.unit }}</td>
 		<td>{{ reservation.amount * material.price }} euro</td>
 		<td class="text-center">
-			<PaidLabel :paid="reservation.payID" />
+			<PaidLabel :paid="reservation.payID" class="mb-0" />
 		</td>
 		<td class="text-end">
 			<button
@@ -95,9 +95,9 @@
 						type: "confirm",
 						msg: {
 							title: "Betaling aanpassen",
-							text: `Weet je zeker dat je de betaling wilt aanpassen naar: <strong> ${
+							text: `Weet je zeker dat je de betaling wilt aanpassen naar: ${
 								!this.reservation.payID ? "" : "niet"
-							} betaald.</strong>`,
+							} betaald.`,
 						},
 					});
 					this.togglePayment();
@@ -125,9 +125,9 @@
 						style: "success",
 						msg: {
 							title: "Betaling aangepast!",
-							text: `Je hebt succesvol de betaling aangepast. De reservering is <strong> ${
+							text: `Je hebt succesvol de betaling aangepast. De reservering is  ${
 								!this.reservation.payID ? "" : "niet"
-							} betaald.</strong>`,
+							} betaald.`,
 						},
 					});
 				} catch (error) {}
@@ -153,6 +153,9 @@
 					});
 				}
 			},
+		},
+		async mounted() {
+			this.name = await this.getUserName(this.reservation.uid);
 		},
 	};
 </script>

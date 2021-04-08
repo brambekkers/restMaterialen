@@ -1,5 +1,9 @@
 <template>
-	<div class="accordion" id="reservationsCollapse">
+	<div
+		class="accordion"
+		id="reservationsCollapse"
+		v-if="hasReservations && hasReservations.length"
+	>
 		<ul class="list-group list-group-flush border">
 			<template v-for="material of materials">
 				<li
@@ -10,7 +14,7 @@
 						Object.values(material.reservations).length
 					"
 					data-bs-toggle="collapse"
-					:data-target="`#collapse_${material.id}`"
+					:data-bs-target="`#collapse_${material.id}`"
 					aria-expanded="true"
 					:aria-controls="`collapse_${material.id}`"
 				>
@@ -75,6 +79,9 @@
 			</template>
 		</ul>
 	</div>
+	<p class="p-4 mt-3" v-else>
+		Op dit moment zijn er geen reserveringen in het systeem bekend.
+	</p>
 </template>
 
 <script>
@@ -85,6 +92,13 @@
 		name: "ReservationsList",
 		components: { ReservationAdmin, MaterialThumbnail },
 		props: ["materials"],
+		computed: {
+			hasReservations() {
+				return this.materials.filter((m) => {
+					return m.reservations && Object.values(m.reservations).length;
+				});
+			},
+		},
 	};
 </script>
 

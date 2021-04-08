@@ -3,7 +3,7 @@
 		<td>{{ user.id }}</td>
 		<td>{{ user.email }}</td>
 		<td>{{ user.firstName }} {{ user.lastName }}</td>
-		<td class="td-actions text-end">
+		<td class="td-actions text-end" nowrap>
 			<button
 				type="button"
 				rel="tooltip"

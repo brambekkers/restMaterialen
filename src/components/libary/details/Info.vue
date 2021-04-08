@@ -124,6 +124,7 @@
 				if (this.material.unitAvalible > 1) {
 					return this.material.priceUnit.replace("plaat", "platen");
 				}
+				return this.material.priceUnit;
 			},
 		},
 	};

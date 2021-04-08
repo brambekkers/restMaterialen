@@ -7548,7 +7548,7 @@ a:hover {
 }
 .h1,
 h1 {
-    font-size: 3.5em;
+    font-size: 3.5rem;
     line-height: 1.15;
     margin-bottom: 30px;
 }
@@ -7560,7 +7560,7 @@ h1 small {
 }
 .h2,
 h2 {
-    font-size: 2.5em;
+    font-size: 2.5rem;
 }
 .h2,
 .h3,
@@ -7570,13 +7570,13 @@ h3 {
 }
 .h3,
 h3 {
-    font-size: 2em;
+    font-size: 2rem;
     line-height: 1.4em;
 }
 .h4,
 h4 {
     font-size: 1.714em;
-    line-height: 1.45em;
+    line-height: 1.45rem;
     margin-top: 30px;
     margin-bottom: 15px;
 }
@@ -7589,12 +7589,12 @@ h4.title + .category {
 .h5,
 h5 {
     font-size: 1.57em;
-    line-height: 1.4em;
+    line-height: 1.4rem;
     margin-bottom: 15px;
 }
 .h6,
 h6 {
-    font-size: 1em;
+    font-size: 1rem;
     font-weight: 700;
     text-transform: uppercase;
 }
@@ -10632,6 +10632,7 @@ img {
     position: relative;
     float: right;
     width: calc(100% - 260px);
+    min-height: 100vh;
     background-color: #fffef9;
     transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
 }
@@ -12215,6 +12216,7 @@ img {
     background-color: transparent;
     border-color: hsla(0, 0%, 100%, 0.5);
     color: #fff;
+    height: 100%;
 }
 [data-background-color]:not([data-background-color="gray"]) .input-group-focus .input-group-append .input-group-text,
 [data-background-color]:not([data-background-color="gray"]) .input-group-focus .input-group-prepend .input-group-text {

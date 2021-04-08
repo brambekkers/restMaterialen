@@ -27,16 +27,16 @@
 			<h6>CIRCUSTEK</h6>
 			<p>
 				Ophalen eigen gereserveerde: <br />
-				donderdag ochtend: 08:30 / 12:00
+				Donderdagochtend: 08:30 / 12:00
 			</p>
-			<h6>OPLEIDINGS CONTAINER</h6>
+			<h6>OPLEIDINGEN</h6>
 			<p>
 				Ophalen materiaal verplichte schoolwerkstukken:<br />
 				Maak hierover een afspraak met je praktijkdocent.
 			</p>
 
 			<p>
-				Meer info: Sjors van de Voort<br />
+				Meer info: Sjors van der Voort<br />
 				s.vandervoort@hmcollege.nl
 			</p>
 		</section>
@@ -68,6 +68,8 @@
 			align-items: center;
 			justify-content: center;
 			text-align: center;
+
+			min-height: 400px;
 
 			.background {
 				position: absolute;

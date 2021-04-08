@@ -20,7 +20,7 @@
 			{{ material.unitAvalible }} / {{ material.unitAmount }}
 			{{ unit }}
 		</td>
-		<td class="text-end">
+		<td class="text-end" nowrap>
 			<router-link
 				type="button"
 				rel="tooltip"
@@ -69,6 +69,7 @@
 				if (this.material.unitAvalible > 1) {
 					return this.material.priceUnit.replace("plaat", "platen");
 				}
+				return this.material.priceUnit;
 			},
 		},
 		methods: {

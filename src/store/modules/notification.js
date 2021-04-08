@@ -1,5 +1,5 @@
 import * as firebase from "firebase";
-import { useToast } from "vue-toastification";
+// import { useToast } from "vue-toastification";
 
 // Sweet Alert 2
 import Swal from "sweetalert2";
@@ -22,8 +22,6 @@ export default {
     },
     actions: {
         notification({ getters }, { style, msg }) {
-            console.log(getters.toast);
-            console.log(style, msg);
             if (style === "success") {
                 console.log("ik draai");
                 const icon = "fas fa-thumbs-up fa-2x";
@@ -51,7 +49,6 @@ export default {
                     <span data-notify="title" class="font-weight-bold">{1}</span>
                     <span data-notify="message">{2}</span>
                 </div>`;
-
             if (style === "error") {
                 title = `Error - ${msg.code}`;
                 message = msg.message;

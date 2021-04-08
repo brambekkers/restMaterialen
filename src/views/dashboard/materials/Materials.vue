@@ -38,12 +38,15 @@
 								</a>
 							</li>
 						</ul>
-						<div class="tab-content tab-space tab-subcategories">
+						<div
+							class="tab-content tab-space tab-subcategories pb-0"
+						>
 							<div class="tab-pane active" id="active">
 								<div class="card border">
 									<MaterialsListAdmin
 										:materials="activeMaterials"
 										v-if="activeMaterials"
+										:unfilteredMaterials="materials"
 									/>
 								</div>
 							</div>

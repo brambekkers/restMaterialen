@@ -20,14 +20,14 @@
 				<div class="modal-body">
 					<!-- BasisMateriaal -->
 					<div class="mb-3">
-						<label>Wat is het basismateriaal</label>
+						<label>Wat is de drager</label>
 						<select
 							class="form-select form-control text-capitalize"
 							v-model="calc.type"
 							required
 						>
 							<option value="" selected disabled hidden>
-								Selecteer een type
+								Selecteer een drager
 							</option>
 							<template
 								v-for="(mat, i) of sheetMaterials"
@@ -36,7 +36,7 @@
 								<option
 									:value="mat"
 									class="text-capitalize"
-									v-if="mat.type === 'materiaal'"
+									v-if="mat.type === 'drager'"
 								>
 									{{ mat.name }}
 								</option>
@@ -45,7 +45,7 @@
 					</div>
 					<!-- Aside -->
 					<div class="mb-3">
-						<label>Dekking A-kant</label>
+						<label>Dekfineer A-kant</label>
 						<select
 							class="form-select form-control text-capitalize"
 							v-model="calc.Aside"
@@ -55,7 +55,7 @@
 								Selecteer een type
 							</option>
 							<option :value="{ price: 0 }">
-								Geen dekking A-kant
+								Geen dekfineer A-kant
 							</option>
 							<template
 								v-for="(mat, i) of sheetMaterials"
@@ -63,7 +63,7 @@
 							>
 								<option
 									:value="mat"
-									v-if="mat.type === 'dekking'"
+									v-if="mat.type === 'dekfineer'"
 								>
 									{{ mat.name }}
 								</option>
@@ -72,7 +72,7 @@
 					</div>
 					<!-- Aside -->
 					<div class="mb-3">
-						<label>Dekking B-kant</label>
+						<label>Dekfineer B-kant</label>
 						<select
 							class="form-select form-control text-capitalize"
 							v-model="calc.Bside"
@@ -82,7 +82,7 @@
 								Selecteer een type
 							</option>
 							<option :value="{ price: 0 }">
-								Geen dekking B-kant
+								Geen dekfineer B-kant
 							</option>
 							<template
 								v-for="(mat, i) of sheetMaterials"
@@ -90,7 +90,7 @@
 							>
 								<option
 									:value="mat"
-									v-if="mat.type === 'dekking'"
+									v-if="mat.type === 'dekfineer'"
 								>
 									{{ mat.name }}
 								</option>

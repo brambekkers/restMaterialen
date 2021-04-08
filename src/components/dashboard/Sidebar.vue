@@ -1,9 +1,9 @@
 <template>
 	<div class="sidebar" data-color="white" data-active-color="danger">
-		<div class="logo text-center">
-			<router-link to="/" class="simple-text logo-normal"
-				>RMM</router-link
-			>
+		<div class="logo text-center p-4">
+			<router-link to="/" class="simple-text logo-normal">
+				<img src="@/assets/img/hmc-logo.svg" alt="hmc logo" />
+			</router-link>
 		</div>
 		<div class="sidebar-wrapper">
 			<ul class="nav">

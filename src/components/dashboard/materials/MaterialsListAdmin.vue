@@ -1,7 +1,7 @@
 <template>
-	<div class="table-responsive-lg">
+	<div class="table-responsive-lg" v-if="materials && materials.length">
 		<table class="table table-striped">
-			<thead class="text-primary">
+			<thead class="text-primary border-bottom">
 				<tr>
 					<th>ID</th>
 					<th>Naam</th>
@@ -21,6 +21,20 @@
 			</tbody>
 		</table>
 	</div>
+	<div
+		class="p-3"
+		v-else-if="unfilteredMaterials && !unfilteredMaterials.length"
+	>
+		<h6>Geen materiaal</h6>
+		Op dit moment staan er geen materialen in de database.
+		<router-link class="link" to="/dashboard/materials/add">
+			Klik hier om materiaal toe te voegen</router-link
+		>.
+	</div>
+	<div class="p-3" v-else-if="materials && !materials.length">
+		<h6>niets gevonden</h6>
+		Geen materiaal met deze zoekterm
+	</div>
 </template>
 
 <script>
@@ -28,6 +42,13 @@
 
 	export default {
 		components: { Material },
-		props: ["materials"],
+		props: ["materials", "unfilteredMaterials"],
 	};
 </script>
+
+<style lang="scss" scoped>
+	.link {
+		text-decoration: none;
+		font-weight: 600;
+	}
+</style>

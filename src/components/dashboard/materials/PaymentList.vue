@@ -1,5 +1,8 @@
 <template>
-	<div class="table-responsive-lg" v-if="isAdmin && payments">
+	<div
+		class="table-responsive-lg"
+		v-if="isAdmin && payments && payments.length"
+	>
 		<table class="table table-striped">
 			<thead class="text-primary">
 				<tr>
@@ -13,12 +16,16 @@
 			</thead>
 			<tbody>
 				<PaymentItem
-					v-for="(payment, i) of payments"
+					v-for="(payment, i) of sortPayments"
 					:payment="payment"
 					:key="i"
 				/>
 			</tbody>
 		</table>
+	</div>
+	<div class="p-3" v-else>
+		<h6>Geen betalingen</h6>
+		Op dit moment staan er geen betalingen in de database.
 	</div>
 </template>
 
@@ -31,6 +38,11 @@
 		components: { PaymentItem },
 		computed: {
 			...mapGetters(["isAdmin"]),
+			sortPayments() {
+				return this.payments.sort(
+					(a, b) => b.paymentDate.seconds - a.paymentDate.seconds
+				);
+			},
 		},
 		methods: {
 			toTime(timestamp) {
