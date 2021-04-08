@@ -9,7 +9,7 @@
 					<th>Afmetingen</th>
 					<th>Prijs</th>
 					<th class="text-center">Beschikbaarheid</th>
-					<th class="text-right">Acties</th>
+					<th class="text-end">Acties</th>
 				</tr>
 			</thead>
 			<tbody>

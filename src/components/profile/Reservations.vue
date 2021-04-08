@@ -12,7 +12,7 @@
 						:key="reservation.id"
 					>
 						<div class="row">
-							<div class="col-md-2 col-2 pr-0">
+							<div class="col-md-2 col-2 pe-0">
 								<div class>
 									<img
 										v-if="
@@ -38,10 +38,8 @@
 									<small
 										>{{ reservation.amount }}
 										{{
-											unit(
-												materialById(reservation.id)
-													.priceUnit
-											)
+											materialById(reservation.id)
+												.priceUnit
 										}}</small
 									>
 								</span>
@@ -87,11 +85,6 @@
 		methods: {
 			materialById(id) {
 				return this.materials.filter((m) => m.id === id)[0];
-			},
-			unit(input) {
-				const unit = input.split(" ")[1];
-				if (unit === "deel") return "delen";
-				return unit.toLowerCase();
 			},
 		},
 	};

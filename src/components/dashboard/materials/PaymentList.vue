@@ -1,5 +1,5 @@
 <template>
-	<div class="table-responsive-lg" v-if="isAdmin">
+	<div class="table-responsive-lg" v-if="isAdmin && payments">
 		<table class="table table-striped">
 			<thead class="text-primary">
 				<tr>
@@ -12,30 +12,26 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="item" v-for="(payment, i) of payments" :key="i">
-					<td class="font-weight-bold pl-4">
-						{{ payment.materialName }}
-					</td>
-					<td>
-						{{ payment.paymentDate.toDate().toLocaleDateString() }}
-					</td>
-					<td>{{ payment.userID }}</td>
-					<td>{{ payment.registeredBy }}</td>
-					<td>{{ payment.amount }}</td>
-					<td>
-						<span class="badge badge-pill badge-success px-3 py-2"
-							>€ {{ payment.price }}</span
-						>
-					</td>
-				</tr>
+				<PaymentItem
+					v-for="(payment, i) of payments"
+					:payment="payment"
+					:key="i"
+				/>
 			</tbody>
 		</table>
 	</div>
 </template>
 
 <script>
+	import { mapGetters, mapActions } from "vuex";
+	import PaymentItem from "@/components/dashboard/materials/PaymentItem.vue";
+
 	export default {
-		props: ["payments", "isAdmin"],
+		props: ["payments"],
+		components: { PaymentItem },
+		computed: {
+			...mapGetters(["isAdmin"]),
+		},
 		methods: {
 			toTime(timestamp) {
 				return timestamp.toDate();

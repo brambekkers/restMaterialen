@@ -114,7 +114,7 @@
 
 							<div class="row border-bottom mb-4 py-4">
 								<div class="col-12">
-									<h5 class="card-title mt-0 text-right">
+									<h5 class="card-title mt-0 text-end">
 										Tijdlijn
 									</h5>
 								</div>

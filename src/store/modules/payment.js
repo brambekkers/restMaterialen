@@ -33,11 +33,16 @@ export default {
                         price: material.price * reservation.amount,
                         userID: reservation.uid,
                         amount: reservation.amount,
-                        registeredBy: getters.auth.currentUser.uid
+                        registeredBy: getters.auth.currentUser.uid,
+                        collected: false
                     });
 
                     // Update PayID from material (localy)
+                    // Maby delete this later
                     material.reservations[reservation.uid].payID = payment.id;
+
+                    // TEST: Delete reservation totaly to prevent dubble reservartion when one reservartion is payed and other not....
+                    delete material.reservations[reservation.uid];
 
                     // Update reservation to database
                     await dispatch("updateMaterial", material);

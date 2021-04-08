@@ -8,7 +8,7 @@
 					</div>
 					<div class="card-body">
 						<div class="row">
-							<div class="col-3 ml-auto">
+							<div class="col-3 ms-auto">
 								<Search @searchText="searchText = $event" />
 							</div>
 						</div>
@@ -33,16 +33,16 @@
 		components: {
 			Search,
 			Loading,
-			ReservationsList
+			ReservationsList,
 		},
 		data() {
 			return {
-				searchText: ""
+				searchText: "",
 			};
 		},
 		computed: {
 			searchTags() {
-				return this.searchText.split(" ").filter(a => a != "");
+				return this.searchText.split(" ").filter((a) => a != "");
 			},
 			materials() {
 				return this.$store.getters.materials;
@@ -50,7 +50,7 @@
 			filteredMaterials() {
 				if (this.materials) {
 					if (this.searchTags.length) {
-						return this.materials.filter(m => {
+						return this.materials.filter((m) => {
 							for (const tag of this.searchTags) {
 								for (const mTags of m.tags) {
 									if (
@@ -75,7 +75,7 @@
 					}
 					return this.materials;
 				}
-			}
-		}
+			},
+		},
 	};
 </script>

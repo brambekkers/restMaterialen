@@ -6,22 +6,25 @@
 		<div class="card-body">
 			<table
 				class="table mx-0 table-striped border-top mb-0 table-hover border"
-				v-if="material.reservations && Object.values(material.reservations)"
+				v-if="
+					material.reservations &&
+					Object.values(material.reservations)
+				"
 			>
 				<thead class>
 					<tr>
-						<th class="pl-4">#</th>
+						<th class="ps-4">#</th>
 						<th>Gebruiker</th>
 						<th>Hoeveelheid</th>
 						<th>Prijs</th>
 
 						<th class="text-center">Betaalt</th>
-						<th class="text-right pr-4">Acties</th>
+						<th class="text-end pe-4">Acties</th>
 					</tr>
 				</thead>
 				<tbody>
 					<ReservationAdmin
-						v-for="(reservation, i) of material.reservations"
+						v-for="(reservation, key, i) of material.reservations"
 						:key="i"
 						:reservation="reservation"
 						:material="material"
@@ -39,6 +42,6 @@
 
 	export default {
 		props: ["material"],
-		components: { ReservationAdmin }
+		components: { ReservationAdmin },
 	};
 </script>

@@ -3,12 +3,12 @@
 		<td>{{ user.id }}</td>
 		<td>{{ user.email }}</td>
 		<td>{{ user.firstName }} {{ user.lastName }}</td>
-		<td class="td-actions text-right">
+		<td class="td-actions text-end">
 			<button
 				type="button"
 				rel="tooltip"
 				class="btn btn-info btn-sm btn-icon mx-1"
-				data-toggle="tooltip"
+				data-bs-toggle="tooltip"
 				data-placement="top"
 				title="Bekijk gebruiker"
 				@click="toItem"
@@ -19,7 +19,7 @@
 				type="button"
 				rel="tooltip"
 				class="btn btn-warning btn-sm btn-icon mx-1"
-				data-toggle="tooltip"
+				data-bs-toggle="tooltip"
 				data-placement="top"
 				title="Reset wachtwoord gebruiker"
 			>
@@ -29,7 +29,7 @@
 				type="button"
 				rel="tooltip"
 				class="btn btn-danger btn-sm btn-icon mx-1"
-				data-toggle="tooltip"
+				data-bs-toggle="tooltip"
 				data-placement="top"
 				title="Verwijder gebruiker"
 				@click="deleteUser"
@@ -50,7 +50,9 @@
 		},
 		methods: {
 			toItem() {
-				this.$router.push(`${this.$route.fullPath}/${this.user.id}`);
+				this.$router.push(
+					`${this.$route.fullPath}/details/${this.user.id}`
+				);
 			},
 			async deleteUser() {
 				if (this.user.id === this.uid) {
@@ -80,11 +82,6 @@
 					});
 				}
 			},
-		},
-		mounted() {
-			$(() => {
-				$('[data-toggle="tooltip"]').tooltip();
-			});
 		},
 	};
 </script>

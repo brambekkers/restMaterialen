@@ -1,10 +1,9 @@
-import Vue from "vue";
 import * as firebase from "firebase";
 
 export default {
     state: {
         user: null,
-        users: [],
+        users: {},
         roles: {
             editors: [],
             admins: []
@@ -18,10 +17,10 @@ export default {
             return state.users ? state.users : [];
         },
         editors(state) {
-            return state.users.length ? state.users.filter((u) => u.editor) : [];
+            return Object.values(state.users).filter((u) => u.editor);
         },
         admins(state) {
-            return state.users.length ? state.users.filter((u) => u.admin) : [];
+            return Object.values(state.users).filter((u) => u.admin);
         },
         isEditor(state) {
             return state.user && (state.user.editor || state.user.admin);
@@ -30,23 +29,28 @@ export default {
             return state.user && state.user.admin;
         }
     },
-    mutations: {},
+    mutations: {
+        users(state, val) {
+            state.users = { ...state.users, ...val };
+        }
+    },
     actions: {
         userListner({ state, getters, commit, dispatch }) {
             getters.auth.onAuthStateChanged(async (user) => {
-                const dbUser = user ? await dispatch("getUserFromDatabase", user) : null;
-                Vue.set(state, "user", dbUser);
+                state.user = user ? await dispatch("getUserFromDatabase", user) : null;
                 if (user) {
                     const idTokenResult = await getters.auth.currentUser.getIdTokenResult(true);
-                    Vue.set(state.user, "admin", idTokenResult.claims.admin);
-                    Vue.set(state.user, "editor", idTokenResult.claims.editor);
+                    state.user.admin = idTokenResult.claims.admin;
+                    state.user.editor = idTokenResult.claims.editor;
 
                     if (idTokenResult.claims.admin) {
                         dispatch("paymentListner");
+                        dispatch("sheetMaterialsListner");
                     }
 
                     // Update user to set last time login
-                    Vue.set(state.user, "metadata", getters.auth.currentUser.metadata);
+                    state.user.metadata = getters.auth.currentUser.metadata;
+
                     dispatch("updateUser", state.user);
                 }
             });
@@ -137,16 +141,15 @@ export default {
                 }
             });
         },
-        async deleteUser({ getters }, id) {
-            return new Promise(async (resolve, reject) => {
-                try {
-                    await getters.db.doc(`Users/${id}`).delete();
-                    await getters.auth.currentUser.delete();
-                    resolve();
-                } catch (err) {
-                    reject(err);
-                }
-            });
+        async deleteUser({ getters, dispatch }, id) {
+            try {
+                await dispatch("reauthenticateAlert");
+                await getters.db.doc(`Users/${id}`).delete();
+                await getters.auth.currentUser.delete();
+                return true;
+            } catch (err) {
+                throw err;
+            }
         },
         async deleteUserAsAdmin({ getters }, id) {
             return new Promise(async (resolve, reject) => {
@@ -159,16 +162,28 @@ export default {
                 }
             });
         },
-        async getUsers({ state, getters }) {
+        async getUsers({ state, getters, commit }) {
             if (getters.db) {
                 getters.db.collection("Users").onSnapshot((users) => {
-                    Vue.set(state, "users", []);
+                    state.users = {};
 
                     users.forEach((user) => {
-                        state.users.push(user.data());
+                        const obj = {};
+                        obj[user.id] = user.data();
+                        commit("users", obj);
                     });
                 });
             }
+        },
+        async getUserName({ getters }, id) {
+            let user = null;
+            if (getters.users && Object.values(getters.users).length) {
+                user = getters.users[id];
+            } else {
+                const doc = await getters.db.doc(`Users/${id}`).get();
+                user = doc.data();
+            }
+            return user ? `${user.firstName} ${user.lastName}` : "Onbekende gebruiker";
         },
         changeRole({ getters }, obj) {
             return new Promise(async (resolve, reject) => {

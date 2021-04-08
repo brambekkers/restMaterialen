@@ -1,8 +1,7 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 // import store from "@/store";
 
-import firebase from "firebase";
+import firebase from "firebase/app";
 
 // Pages
 import Landing from "../views/Landing.vue";
@@ -24,6 +23,7 @@ import Materials from "../views/dashboard/materials/Materials.vue";
 import AddMaterial from "../views/dashboard/materials/Add.vue";
 import ViewMaterial from "../views/dashboard/materials/View.vue";
 import EditMaterial from "../views/dashboard/materials/Edit.vue";
+import SheetMaterials from "../views/dashboard/materials/SheetMaterials.vue";
 
 import Reservations from "../views/dashboard/Reservations.vue";
 
@@ -33,10 +33,8 @@ import UserRights from "../views/dashboard/users/Rights.vue";
 
 import Options from "../views/dashboard/Options.vue";
 
-Vue.use(VueRouter);
-
 const routes = [
-    { path: "*", component: Landing },
+    { path: "/:pathMatch(.*)*", name: "not-found", component: Landing },
     {
         path: "/",
         name: "Landing",
@@ -188,6 +186,18 @@ const routes = [
         }
     },
     {
+        path: "/dashboard/materials/sheetmaterials",
+        name: "Plaatmateriaal opties",
+        component: SheetMaterials,
+        meta: {
+            requiresAuth: true,
+            requiresRight: "editor",
+            transitionEnter: "animated slideInRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "back"
+        }
+    },
+    {
         path: "/dashboard/materials/:id",
         name: "Materiaal bekijken",
         component: ViewMaterial,
@@ -238,18 +248,6 @@ const routes = [
         }
     },
     {
-        path: "/dashboard/users/:uid",
-        name: "User details",
-        component: Profile,
-        meta: {
-            requiresAuth: true,
-            requiresRight: "admin",
-            transitionEnter: "animated slideInRight",
-            transitionLeave: "animated slideOutLeft",
-            template: "back"
-        }
-    },
-    {
         path: "/dashboard/users/add",
         name: "Voeg gebruiker toe",
         component: AddUser,
@@ -273,6 +271,18 @@ const routes = [
             template: "back"
         }
     },
+    {
+        path: "/dashboard/users/details/:uid",
+        name: "User details",
+        component: Profile,
+        meta: {
+            requiresAuth: true,
+            requiresRight: "admin",
+            transitionEnter: "animated slideInRight",
+            transitionLeave: "animated slideOutLeft",
+            template: "back"
+        }
+    },
     // Options
     {
         path: "/dashboard/options",
@@ -288,7 +298,8 @@ const routes = [
     }
 ];
 
-const router = new VueRouter({
+const router = new createRouter({
+    history: createWebHistory(process.env.BASE_URL),
     mode: "history",
     routes
 });

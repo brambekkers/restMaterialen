@@ -7696,7 +7696,7 @@ a.text-gray:hover {
 }
 body {
     color: #2c2c2c;
-    font-size: 14px;
+    font-size: 13px;
     font-family: Montserrat, Helvetica Neue, Arial, sans-serif;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
@@ -7706,7 +7706,7 @@ body {
     background: #fff;
 }
 .animation-transition-general,
-.card-collapse .card .card-header a[data-toggle="collapse"] i,
+.card-collapse .card .card-header a[data-bs-toggle="collapse"] i,
 .nav-pills .nav-link,
 .nav-tabs .nav-link,
 .navbar,
@@ -7714,8 +7714,8 @@ body {
 .off-canvas-sidebar .logo a.logo-normal,
 .off-canvas-sidebar .navbar-minimize,
 .off-canvas-sidebar .nav p,
-.off-canvas-sidebar .sidebar-wrapper .user .info [data-toggle="collapse"] ~ div > ul > li > a span,
-.off-canvas-sidebar .sidebar-wrapper > .nav [data-toggle="collapse"] ~ div > ul > li > a span,
+.off-canvas-sidebar .sidebar-wrapper .user .info [data-bs-toggle="collapse"] ~ div > ul > li > a span,
+.off-canvas-sidebar .sidebar-wrapper > .nav [data-bs-toggle="collapse"] ~ div > ul > li > a span,
 .off-canvas-sidebar .user .info > a > span,
 .off-canvas-sidebar .user .photo,
 .off-canvas-sidebar .user a,
@@ -7725,8 +7725,8 @@ body {
 .sidebar .nav a i,
 .sidebar .navbar-minimize,
 .sidebar .nav p,
-.sidebar .sidebar-wrapper .user .info [data-toggle="collapse"] ~ div > ul > li > a span,
-.sidebar .sidebar-wrapper > .nav [data-toggle="collapse"] ~ div > ul > li > a span,
+.sidebar .sidebar-wrapper .user .info [data-bs-toggle="collapse"] ~ div > ul > li > a span,
+.sidebar .sidebar-wrapper > .nav [data-bs-toggle="collapse"] ~ div > ul > li > a span,
 .sidebar .user .info > a > span,
 .sidebar .user .photo,
 .sidebar .user a,
@@ -7739,10 +7739,10 @@ body {
 .dropdown-toggle:after {
     transition: all 0.15s ease 0s;
 }
-.card-collapse .card a[data-toggle="collapse"].expanded i,
-.card-collapse .card a[data-toggle="collapse"][aria-expanded="true"] i,
+.card-collapse .card a[data-bs-toggle="collapse"].expanded i,
+.card-collapse .card a[data-bs-toggle="collapse"][aria-expanded="true"] i,
 .dropdown-toggle[aria-expanded="true"]:after,
-a[data-toggle="collapse"][aria-expanded="true"] .caret {
+a[data-bs-toggle="collapse"][aria-expanded="true"] .caret {
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
     transform: rotate(180deg);
 }
@@ -7904,7 +7904,7 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret {
     vertical-align: middle;
 }
 .navbar a:not(.btn):not(.dropdown-item) {
-    color: #fff;
+    color: #66615b;
 }
 .navbar.bg-white .input-group .form-control,
 .navbar.bg-white .input-group.no-border .form-control,
@@ -8131,6 +8131,7 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret {
 }
 .navbar .navbar-collapse .nav-item a {
     font-size: 14px;
+    font-weight: 700;
 }
 .bg-default {
     background-color: #66615b !important;
@@ -8155,16 +8156,13 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret {
 }
 .dropdown > .dropdown-menu:first-of-type,
 .dropup > .dropdown-menu:first-of-type {
-    display: block;
+    /* display: block; */
     transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s, opacity 0.3s ease 0s, height 0s linear 0.35s;
 }
-.dropdown .dropdown-menu,
-.dropup .dropdown-menu {
-    opacity: 0;
-    filter: alpha(opacity=0);
+.dropdown-menu {
     box-shadow: 1px 2px 7px 1px rgba(0, 0, 0, 0.125);
-    visibility: hidden;
     position: absolute;
+    display: none;
 }
 .dropdown .dropdown-menu[x-placement="bottom-start"],
 .dropdown .dropdown-menu[x-placement="top-start"],
@@ -8172,12 +8170,12 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret {
 .dropup .dropdown-menu[x-placement="top-start"] {
     transform: translateZ(0) !important;
 }
+
 .dropdown.show .dropdown-menu,
 .dropup.show .dropdown-menu {
-    opacity: 1;
-    filter: alpha(opacity=100);
-    visibility: visible;
+    display: block !important;
 }
+
 .dropdown.show .dropdown-menu[x-placement="top-start"],
 .dropup.show .dropdown-menu[x-placement="top-start"] {
     transform: translate3d(0, -50px, 0) !important;
@@ -8315,6 +8313,7 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret {
     right: -2px;
     left: auto;
 }
+
 .card-just-text .dropdown .dropdown-menu:before,
 .card.card-just-text .dropdown .dropdown-menu:before,
 .dropdown-btn .dropdown-menu:before,
@@ -8365,7 +8364,7 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret {
     .dropdown-btn .dropdown-menu,
     .dropdown .dropdown-menu,
     .navbar-nav .dropdown-item .dropdown-menu {
-        transform: translate3d(0, -40px, 0);
+        /* transform: translate3d(0, -40px, 0); */
         transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s, opacity 0.3s ease 0s, height 0s linear 0.35s;
     }
     .dropdown-btn.show .dropdown-menu,
@@ -10010,7 +10009,7 @@ img {
     border-bottom: 1px solid #ddd;
     padding: 20px;
     text-align: center;
-    display: block !important;
+    /* display: block !important; */
 }
 .modal-header.no-border-header {
     border-bottom: 0 none !important;
@@ -10149,16 +10148,16 @@ img {
 .sidebar .sidebar-wrapper .navbar-form {
     border: none;
 }
-.off-canvas-sidebar .sidebar-wrapper .user .info [data-toggle="collapse"] ~ div > ul > li > a span,
-.off-canvas-sidebar .sidebar-wrapper > .nav [data-toggle="collapse"] ~ div > ul > li > a span,
-.sidebar .sidebar-wrapper .user .info [data-toggle="collapse"] ~ div > ul > li > a span,
-.sidebar .sidebar-wrapper > .nav [data-toggle="collapse"] ~ div > ul > li > a span {
+.off-canvas-sidebar .sidebar-wrapper .user .info [data-bs-toggle="collapse"] ~ div > ul > li > a span,
+.off-canvas-sidebar .sidebar-wrapper > .nav [data-bs-toggle="collapse"] ~ div > ul > li > a span,
+.sidebar .sidebar-wrapper .user .info [data-bs-toggle="collapse"] ~ div > ul > li > a span,
+.sidebar .sidebar-wrapper > .nav [data-bs-toggle="collapse"] ~ div > ul > li > a span {
     display: inline-block;
 }
-.off-canvas-sidebar .sidebar-wrapper .user .info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
-.off-canvas-sidebar .sidebar-wrapper > .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
-.sidebar .sidebar-wrapper .user .info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
-.sidebar .sidebar-wrapper > .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal {
+.off-canvas-sidebar .sidebar-wrapper .user .info [data-bs-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
+.off-canvas-sidebar .sidebar-wrapper > .nav [data-bs-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
+.sidebar .sidebar-wrapper .user .info [data-bs-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
+.sidebar .sidebar-wrapper > .nav [data-bs-toggle="collapse"] ~ div > ul > li > a .sidebar-normal {
     margin: 0;
     position: relative;
     transform: translateX(0);
@@ -10168,10 +10167,10 @@ img {
     line-height: 20px;
     z-index: 1;
 }
-.off-canvas-sidebar .sidebar-wrapper .user .info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-mini-icon,
-.off-canvas-sidebar .sidebar-wrapper > .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-mini-icon,
-.sidebar .sidebar-wrapper .user .info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-mini-icon,
-.sidebar .sidebar-wrapper > .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-mini-icon {
+.off-canvas-sidebar .sidebar-wrapper .user .info [data-bs-toggle="collapse"] ~ div > ul > li > a .sidebar-mini-icon,
+.off-canvas-sidebar .sidebar-wrapper > .nav [data-bs-toggle="collapse"] ~ div > ul > li > a .sidebar-mini-icon,
+.sidebar .sidebar-wrapper .user .info [data-bs-toggle="collapse"] ~ div > ul > li > a .sidebar-mini-icon,
+.sidebar .sidebar-wrapper > .nav [data-bs-toggle="collapse"] ~ div > ul > li > a .sidebar-mini-icon {
     text-transform: uppercase;
     width: 34px;
     margin-right: 10px;
@@ -10185,16 +10184,16 @@ img {
     display: inherit;
     color: hsla(0, 0%, 100%, 0.5);
 }
-.off-canvas-sidebar .sidebar-wrapper .user .info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
-.off-canvas-sidebar .sidebar-wrapper > .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
-.sidebar .sidebar-wrapper .user .info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
-.sidebar .sidebar-wrapper > .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal {
+.off-canvas-sidebar .sidebar-wrapper .user .info [data-bs-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
+.off-canvas-sidebar .sidebar-wrapper > .nav [data-bs-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
+.sidebar .sidebar-wrapper .user .info [data-bs-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
+.sidebar .sidebar-wrapper > .nav [data-bs-toggle="collapse"] ~ div > ul > li > a .sidebar-normal {
     text-transform: capitalize;
 }
-.off-canvas-sidebar .sidebar-wrapper .user .info [data-toggle="collapse"] ~ div > ul > li > a i,
-.off-canvas-sidebar .sidebar-wrapper > .nav [data-toggle="collapse"] ~ div > ul > li > a i,
-.sidebar .sidebar-wrapper .user .info [data-toggle="collapse"] ~ div > ul > li > a i,
-.sidebar .sidebar-wrapper > .nav [data-toggle="collapse"] ~ div > ul > li > a i {
+.off-canvas-sidebar .sidebar-wrapper .user .info [data-bs-toggle="collapse"] ~ div > ul > li > a i,
+.off-canvas-sidebar .sidebar-wrapper > .nav [data-bs-toggle="collapse"] ~ div > ul > li > a i,
+.sidebar .sidebar-wrapper .user .info [data-bs-toggle="collapse"] ~ div > ul > li > a i,
+.sidebar .sidebar-wrapper > .nav [data-bs-toggle="collapse"] ~ div > ul > li > a i {
     font-size: 17px;
     line-height: 20px;
     width: 26px;
@@ -10249,47 +10248,47 @@ img {
 .sidebar .nav li:hover:not(.active) > a {
     opacity: 1;
 }
-.off-canvas-sidebar .nav li.active > a[data-toggle="collapse"] >,
-.sidebar .nav li.active > a[data-toggle="collapse"] > {
+.off-canvas-sidebar .nav li.active > a[data-bs-toggle="collapse"] >,
+.sidebar .nav li.active > a[data-bs-toggle="collapse"] > {
     background-color: transparent;
     box-shadow: 0 2px 2px hsla(38, 16%, 76%, 0.5);
 }
-.off-canvas-sidebar .nav li.active > a[data-toggle="collapse"],
-.off-canvas-sidebar .nav li.active > a[data-toggle="collapse"] i,
-.off-canvas-sidebar .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a,
-.off-canvas-sidebar .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active i,
-.sidebar .nav li.active > a[data-toggle="collapse"],
-.sidebar .nav li.active > a[data-toggle="collapse"] i,
-.sidebar .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a,
-.sidebar .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active i {
+.off-canvas-sidebar .nav li.active > a[data-bs-toggle="collapse"],
+.off-canvas-sidebar .nav li.active > a[data-bs-toggle="collapse"] i,
+.off-canvas-sidebar .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active > a,
+.off-canvas-sidebar .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active i,
+.sidebar .nav li.active > a[data-bs-toggle="collapse"],
+.sidebar .nav li.active > a[data-bs-toggle="collapse"] i,
+.sidebar .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active > a,
+.sidebar .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active i {
     color: #ef8157;
 }
-.off-canvas-sidebar .nav li.active > a[data-toggle="collapse"] + div .nav .active a,
-.off-canvas-sidebar .nav li.active > a[data-toggle="collapse"] i + div .nav .active a,
-.off-canvas-sidebar .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a + div .nav .active a,
-.off-canvas-sidebar .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active i + div .nav .active a,
-.sidebar .nav li.active > a[data-toggle="collapse"] + div .nav .active a,
-.sidebar .nav li.active > a[data-toggle="collapse"] i + div .nav .active a,
-.sidebar .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a + div .nav .active a,
-.sidebar .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active i + div .nav .active a {
+.off-canvas-sidebar .nav li.active > a[data-bs-toggle="collapse"] + div .nav .active a,
+.off-canvas-sidebar .nav li.active > a[data-bs-toggle="collapse"] i + div .nav .active a,
+.off-canvas-sidebar .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active > a + div .nav .active a,
+.off-canvas-sidebar .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active i + div .nav .active a,
+.sidebar .nav li.active > a[data-bs-toggle="collapse"] + div .nav .active a,
+.sidebar .nav li.active > a[data-bs-toggle="collapse"] i + div .nav .active a,
+.sidebar .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active > a + div .nav .active a,
+.sidebar .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active i + div .nav .active a {
     background-color: transparent;
     box-shadow: none;
 }
-.off-canvas-sidebar .nav li.active > a[data-toggle="collapse"] + div .nav .active a:after,
-.off-canvas-sidebar .nav li.active > a[data-toggle="collapse"] i + div .nav .active a:after,
-.off-canvas-sidebar .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a + div .nav .active a:after,
-.off-canvas-sidebar .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active i + div .nav .active a:after,
-.sidebar .nav li.active > a[data-toggle="collapse"] + div .nav .active a:after,
-.sidebar .nav li.active > a[data-toggle="collapse"] i + div .nav .active a:after,
-.sidebar .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a + div .nav .active a:after,
-.sidebar .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active i + div .nav .active a:after {
+.off-canvas-sidebar .nav li.active > a[data-bs-toggle="collapse"] + div .nav .active a:after,
+.off-canvas-sidebar .nav li.active > a[data-bs-toggle="collapse"] i + div .nav .active a:after,
+.off-canvas-sidebar .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active > a + div .nav .active a:after,
+.off-canvas-sidebar .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active i + div .nav .active a:after,
+.sidebar .nav li.active > a[data-bs-toggle="collapse"] + div .nav .active a:after,
+.sidebar .nav li.active > a[data-bs-toggle="collapse"] i + div .nav .active a:after,
+.sidebar .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active > a + div .nav .active a:after,
+.sidebar .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active i + div .nav .active a:after {
     content: "";
     position: absolute;
     width: calc(100% - 5px);
     z-index: 0;
 }
-.off-canvas-sidebar .nav li.active > a[data-toggle="collapse"] ~ div > .nav,
-.sidebar .nav li.active > a[data-toggle="collapse"] ~ div > .nav {
+.off-canvas-sidebar .nav li.active > a[data-bs-toggle="collapse"] ~ div > .nav,
+.sidebar .nav li.active > a[data-bs-toggle="collapse"] ~ div > .nav {
     margin-top: 0;
 }
 .off-canvas-sidebar .nav p,
@@ -10435,16 +10434,16 @@ img {
     background: #fff;
 }
 .off-canvas-sidebar[data-color="white"] .nav li a,
-.off-canvas-sidebar[data-color="white"] .nav li a[data-toggle="collapse"],
-.off-canvas-sidebar[data-color="white"] .nav li a[data-toggle="collapse"] i,
-.off-canvas-sidebar[data-color="white"] .nav li a[data-toggle="collapse"] ~ div > ul > li .sidebar-mini-icon,
-.off-canvas-sidebar[data-color="white"] .nav li a[data-toggle="collapse"] ~ div > ul > li > a,
+.off-canvas-sidebar[data-color="white"] .nav li a[data-bs-toggle="collapse"],
+.off-canvas-sidebar[data-color="white"] .nav li a[data-bs-toggle="collapse"] i,
+.off-canvas-sidebar[data-color="white"] .nav li a[data-bs-toggle="collapse"] ~ div > ul > li .sidebar-mini-icon,
+.off-canvas-sidebar[data-color="white"] .nav li a[data-bs-toggle="collapse"] ~ div > ul > li > a,
 .off-canvas-sidebar[data-color="white"] .nav li a i,
 .sidebar[data-color="white"] .nav li a,
-.sidebar[data-color="white"] .nav li a[data-toggle="collapse"],
-.sidebar[data-color="white"] .nav li a[data-toggle="collapse"] i,
-.sidebar[data-color="white"] .nav li a[data-toggle="collapse"] ~ div > ul > li .sidebar-mini-icon,
-.sidebar[data-color="white"] .nav li a[data-toggle="collapse"] ~ div > ul > li > a,
+.sidebar[data-color="white"] .nav li a[data-bs-toggle="collapse"],
+.sidebar[data-color="white"] .nav li a[data-bs-toggle="collapse"] i,
+.sidebar[data-color="white"] .nav li a[data-bs-toggle="collapse"] ~ div > ul > li .sidebar-mini-icon,
+.sidebar[data-color="white"] .nav li a[data-bs-toggle="collapse"] ~ div > ul > li > a,
 .sidebar[data-color="white"] .nav li a i {
     color: #66615b;
     opacity: 0.7;
@@ -10482,76 +10481,76 @@ img {
     background: #66615b;
 }
 .off-canvas-sidebar[data-active-color="primary"] .nav li.active > a,
-.off-canvas-sidebar[data-active-color="primary"] .nav li.active > a[data-toggle="collapse"],
-.off-canvas-sidebar[data-active-color="primary"] .nav li.active > a[data-toggle="collapse"] i,
-.off-canvas-sidebar[data-active-color="primary"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
-.off-canvas-sidebar[data-active-color="primary"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a,
+.off-canvas-sidebar[data-active-color="primary"] .nav li.active > a[data-bs-toggle="collapse"],
+.off-canvas-sidebar[data-active-color="primary"] .nav li.active > a[data-bs-toggle="collapse"] i,
+.off-canvas-sidebar[data-active-color="primary"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
+.off-canvas-sidebar[data-active-color="primary"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active > a,
 .off-canvas-sidebar[data-active-color="primary"] .nav li.active > a i,
 .sidebar[data-active-color="primary"] .nav li.active > a,
-.sidebar[data-active-color="primary"] .nav li.active > a[data-toggle="collapse"],
-.sidebar[data-active-color="primary"] .nav li.active > a[data-toggle="collapse"] i,
-.sidebar[data-active-color="primary"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
-.sidebar[data-active-color="primary"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a,
+.sidebar[data-active-color="primary"] .nav li.active > a[data-bs-toggle="collapse"],
+.sidebar[data-active-color="primary"] .nav li.active > a[data-bs-toggle="collapse"] i,
+.sidebar[data-active-color="primary"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
+.sidebar[data-active-color="primary"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active > a,
 .sidebar[data-active-color="primary"] .nav li.active > a i {
     color: #51cbce;
     opacity: 1;
 }
 .off-canvas-sidebar[data-active-color="info"] .nav li.active > a,
-.off-canvas-sidebar[data-active-color="info"] .nav li.active > a[data-toggle="collapse"],
-.off-canvas-sidebar[data-active-color="info"] .nav li.active > a[data-toggle="collapse"] i,
-.off-canvas-sidebar[data-active-color="info"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
-.off-canvas-sidebar[data-active-color="info"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a,
+.off-canvas-sidebar[data-active-color="info"] .nav li.active > a[data-bs-toggle="collapse"],
+.off-canvas-sidebar[data-active-color="info"] .nav li.active > a[data-bs-toggle="collapse"] i,
+.off-canvas-sidebar[data-active-color="info"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
+.off-canvas-sidebar[data-active-color="info"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active > a,
 .off-canvas-sidebar[data-active-color="info"] .nav li.active > a i,
 .sidebar[data-active-color="info"] .nav li.active > a,
-.sidebar[data-active-color="info"] .nav li.active > a[data-toggle="collapse"],
-.sidebar[data-active-color="info"] .nav li.active > a[data-toggle="collapse"] i,
-.sidebar[data-active-color="info"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
-.sidebar[data-active-color="info"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a,
+.sidebar[data-active-color="info"] .nav li.active > a[data-bs-toggle="collapse"],
+.sidebar[data-active-color="info"] .nav li.active > a[data-bs-toggle="collapse"] i,
+.sidebar[data-active-color="info"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
+.sidebar[data-active-color="info"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active > a,
 .sidebar[data-active-color="info"] .nav li.active > a i {
     color: #51bcda;
     opacity: 1;
 }
 .off-canvas-sidebar[data-active-color="success"] .nav li.active > a,
-.off-canvas-sidebar[data-active-color="success"] .nav li.active > a[data-toggle="collapse"],
-.off-canvas-sidebar[data-active-color="success"] .nav li.active > a[data-toggle="collapse"] i,
-.off-canvas-sidebar[data-active-color="success"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
-.off-canvas-sidebar[data-active-color="success"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a,
+.off-canvas-sidebar[data-active-color="success"] .nav li.active > a[data-bs-toggle="collapse"],
+.off-canvas-sidebar[data-active-color="success"] .nav li.active > a[data-bs-toggle="collapse"] i,
+.off-canvas-sidebar[data-active-color="success"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
+.off-canvas-sidebar[data-active-color="success"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active > a,
 .off-canvas-sidebar[data-active-color="success"] .nav li.active > a i,
 .sidebar[data-active-color="success"] .nav li.active > a,
-.sidebar[data-active-color="success"] .nav li.active > a[data-toggle="collapse"],
-.sidebar[data-active-color="success"] .nav li.active > a[data-toggle="collapse"] i,
-.sidebar[data-active-color="success"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
-.sidebar[data-active-color="success"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a,
+.sidebar[data-active-color="success"] .nav li.active > a[data-bs-toggle="collapse"],
+.sidebar[data-active-color="success"] .nav li.active > a[data-bs-toggle="collapse"] i,
+.sidebar[data-active-color="success"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
+.sidebar[data-active-color="success"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active > a,
 .sidebar[data-active-color="success"] .nav li.active > a i {
     color: #6bd098;
     opacity: 1;
 }
 .off-canvas-sidebar[data-active-color="warning"] .nav li.active > a,
-.off-canvas-sidebar[data-active-color="warning"] .nav li.active > a[data-toggle="collapse"],
-.off-canvas-sidebar[data-active-color="warning"] .nav li.active > a[data-toggle="collapse"] i,
-.off-canvas-sidebar[data-active-color="warning"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
-.off-canvas-sidebar[data-active-color="warning"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a,
+.off-canvas-sidebar[data-active-color="warning"] .nav li.active > a[data-bs-toggle="collapse"],
+.off-canvas-sidebar[data-active-color="warning"] .nav li.active > a[data-bs-toggle="collapse"] i,
+.off-canvas-sidebar[data-active-color="warning"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
+.off-canvas-sidebar[data-active-color="warning"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active > a,
 .off-canvas-sidebar[data-active-color="warning"] .nav li.active > a i,
 .sidebar[data-active-color="warning"] .nav li.active > a,
-.sidebar[data-active-color="warning"] .nav li.active > a[data-toggle="collapse"],
-.sidebar[data-active-color="warning"] .nav li.active > a[data-toggle="collapse"] i,
-.sidebar[data-active-color="warning"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
-.sidebar[data-active-color="warning"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a,
+.sidebar[data-active-color="warning"] .nav li.active > a[data-bs-toggle="collapse"],
+.sidebar[data-active-color="warning"] .nav li.active > a[data-bs-toggle="collapse"] i,
+.sidebar[data-active-color="warning"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
+.sidebar[data-active-color="warning"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active > a,
 .sidebar[data-active-color="warning"] .nav li.active > a i {
     color: #fbc658;
     opacity: 1;
 }
 .off-canvas-sidebar[data-active-color="danger"] .nav li.active > a,
-.off-canvas-sidebar[data-active-color="danger"] .nav li.active > a[data-toggle="collapse"],
-.off-canvas-sidebar[data-active-color="danger"] .nav li.active > a[data-toggle="collapse"] i,
-.off-canvas-sidebar[data-active-color="danger"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
-.off-canvas-sidebar[data-active-color="danger"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a,
+.off-canvas-sidebar[data-active-color="danger"] .nav li.active > a[data-bs-toggle="collapse"],
+.off-canvas-sidebar[data-active-color="danger"] .nav li.active > a[data-bs-toggle="collapse"] i,
+.off-canvas-sidebar[data-active-color="danger"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
+.off-canvas-sidebar[data-active-color="danger"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active > a,
 .off-canvas-sidebar[data-active-color="danger"] .nav li.active > a i,
 .sidebar[data-active-color="danger"] .nav li.active > a,
-.sidebar[data-active-color="danger"] .nav li.active > a[data-toggle="collapse"],
-.sidebar[data-active-color="danger"] .nav li.active > a[data-toggle="collapse"] i,
-.sidebar[data-active-color="danger"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
-.sidebar[data-active-color="danger"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a,
+.sidebar[data-active-color="danger"] .nav li.active > a[data-bs-toggle="collapse"],
+.sidebar[data-active-color="danger"] .nav li.active > a[data-bs-toggle="collapse"] i,
+.sidebar[data-active-color="danger"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
+.sidebar[data-active-color="danger"] .nav li.active > a[data-bs-toggle="collapse"] ~ div > ul > li.active > a,
 .sidebar[data-active-color="danger"] .nav li.active > a i,
 .sidebar[data-active-color="danger"] .nav li.active > a span {
     color: #ef8157;
@@ -10627,13 +10626,13 @@ img {
     background: hsla(0, 0%, 78%, 0.2);
 }
 .main-content {
-    min-height: calc(100vh - 140px);
+    min-height: calc(100vh - 210px);
 }
 .main-panel {
     position: relative;
     float: right;
     width: calc(100% - 260px);
-    background-color: #f4f3ef;
+    background-color: #fffef9;
     transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
 }
 .main-panel > .content {
@@ -10686,8 +10685,8 @@ img {
         opacity: 1;
     }
     .sidebar-mini .sidebar .sidebar-wrapper .user .info > a > span,
-    .sidebar-mini .sidebar .sidebar-wrapper .user .info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
-    .sidebar-mini .sidebar .sidebar-wrapper > .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
+    .sidebar-mini .sidebar .sidebar-wrapper .user .info [data-bs-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
+    .sidebar-mini .sidebar .sidebar-wrapper > .nav [data-bs-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
     .sidebar-mini .sidebar .sidebar-wrapper > .nav li > a p {
         transform: translate3d(-25px, 0, 0);
         opacity: 0;
@@ -10706,8 +10705,8 @@ img {
         width: 260px;
     }
     .sidebar-mini .sidebar:hover .sidebar-wrapper .user .info > a > span,
-    .sidebar-mini .sidebar:hover .sidebar-wrapper .user .info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
-    .sidebar-mini .sidebar:hover .sidebar-wrapper > .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
+    .sidebar-mini .sidebar:hover .sidebar-wrapper .user .info [data-bs-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
+    .sidebar-mini .sidebar:hover .sidebar-wrapper > .nav [data-bs-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
     .sidebar-mini .sidebar:hover .sidebar-wrapper > .nav li > a p {
         transform: translateZ(0);
         opacity: 1;
@@ -11154,11 +11153,11 @@ img {
     position: relative;
     padding: 20px 0;
 }
-.card-collapse .card .card-header a[data-toggle="collapse"] {
+.card-collapse .card .card-header a[data-bs-toggle="collapse"] {
     display: block;
     color: #444;
 }
-.card-collapse .card .card-header a[data-toggle="collapse"] i {
+.card-collapse .card .card-header a[data-bs-toggle="collapse"] i {
     float: right;
     position: relative;
     color: #f96332;
@@ -11425,7 +11424,7 @@ img {
 }
 .card-stats .card-body .numbers .card-category {
     color: #9a9a9a;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.4em;
 }
 .card-stats .card-footer {
@@ -12620,8 +12619,8 @@ img {
         float: right;
         padding-right: 15px;
     }
-    .sidebar .sidebar-wrapper li.active > [data-toggle="collapse"] + div .nav li:before,
-    .sidebar .sidebar-wrapper li.active > a:not([data-toggle="collapse"]):before {
+    .sidebar .sidebar-wrapper li.active > [data-bs-toggle="collapse"] + div .nav li:before,
+    .sidebar .sidebar-wrapper li.active > a:not([data-bs-toggle="collapse"]):before {
         border-right: 17px solid #ddd;
         border-top: 17px solid transparent;
         border-bottom: 17px solid transparent;
@@ -12633,8 +12632,8 @@ img {
         top: 7px;
         transition: opacity 0.15s ease-in;
     }
-    .sidebar .sidebar-wrapper li.active > [data-toggle="collapse"] + div .nav li:after,
-    .sidebar .sidebar-wrapper li.active > a:not([data-toggle="collapse"]):after {
+    .sidebar .sidebar-wrapper li.active > [data-bs-toggle="collapse"] + div .nav li:after,
+    .sidebar .sidebar-wrapper li.active > a:not([data-bs-toggle="collapse"]):after {
         border-right: 17px solid #f4f3ef;
         border-top: 17px solid transparent;
         border-bottom: 17px solid transparent;
@@ -12646,8 +12645,8 @@ img {
         top: 7px;
         transition: opacity 0.15s ease-in;
     }
-    .sidebar .sidebar-wrapper li.active > [data-toggle="collapse"] + div .nav li a:after,
-    .sidebar .sidebar-wrapper li.active > [data-toggle="collapse"] + div .nav li a:before {
+    .sidebar .sidebar-wrapper li.active > [data-bs-toggle="collapse"] + div .nav li a:after,
+    .sidebar .sidebar-wrapper li.active > [data-bs-toggle="collapse"] + div .nav li a:before {
         top: 0;
     }
 }

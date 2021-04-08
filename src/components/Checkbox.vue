@@ -1,5 +1,5 @@
 <template>
-	<div class="form-check text-left">
+	<div class="form-check text-start">
 		<label class="form-check-label">
 			<input
 				class="form-check-input"
@@ -23,10 +23,10 @@
 	export default {
 		data() {
 			return {
-				check: false
+				check: false,
 			};
 		},
-		props: ["link"]
+		props: ["link"],
 	};
 </script>
 

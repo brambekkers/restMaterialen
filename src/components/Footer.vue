@@ -1,29 +1,24 @@
 <template>
-	<footer class="footer">
+	<footer class="footer pb-2">
 		<div class="container-fluid">
-			<div class="row">
-				<nav class="footer-nav">
-					<ul>
-						<li>
-							<router-link to="/about">Over</router-link>
-						</li>
-						<li>
-							<router-link to="/Blog">Blog</router-link>
-						</li>
-						<li>
-							<router-link to="/Licences">Voorwaarden</router-link>
-						</li>
-					</ul>
-				</nav>
-				<div class="credits ml-auto">
-					<span class="copyright">
-						© {{ new Date().getFullYear() }}, made by
-						<a href="https://brambekkers.nl">
-							Bram
-							Bekkers
-						</a>
-					</span>
-				</div>
+			<nav class="footer-nav">
+				<ul>
+					<li>
+						<router-link to="/about">Over</router-link>
+					</li>
+					<li>
+						<router-link to="/Blog">Blog</router-link>
+					</li>
+					<li>
+						<router-link to="/Licences">Voorwaarden</router-link>
+					</li>
+				</ul>
+			</nav>
+			<div class="credits ms-auto">
+				<span class="copyright">
+					© {{ new Date().getFullYear() }}, made by
+					<a href="https://brambekkers.nl"> Bram Bekkers </a>
+				</span>
 			</div>
 		</div>
 	</footer>

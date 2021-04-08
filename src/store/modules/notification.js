@@ -1,17 +1,48 @@
-import router from "@/router";
 import * as firebase from "firebase";
+import { useToast } from "vue-toastification";
 
-// boostrap notify
-import "bootstrap-notify";
 // Sweet Alert 2
 import Swal from "sweetalert2";
 
 export default {
-    state: {},
-    getters: {},
-    mutations: {},
+    state: {
+        toast: null
+    },
+
+    getters: {
+        toast(state) {
+            return state.toast;
+        }
+    },
+
+    mutations: {
+        toast(state, val) {
+            state.toast = val;
+        }
+    },
     actions: {
-        notification({}, { style, msg }) {
+        notification({ getters }, { style, msg }) {
+            console.log(getters.toast);
+            console.log(style, msg);
+            if (style === "success") {
+                console.log("ik draai");
+                const icon = "fas fa-thumbs-up fa-2x";
+                getters.toast.success(msg.text, { icon });
+            }
+
+            if (style === "error") {
+                console.log("ik draai error");
+
+                const icon = "fas fa-exclamation-triangle fa-2x";
+                getters.toast.error(msg.message, { icon });
+            }
+
+            if (style === "warning") {
+                const icon = "fas fa-exclamation-triangle fa-2x";
+                getters.toast.warning(msg.text, { icon });
+            }
+        },
+        kanNogWeg({}, { style, msg }) {
             let title, message, type, icon;
             const template = `
                 <div class="alert alert-{0} alert-with-icon alert-dismissible fade show col-10 col-md-8 col-lg-6 col-xl-4 col-xxl-3" data-notify="container">
@@ -40,7 +71,7 @@ export default {
 
             $.notify({ title, message, icon }, { type, template });
         },
-        alert({ getters }, { type, msg }) {
+        alert({}, { type, msg }) {
             return new Promise((resolve, reject) => {
                 if (type === "warning") {
                     Swal.fire({
@@ -78,69 +109,12 @@ export default {
                     }).then((result) => {
                         result.value ? resolve() : reject();
                     });
-                } else if (type === "notLogedIn") {
-                    let interval;
-                    let hasRights = false;
-                    Swal.fire({
-                        titleText: `Geen rechten`,
-                        html: `Je moet ingelogd zijn om deze pagina te bereiken. `,
-                        width: "70%",
-                        icon: "error",
-                        confirmButtonText: "Ik snap het",
-                        confirmButtonClass: "btn btn-default",
-                        onBeforeOpen: () => {
-                            interval = setInterval(() => {
-                                if (getters.user) {
-                                    hasRights = true;
-                                    Swal.close();
-                                }
-                            }, 100);
-                        },
-                        onClose: () => {
-                            clearInterval(interval);
-                        }
-                    }).then(() => {
-                        if (!hasRights) {
-                            router.push("/login");
-                        } else {
-                            msg.onComplete();
-                        }
-                    });
-                } else if (type === "noPermission") {
-                    let interval;
-                    let hasRights = false;
-                    Swal.fire({
-                        titleText: `Geen rechten`,
-                        html: `Het lijkt erop dat je <b>niet</b> de juiste rechten voor deze pagina bezit.`,
-                        width: "70%",
-                        icon: "error",
-                        confirmButtonText: "Ik snap het",
-                        confirmButtonClass: "btn btn-default",
-                        onBeforeOpen: () => {
-                            interval = setInterval(() => {
-                                const admin = msg.rightsNeeded === "admin" && getters.isAdmin;
-                                const editor = msg.rightsNeeded === "editor" && getters.isEditor;
-                                if (admin || editor) {
-                                    hasRights = true;
-                                    Swal.close();
-                                }
-                            }, 100);
-                        },
-                        onClose: () => {
-                            clearInterval(interval);
-                        }
-                    }).then(() => {
-                        if (!hasRights) {
-                            router.push("/");
-                        } else {
-                            msg.onComplete();
-                        }
-                    });
                 }
             });
         },
         reauthenticateAlert({ getters }) {
             return new Promise(async (resolve, reject) => {
+                console.log("new function to authenticate");
                 const title = `<img class="border shadow" src="https://www.deviersprong.nl/wp-content/uploads/2017/11/img-person-placeholder.jpg">`;
                 const body = `
                         <h4 class="card-title mt-0">${getters.user.firstName} ${getters.user.lastName}</h4>

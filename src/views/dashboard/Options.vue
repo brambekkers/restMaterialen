@@ -10,13 +10,17 @@
 					<div class="card-body">
 						<label class="h6">Reserveringsdagen</label>
 						<div class="row">
-							<label
-								class="col-sm-10 col-lg-7 col-form-label"
-							>Het aantal dagen dat een reserving onbetaald blijft bestaan. De reservering wordt definietief wanneer deze is betaald</label>
-							<div class="col-sm-3 col-md-2 col-xl-1 ml-auto">
+							<label class="col-sm-10 col-lg-7 col-form-label"
+								>Het aantal dagen dat een reserving onbetaald
+								blijft bestaan. De reservering wordt definietief
+								wanneer deze is betaald</label
+							>
+							<div class="col-sm-3 col-md-2 col-xl-1 ms-auto">
 								<div class="form-group">
 									<input
-										v-model.number="reservationOptions.reservationExpireDays"
+										v-model.number="
+											reservationOptions.reservationExpireDays
+										"
 										type="number"
 										class="form-control"
 									/>
@@ -25,7 +29,9 @@
 						</div>
 					</div>
 				</div>
-				<button class="btn float-right" @click="updateOptions()">Update</button>
+				<button class="btn float-end" @click="updateOptions()">
+					Update
+				</button>
 			</div>
 		</div>
 	</div>
@@ -42,29 +48,29 @@
 				info: {
 					title: "Programmaopties",
 					msg: `
-								<div class="text-left">
-								In het programmaopties menu zijn diverse technische instellingen te vinden voor het programma. Dit zijn algemene instellingen en gelden voor <b>alle gebruikers</b>.<br><br> 
+											<div class="text-start">
+											In het programmaopties menu zijn diverse technische instellingen te vinden voor het programma. Dit zijn algemene instellingen en gelden voor <b>alle gebruikers</b>.<br><br> 
 
-								<h6 class="mb-0">Reserveringsdagen</h6>
-								De optie reserveringsdagen is gemaakt om het aantal dagen dat een reserving onbetaald open blijft bestaan te beperken. Door een aantal dagen 
-								in te stellen komt het materiaal nadat de tijd is verlopen automatisch weer op beschikbaar te staan. De reservering wordt definietief wanneer deze is betaald en door een beheerder is geaccrediteerd.<br><br>
+											<h6 class="mb-0">Reserveringsdagen</h6>
+											De optie reserveringsdagen is gemaakt om het aantal dagen dat een reserving onbetaald open blijft bestaan te beperken. Door een aantal dagen 
+											in te stellen komt het materiaal nadat de tijd is verlopen automatisch weer op beschikbaar te staan. De reservering wordt definietief wanneer deze is betaald en door een beheerder is geaccrediteerd.<br><br>
 
-								</div>`
-				}
+											</div>`,
+				},
 			};
 		},
 		computed: {
 			reservationOptions() {
 				return this.$store.getters.reservationOptions;
-			}
+			},
 		},
 		methods: {
 			async updateOptions() {
 				this.$store.dispatch("updateOptions", {
 					type: "reservation",
-					options: this.reservationOptions
+					options: this.reservationOptions,
 				});
-			}
-		}
+			},
+		},
 	};
 </script>

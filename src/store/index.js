@@ -1,4 +1,3 @@
-import Vue from "vue";
 import Vuex from "vuex";
 
 // Modules
@@ -13,9 +12,7 @@ import options from "@/store/modules/options";
 // other
 import { nanoid } from "nanoid";
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+export default Vuex.createStore({
     modules: { users, firebase, materials, notification, reservation, options, payment },
     state: {},
     getters: {},

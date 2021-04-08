@@ -9,12 +9,16 @@
 			<button class="btn btn-default" @click="$router.go(-1)" v-if="UID">
 				Terug
 			</button>
-			<button class="btn btn-danger" @click="deleteButton()" v-if="!UID">
+			<button
+				class="btn btn-danger"
+				@click.prevent="deleteButton()"
+				v-if="!UID"
+			>
 				Verwijder account
 			</button>
 			<button
-				class="btn btn-default float-right"
-				@click="updateButton()"
+				class="btn btn-default float-end"
+				@click.prevent="updateButton()"
 				v-if="!UID"
 			>
 				Update account
@@ -24,7 +28,7 @@
 </template>
 
 <script>
-	import { mapGetters } from "vuex";
+	import { mapGetters, mapActions } from "vuex";
 
 	import User from "@/components/profile/User.vue";
 	import UserDetails from "@/components/profile/UserDetails.vue";
@@ -39,15 +43,22 @@
 				return this.$route.params.uid;
 			},
 			profile() {
-				return this.personalProfile
+				return !this.UID
 					? this.user
 					: this.users.filter((user) => user.id === this.UID)[0];
 			},
 		},
 		methods: {
+			...mapActions([
+				"reauthenticateAlert",
+				"alert",
+				"notification",
+				"updateUser",
+				"deleteUser",
+			]),
 			async deleteButton() {
 				try {
-					await this.$store.dispatch("alert", {
+					await this.alert({
 						type: "confirm",
 						msg: {
 							title: "Account verwijderen?",
@@ -55,7 +66,7 @@
 								"Weet je zeker dat je dit account wilt verwijderen? Wanneer je dit account verwijderd verlies je al de data en dit kan niet meer ongedaan worden gemaakt.",
 						},
 					});
-					this.deleteUser();
+					this.removeUser();
 				} catch (error) {
 					// Do nothing
 				}
@@ -63,10 +74,10 @@
 			async updateButton() {
 				try {
 					// TODO: Make alert
-					await this.$store.dispatch("updateUser", this.user);
+					await this.updateUser(this.user);
 
 					// onComplete:
-					this.$store.dispatch("notification", {
+					this.notification({
 						style: "success",
 						msg: {
 							title: "Succesvol geupdate",
@@ -74,19 +85,17 @@
 						},
 					});
 				} catch (err) {
-					this.$store.dispatch("notification", {
+					this.notification({
 						style: "error",
 						msg: err,
 					});
 				}
 			},
-			async deleteUser() {
+			async removeUser() {
 				try {
-					// TODO: Make alert
-					await this.$store.dispatch("deleteUser", this.user.id);
-
+					await this.deleteUser(this.user.id);
 					// onComplete:
-					this.$store.dispatch("notification", {
+					await this.notification({
 						style: "success",
 						msg: {
 							title: "Succesvol verwijderd",
@@ -96,7 +105,7 @@
 					});
 					this.$router.push("/libary");
 				} catch (err) {
-					this.$store.dispatch("notification", {
+					this.notification({
 						style: "error",
 						msg: err,
 					});

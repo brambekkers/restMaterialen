@@ -1,5 +1,3 @@
-import Vue from "vue";
-
 export default {
     state: {
         reservation: {
@@ -9,18 +7,20 @@ export default {
     getters: {
         reservationOptions(state) {
             return state.reservation;
-
         },
         reservationExpireDays(state) {
             return state.reservation.reservationExpireDays;
-        },
-
+        }
     },
-    mutations: {},
+    mutations: {
+        reservationOptions(state, val) {
+            return (state.reservation = val);
+        }
+    },
     actions: {
-        optionListner({ getters, state }) {
+        optionListner({ getters, commit }) {
             getters.db.doc("Options/reservation").onSnapshot((doc) => {
-                Vue.set(state, "reservation", doc.data());
+                commit("reservationOptions", doc.data());
             });
         },
         updateOptions({ getters }, { type, options }) {

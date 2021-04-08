@@ -6,6 +6,7 @@ import "firebase/firestore";
 import "firebase/storage";
 import "firebase/functions";
 import "firebase/performance";
+import "firebase/analytics";
 
 firebase.initializeApp(firebaseConfig);
 
@@ -14,18 +15,11 @@ export default {
         firebase: null
     },
     getters: {
-        db(state) {
-            return state.firebase ? state.firebase.firestore() : null;
-        },
-        auth(state) {
-            return state.firebase ? state.firebase.auth() : null;
-        },
-        storage(state) {
-            return state.firebase ? state.firebase.storage() : null;
-        },
-        functions(state) {
-            return state.firebase ? state.firebase.functions() : null;
-        }
+        firebase: (state) => state.firebase,
+        auth: (state) => state.firebase.auth(),
+        db: (state) => state.firebase.firestore(),
+        storage: (state) => state.firebase.storage(),
+        functions: (state) => state.firebase.functions()
     },
     mutations: {
         firebase: (state, firebase) => (state.firebase = firebase)

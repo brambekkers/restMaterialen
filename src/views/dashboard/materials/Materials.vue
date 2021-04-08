@@ -8,7 +8,7 @@
 					</div>
 					<div class="card-body">
 						<div class="row">
-							<div class="col-md-5 col-lg-5 col-xl-3 ml-auto">
+							<div class="col-md-5 col-lg-5 col-xl-3 ms-auto">
 								<Search @searchText="searchText = $event" />
 							</div>
 						</div>
@@ -19,28 +19,19 @@
 							<li class="nav-item">
 								<a
 									class="nav-link active"
-									data-toggle="tab"
+									data-bs-toggle="tab"
 									href="#active"
 									role="tablist"
 								>
 									Actief
 								</a>
 							</li>
+
 							<li class="nav-item">
 								<a
 									class="nav-link"
-									data-toggle="tab"
-									href="#reservated"
-									role="tablist"
-								>
-									Gereserveerd
-								</a>
-							</li>
-							<li class="nav-item">
-								<a
-									class="nav-link"
-									data-toggle="tab"
-									href="#archive"
+									data-bs-toggle="tab"
+									href="#payments"
 									role="tablist"
 								>
 									Betaald
@@ -56,22 +47,8 @@
 									/>
 								</div>
 							</div>
-							<div class="tab-pane" id="reservated">
-								<div
-									class="card border"
-									v-if="reservatedMaterials"
-								>
-									<MaterialsListAdmin
-										:materials="reservatedMaterials"
-									/>
-								</div>
-								<p v-else>
-									Er staat geen materiaal open wat volledig is
-									gereserveerd maar nog niet compleet is
-									afgerond.
-								</p>
-							</div>
-							<div class="tab-pane" id="archive">
+
+							<div class="tab-pane" id="payments">
 								<div class="card border">
 									<PaymentList :payments="payments" />
 								</div>
@@ -124,6 +101,29 @@
 										.includes(tag.toLowerCase()) ||
 									m.type.toLowerCase().includes(tag.toLowerCase())
 								);
+							}
+						});
+					}
+					return this.materials;
+				}
+			},
+			filteredPayments() {
+				if (this.payments) {
+					if (this.searchTags.length) {
+						return this.payments.filter((p) => {
+							for (const tag of this.searchTags) {
+								for (const mTags of m.tags) {
+									if (
+										mTags
+											.toLowerCase()
+											.includes(tag.toLowerCase())
+									) {
+										return true;
+									}
+								}
+								return p.name
+									.toLowerCase()
+									.includes(tag.toLowerCase());
 							}
 						});
 					}
