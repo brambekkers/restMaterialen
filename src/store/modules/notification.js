@@ -23,14 +23,11 @@ export default {
     actions: {
         notification({ getters }, { style, msg }) {
             if (style === "success") {
-                console.log("ik draai");
                 const icon = "fas fa-thumbs-up fa-2x";
                 getters.toast.success(msg.text, { icon });
             }
 
             if (style === "error") {
-                console.log("ik draai error");
-
                 const icon = "fas fa-exclamation-triangle fa-2x";
                 getters.toast.error(msg.message, { icon });
             }
@@ -40,7 +37,7 @@ export default {
                 getters.toast.warning(msg.text, { icon });
             }
         },
-        kanNogWeg({}, { style, msg }) {
+        kanNogWeg({ }, { style, msg }) {
             let title, message, type, icon;
             const template = `
                 <div class="alert alert-{0} alert-with-icon alert-dismissible fade show col-10 col-md-8 col-lg-6 col-xl-4 col-xxl-3" data-notify="container">
@@ -68,7 +65,7 @@ export default {
 
             $.notify({ title, message, icon }, { type, template });
         },
-        alert({}, { type, msg }) {
+        alert({ }, { type, msg }) {
             return new Promise((resolve, reject) => {
                 if (type === "warning") {
                     Swal.fire({

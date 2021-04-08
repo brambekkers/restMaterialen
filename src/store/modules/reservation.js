@@ -33,7 +33,7 @@ export default {
                 }
             });
         },
-        isAmountAvalible({}, { material, amount }) {
+        isAmountAvalible({ }, { material, amount }) {
             return new Promise((resolve, reject) => {
                 if (material.unitAvalible - amount >= 0) {
                     resolve();
@@ -45,6 +45,7 @@ export default {
         reservationInDatabase({ getters, dispatch }, { material, userAmount }) {
             return new Promise(async (resolve, reject) => {
                 const uid = getters.auth.currentUser.uid;
+                console.log(getters.user)
 
                 try {
                     // Get reservations
@@ -58,6 +59,7 @@ export default {
                         id: material.id,
                         amount: userAmount,
                         uid: uid,
+                        studentNumber: getters.user?.studentNumber || null,
                         payID: null,
                         reservationDate,
                         expireDate: new Date(expireDate.setDate(reservationDate.getDate() + getters.reservationExpireDays))
