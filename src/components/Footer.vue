@@ -25,10 +25,10 @@
 </template>
 
 <style lang="scss" scoped>
-	.footer {
-		position: absolute;
-		bottom: 0;
-		width: 100%;
-		pointer-events: none;
-	}
+.footer {
+	// position: absolute;
+	bottom: 0;
+	width: 100%;
+	pointer-events: none;
+}
 </style>
