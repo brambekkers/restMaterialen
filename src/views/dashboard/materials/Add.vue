@@ -1,5 +1,5 @@
 <template>
-	<div class="content">
+	<div class="content  px-0 px-md-3">
 		<form @submit.prevent="add()">
 			<div class="row">
 				<!-- Algemene info -->
@@ -32,72 +32,71 @@
 </template>
 
 <script>
-	import Info from "@/components/dashboard/materials/Info.vue";
-	import Price from "@/components/dashboard/materials/Price.vue";
-	import Images from "@/components/dashboard/materials/Images.vue";
-	import Tags from "@/components/dashboard/materials/Tags.vue";
+import Info from "@/components/dashboard/materials/Info.vue";
+import Price from "@/components/dashboard/materials/Price.vue";
+import Images from "@/components/dashboard/materials/Images.vue";
+import Tags from "@/components/dashboard/materials/Tags.vue";
 
-	export default {
-		name: "AddMaterial",
-		components: {
-			Info,
-			Price,
-			Images,
-			Tags,
-		},
-		data() {
-			return {
-				newMaterial: {
-					name: "",
-					type: "",
-					origin: "",
-					length: null,
-					width: null,
-					thickness: null,
-					description: "",
-					claimed: false,
-					price: null,
-					priceUnit: "",
-					unitAmount: null,
-					unitAvalible: null,
-					tags: [],
-					images: [],
-					creationTime: null,
-					lastEditTime: null,
-				},
-			};
-		},
-
-		methods: {
-			async add() {
-				this.newMaterial.creationTime = new Date();
-				this.newMaterial.lastEditTime = new Date();
-				this.newMaterial.unitAvalible = this.newMaterial.unitAmount;
-
-				try {
-					// add material
-					await this.$store.dispatch("addMaterial", this.newMaterial);
-					// onComplete:
-					this.$store.dispatch("notification", {
-						style: "success",
-						msg: {
-							title: "Succesvol Toegevoegd!",
-							text:
-								"Het materiaal is succesvol aan de database toegevoegd!",
-						},
-					});
-					// Redirect
-					this.$router.push("/dashboard/materials");
-				} catch (err) {
-					this.$store.dispatch("notification", {
-						style: "error",
-						msg: err,
-					});
-				}
+export default {
+	name: "AddMaterial",
+	components: {
+		Info,
+		Price,
+		Images,
+		Tags,
+	},
+	data() {
+		return {
+			newMaterial: {
+				name: "",
+				type: "",
+				origin: "",
+				length: null,
+				width: null,
+				thickness: null,
+				description: "",
+				claimed: false,
+				price: null,
+				priceUnit: "",
+				unitAmount: null,
+				unitAvalible: null,
+				tags: [],
+				images: [],
+				creationTime: null,
+				lastEditTime: null,
 			},
+		};
+	},
+
+	methods: {
+		async add() {
+			this.newMaterial.creationTime = new Date();
+			this.newMaterial.lastEditTime = new Date();
+			this.newMaterial.unitAvalible = this.newMaterial.unitAmount;
+
+			try {
+				// add material
+				await this.$store.dispatch("addMaterial", this.newMaterial);
+				// onComplete:
+				this.$store.dispatch("notification", {
+					style: "success",
+					msg: {
+						title: "Succesvol Toegevoegd!",
+						text: "Het materiaal is succesvol aan de database toegevoegd!",
+					},
+				});
+				// Redirect
+				this.$router.push("/dashboard/materials");
+			} catch (err) {
+				this.$store.dispatch("notification", {
+					style: "error",
+					msg: err,
+				});
+			}
 		},
-		mounted() {
-			this.$store.dispatch("createQRcode");
-		},
-	};
+	},
+	mounted() {
+		this.$store.dispatch("createQRcode");
+	},
+};
 </script>

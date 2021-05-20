@@ -1,77 +1,77 @@
 <template>
-	<perfect-scrollbar>
-		<div id="app-main">
+	<!-- <perfect-scrollbar> -->
+	<div id="app-main">
+		<transition
+			enter-active-class="animated slideInDown"
+			leave-active-class="animated slideOutUp"
+			mode="out-in"
+		>
+			<NavbarFront v-if="front || landing" style="animation-duration: 0.5s" />
+		</transition>
+
+		<!--  Front Router View-->
+		<router-view v-slot="{ Component }">
 			<transition
-				enter-active-class="animated slideInDown"
+				:enter-active-class="transitionEnter"
+				:leave-active-class="transitionLeave"
+				mode="out-in"
+			>
+				<component :is="Component" style="animation-duration: 0.5s" v-if="front" />
+				<component
+					:is="Component"
+					style="animation-duration: 0.5s"
+					v-else-if="landing"
+				/>
+			</transition>
+		</router-view>
+
+		<!-- Front Footer  -->
+		<transition
+			enter-active-class="animated slideInUp"
+			leave-active-class="animated slideOutDown "
+		>
+			<FooterFront v-if="front" style="animation-duration: 0.5s" />
+		</transition>
+
+		<!-- BACKEND -->
+		<!-- back Sidebar -->
+		<transition
+			name="slideLeft"
+			leave-active-class="animated slideOutLeft"
+			mode="out-in"
+		>
+			<SidebarBack style="animation-duration: 0.8s" v-if="back" />
+		</transition>
+		<div class="main-panel" v-if="back" :class="{ sidebarIsOpen: sidebarOpen }">
+			<!-- back Header -->
+			<transition
+				name="slideDown"
 				leave-active-class="animated slideOutUp"
 				mode="out-in"
 			>
-				<NavbarFront v-if="front || landing" style="animation-duration: 0.5s" />
+				<NavbarBack :title="$route.name" />
 			</transition>
-
-			<!--  Front Router View-->
+			<!-- back Main-->
 			<router-view v-slot="{ Component }">
 				<transition
 					:enter-active-class="transitionEnter"
 					:leave-active-class="transitionLeave"
 					mode="out-in"
 				>
-					<component :is="Component" style="animation-duration: 0.5s" v-if="front" />
-					<component
-						:is="Component"
-						style="animation-duration: 0.5s"
-						v-else-if="landing"
-					/>
+					<component :is="Component" style="animation-duration: 0.8s" />
 				</transition>
 			</router-view>
-
-			<!-- Front Footer  -->
+			<!-- back Footer-->
 			<transition
-				enter-active-class="animated slideInUp"
-				leave-active-class="animated slideOutDown "
-			>
-				<FooterFront v-if="front" style="animation-duration: 0.5s" />
-			</transition>
-
-			<!-- BACKEND -->
-			<!-- back Sidebar -->
-			<transition
-				name="slideLeft"
-				leave-active-class="animated slideOutLeft"
+				name="slideUp"
+				leave-active-class="animated slideOutDown"
 				mode="out-in"
 			>
-				<SidebarBack style="animation-duration: 0.8s" v-if="back" />
+				<FooterBack />
 			</transition>
-			<div class="main-panel" v-if="back" :class="{ sidebarIsOpen: sidebarOpen }">
-				<!-- back Header -->
-				<transition
-					name="slideDown"
-					leave-active-class="animated slideOutUp"
-					mode="out-in"
-				>
-					<NavbarBack :title="$route.name" />
-				</transition>
-				<!-- back Main-->
-				<router-view v-slot="{ Component }">
-					<transition
-						:enter-active-class="transitionEnter"
-						:leave-active-class="transitionLeave"
-						mode="out-in"
-					>
-						<component :is="Component" style="animation-duration: 0.8s" />
-					</transition>
-				</router-view>
-				<!-- back Footer-->
-				<transition
-					name="slideUp"
-					leave-active-class="animated slideOutDown"
-					mode="out-in"
-				>
-					<FooterBack />
-				</transition>
-			</div>
 		</div>
-	</perfect-scrollbar>
+	</div>
+	<!-- </perfect-scrollbar> -->
 </template>
 
 <script>
@@ -152,7 +152,7 @@ body {
 	background-color: #fffef9;
 	width: 100vw;
 	overflow-x: hidden;
-	height: 100vh;
+	// height: 100vh;
 	min-height: 100vh;
 }
 

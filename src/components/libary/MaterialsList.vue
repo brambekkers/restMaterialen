@@ -3,12 +3,12 @@
 		<table class="table table-striped">
 			<thead class="text-primary border-bottom">
 				<tr>
-					<th>ID</th>
+					<th></th>
 					<th>Naam</th>
-					<th>Type</th>
-					<th>Lengte</th>
-					<th>Breedte</th>
-					<th>Dikte</th>
+					<th class="d-none d-md-table-cell">Type</th>
+					<th class="d-none d-md-table-cell">Lengte</th>
+					<th class="d-none d-md-table-cell">Breedte</th>
+					<th class="d-none d-md-table-cell">Dikte</th>
 					<th>Prijs</th>
 				</tr>
 			</thead>
@@ -35,10 +35,10 @@
 </template>
 
 <script>
-	import Material from "@/components/libary/Material.vue";
+import Material from "@/components/libary/Material.vue";
 
-	export default {
-		components: { Material },
-		props: ["materials", "unfilteredMaterials"],
-	};
+export default {
+	components: { Material },
+	props: ["materials", "unfilteredMaterials"],
+};
 </script>

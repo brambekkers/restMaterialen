@@ -1,5 +1,5 @@
 <template>
-	<div class="content h-75">
+	<div class="content h-75  px-0 px-md-3">
 		<div class="row justify-content-center">
 			<div class="col-xxl-8 col-xxxl-5">
 				<div class="card">
@@ -24,14 +24,8 @@
 									</thead>
 									<!-- DRAGER -->
 									<tbody>
-										<template
-											v-for="(mat, i) of sheetMaterials"
-											:key="i"
-										>
-											<tr
-												class="item"
-												v-if="mat.type === 'drager'"
-											>
+										<template v-for="(mat, i) of sheetMaterials" :key="i">
+											<tr class="item" v-if="mat.type === 'drager'">
 												<td class="text-capitalize">
 													{{ mat.type }}
 												</td>
@@ -39,10 +33,7 @@
 													{{ mat.name }}
 												</td>
 
-												<td>
-													€{{ mat.originalPrice }} per
-													m2
-												</td>
+												<td>€{{ mat.originalPrice }} per m2</td>
 												<td>€{{ mat.price }} per m2</td>
 												<td class="text-end" nowrap>
 													<button
@@ -50,24 +41,16 @@
 														class="btn btn-info btn-sm btn-icon mx-1"
 														data-bs-toggle="modal"
 														data-bs-target="#editSheetOption"
-														@click="
-															editMaterial = mat
-														"
+														@click="editMaterial = mat"
 													>
 														<i class="fa fa-pen" />
 													</button>
 													<button
 														type="button"
 														class="btn btn-danger btn-sm btn-icon mx-1"
-														@click="
-															deleteSheetMaterial(
-																i
-															)
-														"
+														@click="deleteSheetMaterial(i)"
 													>
-														<i
-															class="fa fa-times"
-														/>
+														<i class="fa fa-times" />
 													</button>
 												</td>
 											</tr>
@@ -92,14 +75,8 @@
 										</tr>
 									</thead>
 									<tbody>
-										<template
-											v-for="(mat, i) of sheetMaterials"
-											:key="i"
-										>
-											<tr
-												class="item"
-												v-if="mat.type === 'dekfineer'"
-											>
+										<template v-for="(mat, i) of sheetMaterials" :key="i">
+											<tr class="item" v-if="mat.type === 'dekfineer'">
 												<td class="text-capitalize">
 													{{ mat.type }}
 												</td>
@@ -107,10 +84,7 @@
 													{{ mat.name }}
 												</td>
 
-												<td>
-													€{{ mat.originalPrice }} per
-													m2
-												</td>
+												<td>€{{ mat.originalPrice }} per m2</td>
 												<td>€{{ mat.price }} per m2</td>
 												<td class="text-end" nowrap>
 													<button
@@ -118,24 +92,16 @@
 														class="btn btn-info btn-sm btn-icon mx-1"
 														data-bs-toggle="modal"
 														data-bs-target="#editSheetOption"
-														@click="
-															editMaterial = mat
-														"
+														@click="editMaterial = mat"
 													>
 														<i class="fa fa-pen" />
 													</button>
 													<button
 														type="button"
 														class="btn btn-danger btn-sm btn-icon mx-1"
-														@click="
-															deleteSheetMaterial(
-																i
-															)
-														"
+														@click="deleteSheetMaterial(i)"
 													>
-														<i
-															class="fa fa-times"
-														/>
+														<i class="fa fa-times" />
 													</button>
 												</td>
 											</tr>
@@ -162,19 +128,19 @@
 </template>
 
 <script>
-	import Information from "@/components/Information";
-	import AddSheetModal from "@/components/dashboard/materials/sheet/AddSheetModal";
-	import EditSheetModal from "@/components/dashboard/materials/sheet/EditSheetModal";
-	import { mapGetters, mapActions } from "vuex";
+import Information from "@/components/Information";
+import AddSheetModal from "@/components/dashboard/materials/sheet/AddSheetModal";
+import EditSheetModal from "@/components/dashboard/materials/sheet/EditSheetModal";
+import { mapGetters, mapActions } from "vuex";
 
-	export default {
-		components: { Information, AddSheetModal, EditSheetModal },
-		data() {
-			return {
-				editMaterial: null,
-				info: {
-					title: "Plaatopties",
-					msg: `<div class="text-start">
+export default {
+	components: { Information, AddSheetModal, EditSheetModal },
+	data() {
+		return {
+			editMaterial: null,
+			info: {
+				title: "Plaatopties",
+				msg: `<div class="text-start">
 																								Je kunt hier de plaatopties toevoegen. Plaatopties zijn variabelen die het mogelijk maken om bij het toevoegen van een nieuw materiaal de prijs van plaatmateriaal te berekenen.</b>.<br><br> 
 
 																								<h6 class="mb-0">Drager vs. dekfineer</h6>
@@ -184,40 +150,39 @@
 																								De prijs die het materiaal orgineel kost kan verschillen van de prijs die het HMC rekend voor dit materiaal. In de berekening wordt alleen de HMC prijs meegenomen.<br><br>
 
 																								</div>`,
-				},
-			};
-		},
-		computed: {
-			...mapGetters(["sheetMaterials"]),
-		},
-		methods: {
-			...mapActions(["updatesheetMaterials", "alert", "notification"]),
-			editSheetMaterial(i) {
-				console.log("edit");
 			},
-			async deleteSheetMaterial(i) {
-				try {
-					await this.alert({
-						type: "confirm",
-						msg: {
-							title: "Plaatoptie verwijderen?",
-							text:
-								"Weet je zeker dat je deze plaatoptie wilt verwijderen? Wanneer je deze plaatoptie verwijderd kan dit niet meer ongedaan worden gemaakt.",
-						},
-					});
-					this.sheetMaterials.splice(i, 1);
-					this.updatesheetMaterials(this.sheetMaterials);
-				} catch (err) {}
-			},
+		};
+	},
+	computed: {
+		...mapGetters(["sheetMaterials"]),
+	},
+	methods: {
+		...mapActions(["updatesheetMaterials", "alert", "notification"]),
+		editSheetMaterial(i) {
+			console.log("edit");
 		},
-	};
+		async deleteSheetMaterial(i) {
+			try {
+				await this.alert({
+					type: "confirm",
+					msg: {
+						title: "Plaatoptie verwijderen?",
+						text:
+							"Weet je zeker dat je deze plaatoptie wilt verwijderen? Wanneer je deze plaatoptie verwijderd kan dit niet meer ongedaan worden gemaakt.",
+					},
+				});
+				this.sheetMaterials.splice(i, 1);
+				this.updatesheetMaterials(this.sheetMaterials);
+			} catch (err) {}
+		},
+	},
+};
 </script>
 
-
 <style lang="scss" scoped>
-	table {
-		th {
-			padding-top: 0 !important;
-		}
+table {
+	th {
+		padding-top: 0 !important;
 	}
+}
 </style>

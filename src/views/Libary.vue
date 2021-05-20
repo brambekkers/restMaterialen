@@ -19,7 +19,7 @@
 						>
 					</p>
 				</div>
-				<div class="card-body pt-1">
+				<div class="card-body px-0 px-md-2 pt-1">
 					<MaterialsList
 						v-if="materials"
 						:materials="filteredMaterials"

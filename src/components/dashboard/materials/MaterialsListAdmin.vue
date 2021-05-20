@@ -5,10 +5,10 @@
 				<tr>
 					<th>ID</th>
 					<th>Naam</th>
-					<th>Type</th>
-					<th>Afmetingen</th>
-					<th>Prijs</th>
-					<th class="text-center">Beschikbaarheid</th>
+					<th class="d-none d-md-table-cell">Type</th>
+					<th class="d-none d-md-table-cell">Afmetingen</th>
+					<th class="d-none d-md-table-cell">Prijs</th>
+					<th class="text-center d-none d-md-table-cell">Beschikbaarheid</th>
 					<th class="text-end">Acties</th>
 				</tr>
 			</thead>
@@ -38,17 +38,17 @@
 </template>
 
 <script>
-	import Material from "@/components/dashboard/materials/MaterialAdmin.vue";
+import Material from "@/components/dashboard/materials/MaterialAdmin.vue";
 
-	export default {
-		components: { Material },
-		props: ["materials", "unfilteredMaterials"],
-	};
+export default {
+	components: { Material },
+	props: ["materials", "unfilteredMaterials"],
+};
 </script>
 
 <style lang="scss" scoped>
-	.link {
-		text-decoration: none;
-		font-weight: 600;
-	}
+.link {
+	text-decoration: none;
+	font-weight: 600;
+}
 </style>
