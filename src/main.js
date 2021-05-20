@@ -31,6 +31,9 @@ import "@fortawesome/fontawesome-free/css/all.css";
 // Bootstrap xxl
 import "./assets/css/bootstrap.xxl.css";
 
+// Extra spacing (margin)
+import "./assets/css/extraSpacing.css";
+
 createApp(App)
     .use(router)
     .use(store)

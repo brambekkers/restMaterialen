@@ -10,20 +10,21 @@
 					</div>
 					<div class="col-7 col-md-8">
 						<div class="numbers">
-							<p class="card-title mt-2">Admin dashboard</p>
+							<p class="card-category mt-2">Admin dashboard</p>
 							<p></p>
 						</div>
 					</div>
 				</div>
 				<div class="row mb-4">
 					<div class="col-12">
-						<hr />Vanuit hier worden alle Hmc-restmaterialen beheerd. Je
-						kunt materialen toevoegen/verwijderen, reserveringen
-						beheren en aanpassingen doorvoeren.
+						<hr />
+						Vanuit hier worden alle Hmc-restmaterialen beheerd. Je kunt
+						materialen toevoegen/verwijderen, reserveringen beheren en
+						aanpassingen doorvoeren.
 						<br />
 						<br />
-						<span class="title">Let op:</span> Alle wijzingen die je
-						hier doorvoert zijn direct zichtbaar.
+						<span class="title">Let op:</span> Alle wijzingen die je hier
+						doorvoert zijn direct zichtbaar.
 					</div>
 				</div>
 			</div>

@@ -1,5 +1,5 @@
 <template>
-	<div class="content h-75  px-0 px-md-3">
+	<div class="content h-75 px-0 px-md-3">
 		<div class="row justify-content-center">
 			<div class="col-xxl-8 col-xxxl-5">
 				<div class="card">
@@ -7,7 +7,7 @@
 						<h4 class="card-title mb-0">Plaatmateriaal opties</h4>
 						<Information :info="info" />
 					</div>
-					<div class="card-body">
+					<div class="card-body px-0 px-md-3">
 						<div class="card shadow-sm border mb-3">
 							<h5 class="p-2">Drager</h5>
 
@@ -128,61 +128,61 @@
 </template>
 
 <script>
-import Information from "@/components/Information";
-import AddSheetModal from "@/components/dashboard/materials/sheet/AddSheetModal";
-import EditSheetModal from "@/components/dashboard/materials/sheet/EditSheetModal";
-import { mapGetters, mapActions } from "vuex";
+	import Information from "@/components/Information";
+	import AddSheetModal from "@/components/dashboard/materials/sheet/AddSheetModal";
+	import EditSheetModal from "@/components/dashboard/materials/sheet/EditSheetModal";
+	import { mapGetters, mapActions } from "vuex";
 
-export default {
-	components: { Information, AddSheetModal, EditSheetModal },
-	data() {
-		return {
-			editMaterial: null,
-			info: {
-				title: "Plaatopties",
-				msg: `<div class="text-start">
-																								Je kunt hier de plaatopties toevoegen. Plaatopties zijn variabelen die het mogelijk maken om bij het toevoegen van een nieuw materiaal de prijs van plaatmateriaal te berekenen.</b>.<br><br> 
+	export default {
+		components: { Information, AddSheetModal, EditSheetModal },
+		data() {
+			return {
+				editMaterial: null,
+				info: {
+					title: "Plaatopties",
+					msg: `<div class="text-start">
+																											Je kunt hier de plaatopties toevoegen. Plaatopties zijn variabelen die het mogelijk maken om bij het toevoegen van een nieuw materiaal de prijs van plaatmateriaal te berekenen.</b>.<br><br> 
 
-																								<h6 class="mb-0">Drager vs. dekfineer</h6>
-																								Een stuk plaatmateriaal is altijd opgebouwd uit een basismateriaal bijv. MDF 18mm. Dit basismateriaal noemen we de drager. Daarnaast is het mogelijk dat een materiaal is voorzien van een draagfineer. Het dekfineer kan aan een enkele kant zitten of aan beide kanten. Er zijn vele verschillende soorten dekkingen. HPL, fineer, folie, enz...<br><br>
+																											<h6 class="mb-0">Drager vs. dekfineer</h6>
+																											Een stuk plaatmateriaal is altijd opgebouwd uit een basismateriaal bijv. MDF 18mm. Dit basismateriaal noemen we de drager. Daarnaast is het mogelijk dat een materiaal is voorzien van een draagfineer. Het dekfineer kan aan een enkele kant zitten of aan beide kanten. Er zijn vele verschillende soorten dekkingen. HPL, fineer, folie, enz...<br><br>
 
-																								<h6 class="mb-0">Prijs</h6>
-																								De prijs die het materiaal orgineel kost kan verschillen van de prijs die het HMC rekend voor dit materiaal. In de berekening wordt alleen de HMC prijs meegenomen.<br><br>
+																											<h6 class="mb-0">Prijs</h6>
+																											De prijs die het materiaal orgineel kost kan verschillen van de prijs die het HMC rekend voor dit materiaal. In de berekening wordt alleen de HMC prijs meegenomen.<br><br>
 
-																								</div>`,
+																											</div>`
+				}
+			};
+		},
+		computed: {
+			...mapGetters(["sheetMaterials"])
+		},
+		methods: {
+			...mapActions(["updatesheetMaterials", "alert", "notification"]),
+			editSheetMaterial(i) {
+				console.log("edit");
 			},
-		};
-	},
-	computed: {
-		...mapGetters(["sheetMaterials"]),
-	},
-	methods: {
-		...mapActions(["updatesheetMaterials", "alert", "notification"]),
-		editSheetMaterial(i) {
-			console.log("edit");
-		},
-		async deleteSheetMaterial(i) {
-			try {
-				await this.alert({
-					type: "confirm",
-					msg: {
-						title: "Plaatoptie verwijderen?",
-						text:
-							"Weet je zeker dat je deze plaatoptie wilt verwijderen? Wanneer je deze plaatoptie verwijderd kan dit niet meer ongedaan worden gemaakt.",
-					},
-				});
-				this.sheetMaterials.splice(i, 1);
-				this.updatesheetMaterials(this.sheetMaterials);
-			} catch (err) {}
-		},
-	},
-};
+			async deleteSheetMaterial(i) {
+				try {
+					await this.alert({
+						type: "confirm",
+						msg: {
+							title: "Plaatoptie verwijderen?",
+							text:
+								"Weet je zeker dat je deze plaatoptie wilt verwijderen? Wanneer je deze plaatoptie verwijderd kan dit niet meer ongedaan worden gemaakt."
+						}
+					});
+					this.sheetMaterials.splice(i, 1);
+					this.updatesheetMaterials(this.sheetMaterials);
+				} catch (err) {}
+			}
+		}
+	};
 </script>
 
 <style lang="scss" scoped>
-table {
-	th {
-		padding-top: 0 !important;
+	table {
+		th {
+			padding-top: 0 !important;
+		}
 	}
-}
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<div class="content row d-flex justify-content-center">
+	<div class="content row d-flex justify-content-center px-0 px-md-3  ">
 		<div class="col-xxl-9 col-xxl-6">
 			<div class="row">
 				<AdminInfo />
@@ -26,7 +26,7 @@
 			AdminInfo,
 			TotalMaterials,
 			TotalReservations,
-			TotalPayments,
-		},
+			TotalPayments
+		}
 	};
 </script>

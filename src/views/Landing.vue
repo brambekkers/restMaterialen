@@ -1,16 +1,16 @@
 <template>
 	<div class="landing">
 		<section class="top shadow-lg">
-			<div class="background"></div>
-			<div class="content">
+			<div class="background">
 				<p class="brand">
 					<img
 						src="@/assets/img/duurzaamheid/denkt_duurzaam.png"
 						alt="HMC mbo vakschool"
 					/>
 				</p>
-
-				<h3 class="subtitle fw-bolder">
+			</div>
+			<div class="content">
+				<h3 class="subtitle fw-bolder mb-1">
 					Duurzaam hergebruik van materialen uit de branche
 				</h3>
 				<router-link
@@ -45,7 +45,7 @@
 
 <script>
 	export default {
-		name: "Landing",
+		name: "Landing"
 	};
 </script>
 
@@ -61,15 +61,14 @@
 
 		.top {
 			position: relative;
-			height: 40vh;
+			min-height: 40vh;
+			max-height: 40vh;
 			background: lightgrey;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
 			text-align: center;
-
-			min-height: 400px;
 
 			.background {
 				position: absolute;
@@ -80,18 +79,21 @@
 				background: url("../assets/img/background.jpg");
 				background-repeat: no-repeat;
 				background-size: cover;
-			}
-			.content {
-				z-index: 2;
 
 				.brand {
 					margin-bottom: 0;
-					height: 200px;
+					height: 70%;
+					opacity: 0.9;
 
 					img {
-						height: 110%;
+						height: 100%;
 					}
 				}
+			}
+			.content {
+				z-index: 2;
+				margin-top: 18vh;
+
 				.title {
 					font-weight: 400;
 					font-size: calc(2rem + 1.5vmin);

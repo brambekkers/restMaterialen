@@ -8270,6 +8270,9 @@ a[data-bs-toggle="collapse"][aria-expanded="true"] .caret {
 	vertical-align: middle;
 	outline: 0;
 	cursor: pointer;
+
+	outline: none;
+    box-shadow: none;
 }
 .navbar .navbar-toggler .navbar-toggler-bar.navbar-kebab {
 	width: 3px;
