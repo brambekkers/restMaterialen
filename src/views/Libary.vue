@@ -1,9 +1,9 @@
 <template>
 	<div class="main-content">
 		<Header />
-		<div class="container">
+		<div class="container px-0 px-md-3">
 			<div class="row">
-				<div class="col-3 ms-auto">
+				<div class="col-12 col-md-6 col-xl-3 ms-auto">
 					<Search @searchText="searchText = $event" />
 				</div>
 			</div>
@@ -37,61 +37,55 @@
 </template>
 
 <script>
-	import Header from "@/components/libary/Header.vue";
-	import Search from "@/components/Search.vue";
-	import LastTimeUpdated from "@/components/LastTimeUpdated.vue";
+import Header from "@/components/libary/Header.vue";
+import Search from "@/components/Search.vue";
+import LastTimeUpdated from "@/components/LastTimeUpdated.vue";
 
-	import MaterialsList from "@/components/libary/MaterialsList.vue";
+import MaterialsList from "@/components/libary/MaterialsList.vue";
 
-	import Loading from "@/components/Loading.vue";
+import Loading from "@/components/Loading.vue";
 
-	export default {
-		name: "Libary",
-		data() {
-			return {
-				searchText: "",
-			};
+export default {
+	name: "Libary",
+	data() {
+		return {
+			searchText: "",
+		};
+	},
+	components: {
+		Header,
+		Search,
+		MaterialsList,
+		LastTimeUpdated,
+		Loading,
+	},
+	computed: {
+		searchTags() {
+			return this.searchText.split(" ").filter((a) => a != "");
 		},
-		components: {
-			Header,
-			Search,
-			MaterialsList,
-			LastTimeUpdated,
-			Loading,
+		materials() {
+			return this.$store.getters.materials;
 		},
-		computed: {
-			searchTags() {
-				return this.searchText.split(" ").filter((a) => a != "");
-			},
-			materials() {
-				return this.$store.getters.materials;
-			},
-			filteredMaterials() {
-				if (this.materials) {
-					if (this.searchTags.length) {
-						return this.materials.filter((m) => {
-							for (const tag of this.searchTags) {
-								for (const mTags of m.tags) {
-									if (
-										mTags
-											.toLowerCase()
-											.includes(tag.toLowerCase())
-									) {
-										return true;
-									}
+		filteredMaterials() {
+			if (this.materials) {
+				if (this.searchTags.length) {
+					return this.materials.filter((m) => {
+						for (const tag of this.searchTags) {
+							for (const mTags of m.tags) {
+								if (mTags.toLowerCase().includes(tag.toLowerCase())) {
+									return true;
 								}
-								return (
-									m.name
-										.toLowerCase()
-										.includes(tag.toLowerCase()) ||
-									m.type.toLowerCase().includes(tag.toLowerCase())
-								);
 							}
-						});
-					}
-					return this.materials;
+							return (
+								m.name.toLowerCase().includes(tag.toLowerCase()) ||
+								m.type.toLowerCase().includes(tag.toLowerCase())
+							);
+						}
+					});
 				}
-			},
+				return this.materials;
+			}
 		},
-	};
+	},
+};
 </script>
