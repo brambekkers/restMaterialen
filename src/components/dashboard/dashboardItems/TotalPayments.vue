@@ -11,7 +11,7 @@
 					<div class="col-7 col-md-8">
 						<div class="numbers">
 							<p class="card-category">Totale opbrengst</p>
-							<p class="card-title">€ {{ totalPayments }}</p>
+							<p class="card-title">€ {{ totalPayments.toFixed(2) }}</p>
 						</div>
 					</div>
 				</div>
@@ -29,14 +29,14 @@
 </template>
 
 <script>
-	import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
-	export default {
-		computed: {
-			...mapGetters(["payments"]),
-			totalPayments() {
-				return this.payments.reduce((a, b) => a + b.price, 0);
-			},
+export default {
+	computed: {
+		...mapGetters(["payments"]),
+		totalPayments() {
+			return this.payments.reduce((a, b) => a + b.price, 0);
 		},
-	};
+	},
+};
 </script>

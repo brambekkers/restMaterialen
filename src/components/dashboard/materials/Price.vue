@@ -30,12 +30,7 @@
 						required
 						title="Selecteer..."
 					>
-						<option
-							class="bs-title-option"
-							:value="null"
-							hidden
-							disabled
-						></option>
+						<option class="bs-title-option" :value="null" hidden disabled></option>
 						<optgroup label="Losse producten">
 							<option value="stuk">Per stuk</option>
 							<option value="rol">Per rol</option>
@@ -52,10 +47,7 @@
 				</div>
 				<!-- Amount -->
 				<template v-if="material.priceUnit && !edit">
-					<div
-						class="col form-group"
-						v-if="material.priceUnit === 'meter'"
-					>
+					<div class="col form-group" v-if="material.priceUnit === 'meter'">
 						<label
 							>Dit materiaal (één stuk) bestaat uit hoeveel
 							{{ material.priceUnit }}?</label
@@ -71,10 +63,7 @@
 					</div>
 					<!-- Amount -->
 					<div class="col form-group" v-else>
-						<label
-							>Hoeveel stuk heb je van deze
-							{{ material.priceUnit }}?</label
-						>
+						<label>Hoeveel stuk heb je van deze {{ material.priceUnit }}?</label>
 						<input
 							type="number"
 							v-model.number="material.unitAmount"
@@ -106,22 +95,12 @@
 			</div>
 			<div
 				class="form-group"
-				v-if="
-					material.price &&
-					material.unitAmount &&
-					material.unitAmount > 1
-				"
+				v-if="material.price && material.unitAmount && material.unitAmount > 1"
 			>
 				<label>
 					Totale prijs:
 					<span class="title display-inline text-dark">
-						{{
-							Number(
-								(material.price * material.unitAmount).toFixed(
-									2
-								)
-							)
-						}}
+						{{ Number((material.price * material.unitAmount).toFixed(2)) }}
 						euro
 					</span>
 				</label>
@@ -131,6 +110,8 @@
 				v-if="material.type === 'Plaatmateriaal'"
 				data-bs-toggle="modal"
 				data-bs-target="#calcSheetPrice"
+				type="button"
+				@click.prevent=""
 			>
 				Bereken plaatprijs
 			</button>
@@ -140,17 +121,17 @@
 </template>
 
 <script>
-	import Information from "@/components/Information";
-	import CalcSheetPriceModal from "@/components/dashboard/materials/sheet/CalcSheetPriceModal";
+import Information from "@/components/Information";
+import CalcSheetPriceModal from "@/components/dashboard/materials/sheet/CalcSheetPriceModal";
 
-	export default {
-		components: { Information, CalcSheetPriceModal },
-		props: ["material", "edit"],
-		data() {
-			return {
-				info: {
-					title: "Prijs informatie",
-					msg: `
+export default {
+	components: { Information, CalcSheetPriceModal },
+	props: ["material", "edit"],
+	data() {
+		return {
+			info: {
+				title: "Prijs informatie",
+				msg: `
 																																												                <div class="text-start">
 																																												                Bij dit blok geef je de gebruiker informatie over de prijs van het materiaal en de afnamehoeveelheid. 
 																																												                Het is hierbij belangrijk dat je besluit hoeveel de gebruiker mag/kan afnemen.<br><br>
@@ -165,20 +146,20 @@
 
 																																												                Het is dus belangrijk dat in dit formulier de prijs, éénheid en het totaal moet worden aangegeven. Controleer de waardes goed.
 																																												                </div>`,
-				},
-			};
-		},
-	};
+			},
+		};
+	},
+};
 </script>
 
 <style lang="scss" scoped>
-	.information {
-		font-size: 2.5rem;
+.information {
+	font-size: 2.5rem;
 
-		&:hover {
-			cursor: pointer;
-			animation: jello; /* referring directly to the animation's @keyframe declaration */
-			animation-duration: 2s; /* don't forget to set a duration! */
-		}
+	&:hover {
+		cursor: pointer;
+		animation: jello; /* referring directly to the animation's @keyframe declaration */
+		animation-duration: 2s; /* don't forget to set a duration! */
 	}
+}
 </style>

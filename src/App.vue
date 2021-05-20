@@ -42,7 +42,7 @@
 			>
 				<SidebarBack style="animation-duration: 0.8s" v-if="back" />
 			</transition>
-			<div class="main-panel" v-if="back">
+			<div class="main-panel" v-if="back" :class="{ sidebarIsOpen: sidebarOpen }">
 				<!-- back Header -->
 				<transition
 					name="slideDown"
@@ -82,6 +82,7 @@ import NavbarBack from "@/components/dashboard/Navbar.vue";
 import FooterBack from "@/components/Footer.vue";
 
 import { useToast } from "vue-toastification";
+import { mapGetters } from "vuex";
 
 export default {
 	setup() {
@@ -97,6 +98,7 @@ export default {
 		FooterBack,
 	},
 	computed: {
+		...mapGetters(["sidebarOpen"]),
 		landing() {
 			return this.$route.meta.template === "landing";
 		},
@@ -152,6 +154,10 @@ body {
 	overflow-x: hidden;
 	height: 100vh;
 	min-height: 100vh;
+}
+
+.sidebarIsOpen {
+	width: calc(100vw - 270px) !important;
 }
 
 .btn-transparent {

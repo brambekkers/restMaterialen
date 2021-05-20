@@ -14,9 +14,19 @@ import { nanoid } from "nanoid";
 
 export default Vuex.createStore({
     modules: { users, firebase, materials, notification, reservation, options, payment },
-    state: {},
-    getters: {},
-    mutations: {},
+    state: {
+        sidebarOpen: false
+    },
+    getters: {
+        sidebarOpen(state) {
+            return state.sidebarOpen;
+        },
+    },
+    mutations: {
+        sidebarOpen(state, val) {
+            state.sidebarOpen = val;
+        },
+    },
     actions: {
         uploadImage({ getters }, blobImage) {
             return new Promise(async (resolve, reject) => {
