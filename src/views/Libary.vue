@@ -22,10 +22,11 @@
 				<div class="card-body px-0 px-md-2 pt-1">
 					<MaterialsList
 						v-if="materials"
-						:materials="filteredMaterials"
+						:materials="pagedMaterials"
 						:unfilteredMaterials="materials"
 					/>
 					<Loading v-else />
+					<Pagination :content="filteredMaterials" @changePage="changePage" />
 				</div>
 				<div class="card-footer">
 					<hr />
@@ -39,6 +40,7 @@
 <script>
 import Header from "@/components/libary/Header.vue";
 import Search from "@/components/Search.vue";
+import Pagination from "@/components/Pagination.vue";
 import LastTimeUpdated from "@/components/LastTimeUpdated.vue";
 
 import MaterialsList from "@/components/libary/MaterialsList.vue";
@@ -50,6 +52,7 @@ export default {
 	data() {
 		return {
 			searchText: "",
+			pagedMaterials: [],
 		};
 	},
 	components: {
@@ -58,6 +61,7 @@ export default {
 		MaterialsList,
 		LastTimeUpdated,
 		Loading,
+		Pagination,
 	},
 	computed: {
 		searchTags() {
@@ -85,6 +89,12 @@ export default {
 				}
 				return this.materials;
 			}
+		},
+	},
+	methods: {
+		changePage(val) {
+			console.log(val);
+			this.pagedMaterials = val;
 		},
 	},
 };
