@@ -16,11 +16,7 @@
 				:leave-active-class="transitionLeave"
 				mode="out-in"
 			>
-				<component
-					:is="Component"
-					style="animation-duration: 0.5s"
-					v-if="front"
-				/>
+				<component :is="Component" style="animation-duration: 0.5s" v-if="front" />
 				<component
 					:is="Component"
 					style="animation-duration: 0.5s"
@@ -79,98 +75,100 @@
 </template>
 
 <script>
-	import NavbarFront from "@/components/Navbar.vue";
-	import FooterFront from "@/components/Footer.vue";
-	import SidebarBack from "@/components/dashboard/Sidebar.vue";
-	import NavbarBack from "@/components/dashboard/Navbar.vue";
-	import FooterBack from "@/components/Footer.vue";
+import NavbarFront from "@/components/Navbar.vue";
+import FooterFront from "@/components/Footer.vue";
+import SidebarBack from "@/components/dashboard/Sidebar.vue";
+import NavbarBack from "@/components/dashboard/Navbar.vue";
+import FooterBack from "@/components/Footer.vue";
 
-	import { useToast } from "vue-toastification";
-	import { mapGetters } from "vuex";
+import { useToast } from "vue-toastification";
+import { mapGetters } from "vuex";
 
-	export default {
-		setup() {
-			// Get toast interface
-			const toast = useToast();
-			return { toast };
+export default {
+	setup() {
+		// Get toast interface
+		const toast = useToast();
+		return { toast };
+	},
+	components: {
+		NavbarFront,
+		FooterFront,
+		SidebarBack,
+		NavbarBack,
+		FooterBack,
+	},
+	computed: {
+		...mapGetters(["sidebarOpen"]),
+		landing() {
+			return this.$route.meta.template === "landing";
 		},
-		components: {
-			NavbarFront,
-			FooterFront,
-			SidebarBack,
-			NavbarBack,
-			FooterBack
+		front() {
+			return this.$route.meta.template === "front";
 		},
-		computed: {
-			...mapGetters(["sidebarOpen"]),
-			landing() {
-				return this.$route.meta.template === "landing";
-			},
-			front() {
-				return this.$route.meta.template === "front";
-			},
-			back() {
-				return this.$route.meta.template === "back";
-			}
+		back() {
+			return this.$route.meta.template === "back";
 		},
-		data() {
-			return {
-				transitionEnter: "",
-				transitionLeave: ""
-			};
-		},
-		mounted() {
-			this.$store.dispatch("addFirebase");
-		},
-		created() {
-			this.$router.beforeEach((to, from, next) => {
-				this.transitionEnter = to.meta.transitionEnter;
-				this.transitionLeave = from.meta.transitionLeave;
+	},
+	data() {
+		return {
+			transitionEnter: "",
+			transitionLeave: "",
+		};
+	},
+	mounted() {
+		this.$store.dispatch("addFirebase");
+	},
+	created() {
+		this.$router.beforeEach((to, from, next) => {
+			this.transitionEnter = to.meta.transitionEnter;
+			this.transitionLeave = from.meta.transitionLeave;
 
-				next();
-			});
-			this.$store.commit("toast", this.toast);
-		}
-	};
+			next();
+		});
+		this.$store.commit("toast", this.toast);
+	},
+};
 </script>
 
 <style lang="scss">
-	body {
-		@media (max-width: 1200px) and (min-width: 768px) {
-			p {
-				font-size: 12px;
-			}
-		}
-
-		@media (max-width: 768px) {
-			p {
-				font-size: 11px;
-			}
+body {
+	@media (max-width: 1200px) and (min-width: 768px) {
+		p {
+			font-size: 12px;
 		}
 	}
-	#app {
-		overflow: hidden;
-	}
-	#app-main {
-		font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
-		background-color: #fffef9;
-		width: 100vw;
-		overflow-x: hidden;
-		// height: 100vh;
-		min-height: 100vh;
-	}
 
+	@media (max-width: 768px) {
+		p {
+			font-size: 11px;
+		}
+	}
+}
+#app {
+	overflow: hidden;
+}
+#app-main {
+	font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+	background-color: #fffef9;
+	width: 100vw;
+	overflow-x: hidden;
+	// height: 100vh;
+	min-height: 100vh;
+}
+
+@media (max-width: 768px) {
 	.sidebarIsOpen {
 		// width: calc(100vw - 270px) !important;
 		transform: translate(270px);
 	}
+}
 
-	.btn-transparent {
-		background: transparent !important;
-		color: #66615b !important;
-	}
+.btn-transparent {
+	background: transparent !important;
+	color: #66615b !important;
+}
 
-	.bootstrap-select {
-		padding: 0 !important;
-	}
+.bootstrap-select {
+	padding: 0 !important;
+}
 </style>

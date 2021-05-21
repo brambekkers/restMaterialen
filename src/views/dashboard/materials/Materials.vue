@@ -6,17 +6,17 @@
 					<div class="card-header">
 						<h4 class="card-title">Materialen in de database</h4>
 					</div>
-					<div class="card-body px-0 px-md-3">
+					<div class="card-body px-0 pb-0 ">
 						<div class="row">
 							<div class="col-md-5 col-lg-5 col-xl-3 ms-auto">
 								<Search @searchText="searchText = $event" />
 							</div>
 						</div>
 						<ul
-							class="nav nav-pills nav-pills-primary nav-pills-icons justify-content-center"
+							class="nav nav-pills nav-pills-primary nav-pills-icons justify-content-center px-0 px-md-3"
 							role="tablist"
 						>
-							<li class="nav-item">
+							<li class="nav-item w-50 text-center">
 								<a
 									class="nav-link active"
 									data-bs-toggle="tab"
@@ -27,7 +27,7 @@
 								</a>
 							</li>
 
-							<li class="nav-item">
+							<li class="nav-item w-50 text-center">
 								<a
 									class="nav-link"
 									data-bs-toggle="tab"
@@ -38,21 +38,18 @@
 								</a>
 							</li>
 						</ul>
-						<div class="tab-content tab-space tab-subcategories pb-0">
-							<div class="tab-pane active" id="active">
-								<div class="card border">
-									<MaterialsListAdmin
-										:materials="activeMaterials"
-										v-if="activeMaterials"
-										:unfilteredMaterials="materials"
-									/>
-								</div>
+						<div class="tab-content tab-space tab-subcategories pb-0 pt-2">
+							<div class="tab-pane active border-top" id="active">
+								<MaterialsListAdmin
+									:materials="pagedMaterials"
+									v-if="pagedMaterials"
+									:unfilteredMaterials="materials"
+								/>
+								<Pagination :content="filteredMaterials" @changePage="changePage" />
 							</div>
 
-							<div class="tab-pane" id="payments">
-								<div class="card border">
-									<PaymentList :payments="payments" />
-								</div>
+							<div class="tab-pane border-top" id="payments">
+								<PaymentList :payments="payments" />
 							</div>
 						</div>
 					</div>
@@ -68,13 +65,15 @@ import { mapGetters } from "vuex";
 import MaterialsListAdmin from "@/components/dashboard/materials/MaterialsListAdmin.vue";
 import PaymentList from "@/components/dashboard/materials/PaymentList.vue";
 import Search from "@/components/Search.vue";
+import Pagination from "@/components/Pagination.vue";
 
 export default {
 	name: "Materials",
-	components: { MaterialsListAdmin, PaymentList, Search },
+	components: { MaterialsListAdmin, PaymentList, Search, Pagination },
 	data() {
 		return {
 			searchText: "",
+			pagedMaterials: [],
 		};
 	},
 	computed: {
@@ -128,5 +127,17 @@ export default {
 				return this.filteredMaterials.filter((m) => m.unitAvalible === 0);
 		},
 	},
+	methods: {
+		changePage(val) {
+			this.pagedMaterials = val;
+		},
+	},
 };
 </script>
+
+<style lang="scss" scoped>
+.nav {
+	max-width: 500px !important;
+	margin: auto;
+}
+</style>

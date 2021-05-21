@@ -4,7 +4,10 @@
 			<MaterialThumbnail :images="material.images" :width="50" :height="50" />
 		</td>
 		<td>{{ material.name }}</td>
-		<td class="d-none d-md-table-cell">{{ material.type }}</td>
+		<!-- <td class="d-none d-md-table-cell">{{ material.type }}</td> -->
+		<td class="d-none d-md-table-cell">
+			{{ hasSmallImage ? "DONE" : "NOT DONE" }}
+		</td>
 		<td class="d-none d-md-table-cell">
 			{{ material.length }} x {{ material.width }} x
 			{{ material.thickness }}
@@ -66,6 +69,10 @@ export default {
 				return this.material.priceUnit.replace("plaat", "platen");
 			}
 			return this.material.priceUnit;
+		},
+		hasSmallImage() {
+			if (!this.material.images[0]) return true;
+			return this.material.images[0]?.path.includes("500x");
 		},
 	},
 	methods: {

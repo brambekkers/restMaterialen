@@ -93,7 +93,6 @@ export default {
 	},
 	methods: {
 		changePage(val) {
-			console.log(val);
 			this.pagedMaterials = val;
 		},
 	},

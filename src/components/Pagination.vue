@@ -1,25 +1,42 @@
 <template>
 	<nav aria-label="...">
 		<ul class="pagination justify-content-center">
-			<li class="page-item disabled" @click="previous()">
-				<span class="page-link">Previous</span>
+			<li
+				class="page-item d-none d-lg-block"
+				@click="previous()"
+				:class="{ disabled: currentPage === 1 }"
+			>
+				<span class="page-link">Vorige</span>
 			</li>
-
+			<li class="page-item" @click="currentPage = 1" v-if="currentPage > 4">
+				<span class="page-link">...</span>
+			</li>
+			<template v-for="i of pageAmount" :key="i">
+				<li
+					class="page-item"
+					:class="{ active: i == currentPage }"
+					@click="currentPage = i"
+					v-if="inRange(i)"
+				>
+					<span class="page-link">
+						{{ i }}
+						<span class="sr-only" v-if="i === currentPage">(current)</span>
+					</span>
+				</li>
+			</template>
 			<li
 				class="page-item"
-				v-for="i of pageAmount"
-				:class="{ active: i == currentPage }"
-				:key="i"
-				@click="currentPage = i"
+				@click="currentPage = pageAmount"
+				v-if="currentPage < pageAmount - 3"
 			>
-				<span class="page-link">
-					{{ i }}
-					<span class="sr-only" v-if="i === currentPage">(current)</span>
-				</span>
+				<span class="page-link">...</span>
 			</li>
-
-			<li class="page-item" @click="next()">
-				<span class="page-link">Next</span>
+			<li
+				class="page-item d-none d-lg-block"
+				@click="next()"
+				:class="{ disabled: currentPage === pageAmount }"
+			>
+				<span class="page-link">Volgende</span>
 			</li>
 		</ul>
 	</nav>
@@ -72,6 +89,10 @@ export default {
 		next() {
 			if (this.currentPage === this.pageAmount) return;
 			this.currentPage++;
+		},
+		inRange(i) {
+			const range = 3;
+			return i >= this.currentPage - range && i <= this.currentPage + range;
 		},
 	},
 };

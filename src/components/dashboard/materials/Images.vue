@@ -16,10 +16,7 @@
 					</div>
 				</div>
 				<div class="col-lg-4 text-end">
-					<button
-						class="btn btn-outline-primary mt-0"
-						@click.prevent="addImage()"
-					>
+					<button class="btn btn-outline-primary mt-0" @click.prevent="addImage()">
 						Voeg toe
 					</button>
 				</div>
@@ -36,10 +33,7 @@
 						class="thumbnail"
 					>
 						<img :src="image.url" class="img-thumbnail" />
-						<i
-							class="close fas fa-times"
-							@click="removeImage(i)"
-						></i>
+						<i class="close fas fa-times" @click="removeImage(i)"></i>
 					</span>
 				</div>
 			</div>
@@ -48,44 +42,55 @@
 </template>
 
 <script>
-	export default {
-		props: ["material"],
-		methods: {
-			async addImage() {
-				// Get files from input
-				const input = document.getElementById("newImage");
+export default {
+	props: ["material"],
+	methods: {
+		async addImage() {
+			// Get files from input
+			const input = document.getElementById("newImage");
+			if (input.files && input.files[0]) {
 				const image = input.files[0];
 				// Upload files to server
 				// return image info (url and path)
-				const imageInfo = await this.$store.dispatch("uploadImage", image);
+				const oldPath = await this.$store.dispatch("uploadImage", image);
+				const { url, path } = await this.$store.dispatch("getImageUrl", oldPath);
 				// Push image info to material
-				this.material.images.push(imageInfo);
-			},
-			async removeImage(i) {
-				const path = this.material.images[i].path;
-				const isremoved = await this.$store.dispatch("removeImage", path);
+				this.material.images.push({ path, url });
+				await this.$store.dispatch("updateMaterial", this.material);
 
-				if (isremoved) this.material.images.splice(i, 1);
-				//
-			},
+				input.value = "";
+			}
 		},
-	};
+
+		async removeImage(i) {
+			const path = this.material.images[i].path;
+			const isremoved = await this.$store.dispatch("removeImage", path);
+
+			if (isremoved) {
+				this.material.images.splice(i, 1);
+				await this.$store.dispatch("updateMaterial", this.material);
+			}
+			//
+		},
+	},
+};
 </script>
 
 <style lang="scss" scoped>
-	.thumbnail {
-		display: inline-block;
-		position: relative;
-		width: 200px;
-		height: auto;
-		margin: 10px 10px;
-	}
+.thumbnail {
+	display: inline-block;
+	position: relative;
+	width: 200px;
+	height: auto;
+	margin: 10px 10px;
+}
 
-	.close {
-		position: absolute;
-		color: red;
-		font-size: 1.1rem;
-		top: -5px;
-		right: -2px;
-	}
+.close {
+	position: absolute;
+	cursor: pointer;
+	color: red;
+	font-size: 1.1rem;
+	top: -5px;
+	right: -2px;
+}
 </style>

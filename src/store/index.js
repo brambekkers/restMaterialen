@@ -28,13 +28,26 @@ export default Vuex.createStore({
         },
     },
     actions: {
+
         uploadImage({ getters }, blobImage) {
             return new Promise(async (resolve, reject) => {
                 const path = `images/materials/${nanoid()}`;
                 const ref = getters.storage.ref().child(path);
-                const img = await ref.put(blobImage);
-                const url = await ref.getDownloadURL();
-                resolve({ url, path });
+                await ref.put(blobImage);
+                resolve(path);
+            });
+        },
+        getImageUrl({ getters }, storagePath) {
+            return new Promise(async (resolve, reject) => {
+                const interval = setInterval(async () => {
+                    const newPath = `${storagePath}_500x500`
+                    const ref = getters.storage.ref().child(newPath);
+                    ref.getDownloadURL().then((url) => {
+                        clearInterval(interval);
+                        resolve({ url, path: newPath });
+                    })
+                }, 1000);
+
             });
         },
         removeImage({ getters }, path) {
@@ -44,6 +57,7 @@ export default Vuex.createStore({
                     resolve(true);
                 });
             });
-        }
+        },
+
     }
 });
