@@ -8,7 +8,7 @@
 					</div>
 					<div class="card-body px-0 pb-0 ">
 						<div class="row">
-							<div class="col-md-5 col-lg-5 col-xl-3 ms-auto">
+							<div class="col-md-5 col-lg-5 col-xl-3 ms-auto me-0 me-md-3">
 								<Search @searchText="searchText = $event" />
 							</div>
 						</div>
@@ -45,7 +45,10 @@
 									v-if="pagedMaterials"
 									:unfilteredMaterials="materials"
 								/>
-								<Pagination :content="filteredMaterials" @changePage="changePage" />
+								<Pagination
+									:content="filteredMaterials"
+									@changePage="changePage"
+								/>
 							</div>
 
 							<div class="tab-pane border-top" id="payments">
@@ -60,84 +63,84 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+	import { mapGetters } from "vuex";
 
-import MaterialsListAdmin from "@/components/dashboard/materials/MaterialsListAdmin.vue";
-import PaymentList from "@/components/dashboard/materials/PaymentList.vue";
-import Search from "@/components/Search.vue";
-import Pagination from "@/components/Pagination.vue";
+	import MaterialsListAdmin from "@/components/dashboard/materials/MaterialsListAdmin.vue";
+	import PaymentList from "@/components/dashboard/materials/PaymentList.vue";
+	import Search from "@/components/Search.vue";
+	import Pagination from "@/components/Pagination.vue";
 
-export default {
-	name: "Materials",
-	components: { MaterialsListAdmin, PaymentList, Search, Pagination },
-	data() {
-		return {
-			searchText: "",
-			pagedMaterials: [],
-		};
-	},
-	computed: {
-		...mapGetters(["materials", "payments"]),
-		searchTags() {
-			return this.searchText.split(" ").filter((a) => a != "");
+	export default {
+		name: "Materials",
+		components: { MaterialsListAdmin, PaymentList, Search, Pagination },
+		data() {
+			return {
+				searchText: "",
+				pagedMaterials: []
+			};
 		},
-		filteredMaterials() {
-			if (this.materials) {
-				if (this.searchTags.length) {
-					return this.materials.filter((m) => {
-						for (const tag of this.searchTags) {
-							for (const mTags of m.tags) {
-								if (mTags.toLowerCase().includes(tag.toLowerCase())) {
-									return true;
+		computed: {
+			...mapGetters(["materials", "payments"]),
+			searchTags() {
+				return this.searchText.split(" ").filter(a => a != "");
+			},
+			filteredMaterials() {
+				if (this.materials) {
+					if (this.searchTags.length) {
+						return this.materials.filter(m => {
+							for (const tag of this.searchTags) {
+								for (const mTags of m.tags) {
+									if (mTags.toLowerCase().includes(tag.toLowerCase())) {
+										return true;
+									}
 								}
+								return (
+									m.name.toLowerCase().includes(tag.toLowerCase()) ||
+									m.type.toLowerCase().includes(tag.toLowerCase())
+								);
 							}
-							return (
-								m.name.toLowerCase().includes(tag.toLowerCase()) ||
-								m.type.toLowerCase().includes(tag.toLowerCase())
-							);
-						}
-					});
+						});
+					}
+					return this.materials;
 				}
-				return this.materials;
+			},
+			filteredPayments() {
+				if (this.payments) {
+					if (this.searchTags.length) {
+						return this.payments.filter(p => {
+							for (const tag of this.searchTags) {
+								for (const mTags of m.tags) {
+									if (mTags.toLowerCase().includes(tag.toLowerCase())) {
+										return true;
+									}
+								}
+								return p.name.toLowerCase().includes(tag.toLowerCase());
+							}
+						});
+					}
+					return this.materials;
+				}
+			},
+			activeMaterials() {
+				if (this.materials)
+					return this.filteredMaterials.filter(m => m.unitAvalible);
+			},
+			reservatedMaterials() {
+				if (this.materials)
+					return this.filteredMaterials.filter(m => m.unitAvalible === 0);
 			}
 		},
-		filteredPayments() {
-			if (this.payments) {
-				if (this.searchTags.length) {
-					return this.payments.filter((p) => {
-						for (const tag of this.searchTags) {
-							for (const mTags of m.tags) {
-								if (mTags.toLowerCase().includes(tag.toLowerCase())) {
-									return true;
-								}
-							}
-							return p.name.toLowerCase().includes(tag.toLowerCase());
-						}
-					});
-				}
-				return this.materials;
+		methods: {
+			changePage(val) {
+				this.pagedMaterials = val;
 			}
-		},
-		activeMaterials() {
-			if (this.materials)
-				return this.filteredMaterials.filter((m) => m.unitAvalible);
-		},
-		reservatedMaterials() {
-			if (this.materials)
-				return this.filteredMaterials.filter((m) => m.unitAvalible === 0);
-		},
-	},
-	methods: {
-		changePage(val) {
-			this.pagedMaterials = val;
-		},
-	},
-};
+		}
+	};
 </script>
 
 <style lang="scss" scoped>
-.nav {
-	max-width: 500px !important;
-	margin: auto;
-}
+	.nav {
+		max-width: 500px !important;
+		margin: auto;
+	}
 </style>

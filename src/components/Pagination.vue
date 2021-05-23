@@ -43,59 +43,59 @@
 </template>
 
 <script>
-export default {
-	props: ["content"],
-	data() {
-		return {
-			currentPage: 1,
-			maxResults: 10,
-		};
-	},
-	watch: {
-		content: {
-			handler() {
-				this.$emit("changePage", this.pagedContent);
+	export default {
+		props: ["content"],
+		data() {
+			return {
+				currentPage: 1,
+				maxResults: 10
+			};
+		},
+		watch: {
+			content: {
+				handler() {
+					this.$emit("changePage", this.pagedContent);
+				},
+				immediate: true
 			},
-			immediate: true,
+			currentPage: {
+				handler() {
+					this.$emit("changePage", this.pagedContent);
+				},
+				immediate: true
+			}
 		},
-		currentPage: {
-			handler() {
-				this.$emit("changePage", this.pagedContent);
+		emits: ["changePage"],
+		computed: {
+			pageAmount() {
+				if (!this.content) return 1;
+				return Math.ceil(this.content.length / this.maxResults);
 			},
-			immediate: true,
+			pagedContent() {
+				if (!this.content) return [];
+				const start = (this.currentPage - 1) * this.maxResults;
+				const end =
+					start + this.maxResults > this.content.length
+						? this.content.length
+						: start + this.maxResults;
+				return this.content.slice(start, end);
+			}
 		},
-	},
-	emits: ["changePage"],
-	computed: {
-		pageAmount() {
-			if (!this.content) return 1;
-			return Math.ceil(this.content.length / this.maxResults);
-		},
-		pagedContent() {
-			if (!this.content) return [];
-			const start = (this.currentPage - 1) * this.maxResults;
-			const end =
-				start + this.maxResults > this.content.length
-					? this.content.length
-					: start + this.maxResults;
-			return this.content.slice(start, end);
-		},
-	},
-	methods: {
-		previous() {
-			if (this.currentPage === 1) return;
-			this.currentPage--;
-		},
-		next() {
-			if (this.currentPage === this.pageAmount) return;
-			this.currentPage++;
-		},
-		inRange(i) {
-			const range = 3;
-			return i >= this.currentPage - range && i <= this.currentPage + range;
-		},
-	},
-};
+		methods: {
+			previous() {
+				if (this.currentPage === 1) return;
+				this.currentPage--;
+			},
+			next() {
+				if (this.currentPage === this.pageAmount) return;
+				this.currentPage++;
+			},
+			inRange(i) {
+				const range = 3;
+				return i >= this.currentPage - range && i <= this.currentPage + range;
+			}
+		}
+	};
 </script>
 
 <style></style>
