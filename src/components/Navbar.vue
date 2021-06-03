@@ -41,12 +41,12 @@
 				<li class="nav-item " v-if="user">
 					<router-link class="nav-link" to="/profile">Profiel</router-link>
 				</li>
-				<li class="nav-item d-lg-none" v-if="user">
-					<a class="nav-link" href="#" @click="logout">Uitloggen</a>
-				</li>
 
 				<li class="nav-item" v-if="isEditor || isAdmin">
 					<router-link to="/dashboard" class="nav-link">Dashboard</router-link>
+				</li>
+				<li class="nav-item " v-if="user">
+					<a class="nav-link text-danger" href="#" @click="logout">Uitloggen</a>
 				</li>
 				<li class="nav-item" v-if="!user">
 					<router-link to="/Login" class="nav-link">Inloggen</router-link>
