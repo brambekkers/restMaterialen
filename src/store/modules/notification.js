@@ -1,5 +1,4 @@
-import * as firebase from "firebase";
-// import { useToast } from "vue-toastification";
+import firebase from "firebase/app";
 
 // Sweet Alert 2
 import Swal from "sweetalert2";

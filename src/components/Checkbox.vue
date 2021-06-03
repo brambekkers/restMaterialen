@@ -4,8 +4,8 @@
 			<input
 				class="form-check-input"
 				type="checkbox"
-				v-model="check"
-				@click="$emit('toggleCheck', !check)"
+				:checked="check"
+				@click="setCheck"
 			/>
 
 			<span class="form-check-sign">
@@ -23,10 +23,17 @@
 	export default {
 		data() {
 			return {
-				check: false,
+				check: false
 			};
 		},
-		props: ["link"],
+		methods: {
+			setCheck() {
+				this.check = !this.check;
+				this.$emit("toggleCheck", this.check);
+			}
+		},
+		emits: ["toggleCheck"],
+		props: ["link"]
 	};
 </script>
 

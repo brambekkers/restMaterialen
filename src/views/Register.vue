@@ -3,55 +3,35 @@
 		<div class="background"></div>
 		<div id="content">
 			<div class="row h-100 d-flex align-items-center">
-				<div
-					class="col-md-10 col-lg-8 col-xl-5 col-xxl-4 col-xxxl-3 mx-auto"
-				>
+				<div class="col-md-10 col-lg-8 col-xl-5 mx-auto">
 					<div class="wizard-container">
 						<div class="card card-wizard active">
 							<div class="card-header text-center">
 								<h3 class="card-title my-4">Registreer</h3>
 								<div class="wizard-navigation">
 									<ul class="nav nav-pills d-flex">
-										<li
-											class="nav-item"
-											:class="{ active: step === 1 }"
-										>
+										<li class="nav-item" :class="{ active: step === 1 }">
 											<a
 												class="nav-link"
-												@click="
-													step =
-														maxStep >= 1 ? 1 : step
-												"
+												@click="step = maxStep >= 1 ? 1 : step"
 											>
 												<i class="fas fa-user"></i>
 												Profiel
 											</a>
 										</li>
-										<li
-											class="nav-item"
-											:class="{ active: step === 2 }"
-										>
+										<li class="nav-item" :class="{ active: step === 2 }">
 											<a
 												class="nav-link"
-												@click="
-													step =
-														maxStep >= 2 ? 2 : step
-												"
+												@click="step = maxStep >= 2 ? 2 : step"
 											>
 												<i class="fas fa-school"></i>
 												School
 											</a>
 										</li>
-										<li
-											class="nav-item"
-											:class="{ active: step === 3 }"
-										>
+										<li class="nav-item" :class="{ active: step === 3 }">
 											<a
 												class="nav-link"
-												@click="
-													step =
-														maxStep >= 3 ? 3 : step
-												"
+												@click="step = maxStep >= 3 ? 3 : step"
 											>
 												<i class="fas fa-lock"></i>
 												Beveiliging
@@ -63,29 +43,17 @@
 							<div class="card-body">
 								<div class="tab-content">
 									<!-- Step 1 -->
-									<div
-										class="tab-pane active"
-										v-if="step === 1"
-									>
+									<div class="tab-pane active" v-if="step === 1">
 										<form @submit.prevent="next()">
 											<h5 class="info-text mt-0">
-												Laten we beginnen met wat
-												algemene gegevens
+												Laten we beginnen met wat algemene gegevens
 											</h5>
-											<div
-												class="row justify-content-center"
-											>
+											<div class="row justify-content-center">
 												<div class="col-10">
 													<div class="input-group">
-														<div
-															class="input-group-prepend"
-														>
-															<span
-																class="input-group-text"
-															>
-																<i
-																	class="fas fa-user"
-																></i>
+														<div class="input-group-prepend">
+															<span class="input-group-text">
+																<i class="fas fa-user"></i>
 															</span>
 														</div>
 														<input
@@ -93,21 +61,13 @@
 															class="form-control valid"
 															placeholder="Voornaam"
 															required
-															v-model="
-																newUser.firstName
-															"
+															v-model="newUser.firstName"
 														/>
 													</div>
 													<div class="input-group">
-														<div
-															class="input-group-prepend"
-														>
-															<span
-																class="input-group-text"
-															>
-																<i
-																	class="far fa-user-circle"
-																></i>
+														<div class="input-group-prepend">
+															<span class="input-group-text">
+																<i class="far fa-user-circle"></i>
 															</span>
 														</div>
 														<input
@@ -115,30 +75,20 @@
 															placeholder="Achternaam"
 															class="form-control"
 															required
-															v-model="
-																newUser.lastName
-															"
+															v-model="newUser.lastName"
 														/>
 													</div>
 													<div class="input-group">
-														<div
-															class="input-group-prepend"
-														>
-															<span
-																class="input-group-text"
-															>
-																<i
-																	class="far fa-envelope"
-																></i>
+														<div class="input-group-prepend">
+															<span class="input-group-text">
+																<i class="far fa-envelope"></i>
 															</span>
 														</div>
 														<input
 															type="email"
 															placeholder="Email"
 															class="form-control"
-															v-model="
-																newUser.email
-															"
+															v-model="newUser.email"
 														/>
 													</div>
 												</div>
@@ -155,50 +105,70 @@
 										</form>
 									</div>
 									<!-- Step 2 -->
-									<div
-										class="tab-pane active"
-										v-show="step === 2"
-									>
+									<div class="tab-pane active" v-show="step === 2">
 										<form @submit.prevent="next()">
 											<h5 class="info-text">
 												nu wat gegevens over de school
 											</h5>
-											<div
-												class="row justify-content-center"
-											>
+											<div class="row justify-content-center">
 												<div class="col-10">
-													<div class="input-group">
-														<div
-															class="input-group-prepend"
-														>
-															<span
-																class="input-group-text pe-2"
+													<div class="form-group mt-4">
+														<div class="input-group mb-0">
+															<div class="input-group-prepend">
+																<span class="input-group-text pe-2">
+																	<i class="fas fa-address-card"></i>
+																</span>
+															</div>
+															<select
+																class="form-select form-control border-input show-tick"
+																v-model="newUser.type"
+																required
+																title="Type"
 															>
-																<i
-																	class="fas fa-user-tag"
-																></i>
-															</span>
+																<option value="student" selected>
+																	Student
+																</option>
+																<option value="teacher">
+																	Docent
+																</option>
+															</select>
 														</div>
-														<input
-															type="number"
-															class="form-control valid"
-															placeholder="Studentennummer"
-															required
-															v-model.number="
-																newUser.studentNumber
-															"
-														/>
-													</div>
-													<div class="input-group">
-														<div
-															class="input-group-prepend"
+														<label v-if="newUser.type === 'teacher'"
+															><b>Let op:</b> Om je als docent te registeren heb
+															je een docenten HMC-adresemail nodig nodig.</label
 														>
-															<span
-																class="input-group-text pe-2"
-															>
-																<i
-																	class="fas fa-graduation-cap"
-																></i>
+													</div>
+													<div
+														class="form-group mt-4"
+														v-if="newUser.type === 'student'"
+													>
+														<div class="input-group mb-0">
+															<div class="input-group-prepend">
+																<span class="input-group-text pe-2">
+																	<i class="fas fa-user-tag"></i>
+																</span>
+															</div>
+															<input
+																type="number"
+																class="form-control valid"
+																placeholder="Studentennummer"
+																required
+																v-model.number="newUser.studentNumber"
+															/>
+														</div>
+														<label
+															><b>Let op:</b> Controleer je studentennummer
+															goed! Zonder geldig studentennummer kun je geen
+															materiaal aanschaffen.</label
+														>
+													</div>
+													<div
+														class="input-group"
+														v-if="newUser.type === 'student'"
+													>
+														<div class="input-group-prepend">
+															<span class="input-group-text pe-2">
+																<i class="fas fa-graduation-cap"></i>
 															</span>
 														</div>
 														<input
@@ -206,68 +176,49 @@
 															placeholder="Klas"
 															class="form-control"
 															required
-															v-model="
-																newUser.class
-															"
+															v-model="newUser.class"
 														/>
 													</div>
 
-													<div
-														class="form-group mt-4"
-													>
-														<label
-															>Welke opleiding
-															volg je?</label
+													<div class="form-group mt-2">
+														<label v-if="newUser.type === 'student'"
+															>Welke opleiding volg je?</label
+														>
+														<label v-if="newUser.type === 'teacher'"
+															>Voor welke opleiding werk je?</label
 														>
 														<select
 															class="form-select form-control border-input show-tick"
-															v-model="
-																newUser.study
-															"
+															v-model="newUser.study"
 															required
 															title="Opleiding"
 														>
 															<option
 																class="bs-title-option"
-																:value="null"
+																:value="''"
 																hidden
 															>
 																Selecteer...
 															</option>
-															<option
-																value="Meubel"
-															>
+															<option value="Meubel">
 																Meubel
 															</option>
-															<option
-																value="Interieur"
-															>
+															<option value="Interieur">
 																Interieur
 															</option>
-															<option
-																value="Creatief"
-															>
+															<option value="Creatief">
 																Creatief
 															</option>
-															<option
-																value="Stofferen"
-															>
+															<option value="Stofferen">
 																Stofferen
 															</option>
-															<option
-																value="Werkvoorbereiding"
-															>
+															<option value="Werkvoorbereiding">
 																Werkvoorbereiding
 															</option>
-															<option
-																value="Werkvoorbereiding"
-															>
-																Technisch
-																leidinggevende
+															<option value="Werkvoorbereiding">
+																Technisch leidinggevende
 															</option>
-															<option
-																value="Overige"
-															>
+															<option value="Overige">
 																Overige
 															</option>
 														</select>
@@ -293,30 +244,18 @@
 										</form>
 									</div>
 									<!-- Step 3 -->
-									<div
-										class="tab-pane active"
-										v-if="step === 3"
-									>
+									<div class="tab-pane active" v-show="step === 3">
 										<form @submit.prevent="addUser()">
 											<h5 class="info-text mt-0">
-												Tot slot de Beveiliging van jouw
-												account
+												Tot slot de Beveiliging van jouw account
 											</h5>
 
-											<div
-												class="row justify-content-center"
-											>
+											<div class="row justify-content-center">
 												<div class="col-10">
 													<div class="input-group">
-														<div
-															class="input-group-prepend"
-														>
-															<span
-																class="input-group-text"
-															>
-																<i
-																	class="fas fa-lock"
-																></i>
+														<div class="input-group-prepend">
+															<span class="input-group-text">
+																<i class="fas fa-lock"></i>
 															</span>
 														</div>
 														<input
@@ -324,21 +263,13 @@
 															class="form-control valid"
 															placeholder="Wachtwoord"
 															required
-															v-model="
-																newUser.password
-															"
+															v-model="newUser.password"
 														/>
 													</div>
 													<div class="input-group">
-														<div
-															class="input-group-prepend"
-														>
-															<span
-																class="input-group-text"
-															>
-																<i
-																	class="fas fa-unlock"
-																></i>
+														<div class="input-group-prepend">
+															<span class="input-group-text">
+																<i class="fas fa-unlock"></i>
 															</span>
 														</div>
 														<input
@@ -346,17 +277,13 @@
 															placeholder="Controle wachtwoord"
 															class="form-control"
 															required
-															v-model="
-																newUser.passwordCheck
-															"
+															v-model="newUser.passwordCheck"
 														/>
 													</div>
 
 													<Checkbox
 														class="mt-5"
-														@toggleCheck="
-															newUser.privacyCheck = $event
-														"
+														@toggleCheck="setCheck"
 														:link="'/privacy'"
 													/>
 												</div>
@@ -402,6 +329,7 @@
 				step: 1,
 				maxStep: 1,
 				newUser: {
+					type: "student",
 					firstName: "",
 					lastName: "",
 					email: "",
@@ -410,11 +338,14 @@
 					study: "",
 					password: "",
 					passwordCheck: "",
-					privacyCheck: "",
-				},
+					privacyCheck: false
+				}
 			};
 		},
 		methods: {
+			setCheck(val) {
+				this.newUser.privacyCheck = val;
+			},
 			next() {
 				this.step++;
 				this.maxStep = this.step > this.maxStep ? this.step : this.maxStep;
@@ -422,6 +353,7 @@
 			async addUser() {
 				if (!this.passwordCheck()) return;
 				if (!this.privacyCheck()) return;
+				if (!this.teacherCheck()) return;
 				try {
 					// add user
 					await this.$store.dispatch("addUser", this.newUser);
@@ -431,8 +363,8 @@
 						style: "success",
 						msg: {
 							title: "Succesvol Toegevoegd!",
-							text: "De gebruiker is succesvol toegevoegd!",
-						},
+							text: "De gebruiker is succesvol toegevoegd!"
+						}
 					});
 
 					// redirect
@@ -440,7 +372,7 @@
 				} catch (err) {
 					this.$store.dispatch("notification", {
 						style: "error",
-						msg: err,
+						msg: err
 					});
 				}
 			},
@@ -452,8 +384,8 @@
 						style: "warning",
 						msg: {
 							title: "Wachtwoord fout",
-							text: "Controle wachtwoord komt niet overeen",
-						},
+							text: "Controle wachtwoord komt niet overeen"
+						}
 					});
 					return false;
 				}
@@ -466,14 +398,38 @@
 						style: "warning",
 						msg: {
 							title: "Voorwaarden niet geaccepteerd",
-							text:
-								"Accepteer de privacy voorwaarden om door te  gaan.",
-						},
+							text: "Accepteer de privacy voorwaarden om door te  gaan."
+						}
 					});
 					return false;
 				}
 			},
-		},
+			teacherCheck() {
+				if (this.newUser.type === "student") return true;
+
+				// Test if hmc-email
+				const test1 = this.newUser.email.includes("@hmcollege.nl");
+				// Test if teacher account
+				const regex = new RegExp("^[A-Za-z]+.([A-Za-z].)?[A-Za-z]+$");
+				const str = this.newUser.email.substr(0, this.newUser.email.indexOf("@"));
+				const test2 = regex.test(str);
+
+				if (!test1 || !test2) {
+					this.$store.dispatch("notification", {
+						style: "warning",
+						msg: {
+							title: "Geen geldig docenten email adres",
+							text:
+								"Vul een geldig HMC-emailadres in dat is gekoppeld aan een docentenaccount."
+						}
+					});
+					return false;
+				} else {
+					return true;
+				}
+				return false;
+			}
+		}
 	};
 </script>
 
