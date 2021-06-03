@@ -12,7 +12,7 @@
 					<div class="card-body">
 						<div class="row">
 							<div class="col-3 ms-auto">
-								<Search />
+								<Search @searchText="searchText = $event" />
 							</div>
 						</div>
 
@@ -35,10 +35,18 @@
 	export default {
 		name: "Users",
 		components: { Userlist, Search, Loading },
+		data() {
+			return {
+				searchText: ""
+			};
+		},
 		computed: {
 			users() {
 				return this.$store.getters.users;
 			},
+			searchTags() {
+				return this.searchText.split(" ").filter(a => a != "");
+			}
 		},
 		mounted() {
 			setTimeout(() => {
@@ -46,6 +54,6 @@
 					this.$store.dispatch("getUsers");
 				}
 			}, 500);
-		},
+		}
 	};
 </script>
