@@ -135,7 +135,7 @@
 														</div>
 														<label v-if="newUser.type === 'teacher'"
 															><b>Let op:</b> Om je als docent te registeren heb
-															je een docenten HMC-adresemail nodig nodig.</label
+															je een docenten HMC-adresemail nodig.</label
 														>
 													</div>
 													<div
