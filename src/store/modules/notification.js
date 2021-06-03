@@ -72,7 +72,9 @@ export default {
                         text: msg.text,
                         icon: "warning",
                         confirmButtonText: "Cool",
-                        confirmButtonClass: "btn btn-success"
+                        customClass: {
+                            confirmButton: 'btn btn-success',
+                        },
                     });
                 } else if (type === "information") {
                     Swal.fire({
@@ -81,13 +83,17 @@ export default {
                         width: "70%",
                         icon: "question",
                         confirmButtonText: "Ik snap het",
-                        confirmButtonClass: "btn btn-default"
+                        customClass: {
+                            confirmButton: 'btn btn-default',
+                        },
                     });
                 } else if (type === "image") {
                     Swal.fire({
                         imageUrl: msg,
                         confirmButtonText: "Aight",
-                        confirmButtonClass: "btn btn-success "
+                        customClass: {
+                            confirmButton: 'btn btn-success',
+                        },
                     });
                 } else if (type === "confirm") {
                     Swal.fire({
@@ -95,10 +101,12 @@ export default {
                         html: msg.text,
                         icon: "warning",
                         showCancelButton: true,
-                        confirmButtonClass: "btn btn-danger",
                         confirmButtonText: "Ja, ik weet het zeker!",
                         cancelButtonText: "Nope",
-                        cancelButtonClass: "btn btn-default"
+                        customClass: {
+                            confirmButton: 'btn btn-danger',
+                            cancelButton: 'btn btn-default'
+                        },
                     }).then((result) => {
                         result.value ? resolve() : reject();
                     });
