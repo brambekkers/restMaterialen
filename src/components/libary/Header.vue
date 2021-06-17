@@ -4,12 +4,12 @@
 	>
 		<h1 class="title fw-bolder mb-3 mt-2">HMC CircuStek</h1>
 		<p class="lead text-muted">
-			In de circulaire winkel van het HMC kan je verschillden materialen reserveren
-			die zijn geleverd door bedrijven uit de regio. als je je materiaal hebt
-			besteld blijft dit 5 dagen gereserveerd, zorg ervoor dat je binnnen deze tijd
-			je materiaal afrekend in de regulieren winkel en ophaald om mee aan de slag
-			te gaan. Als je meer interrese hebt naar deze bedrijven die hiervoor hebben
-			gezogt kan je deze terug in de restmaterialen database.
+			In de circulaire winkel van het HMC kun je verschillende materialen
+			reserveren die door regionale bedrijven zijn geleverd. Besteld materiaal
+			blijft {{ reservationExpireDays }} dagen gereserveerd. Zorg ervoor dat je
+			binnen deze {{ reservationExpireDays }} dagen het materiaal afrekent en
+			ophaalt in de reguliere winkel. Als je interesse hebt in de bedrijven die
+			het materiaal leveren, kun je dit terug lezen in de database.
 		</p>
 		<router-link
 			v-if="user"
@@ -21,34 +21,34 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+	import { mapGetters } from "vuex";
 
-export default {
-	computed: {
-		...mapGetters(["user"]),
-	},
-};
+	export default {
+		computed: {
+			...mapGetters(["user", "reservationExpireDays"])
+		}
+	};
 </script>
 
 <style lang="scss" scoped>
-.container {
-	// min-height: 300px;
-	width: 100vw;
-	max-width: 100vw;
+	.container {
+		// min-height: 300px;
+		width: 100vw;
+		max-width: 100vw;
 
-	.title {
-		font-size: calc(2.3vw + 1.7rem);
+		.title {
+			font-size: calc(2.3vw + 1.7rem);
+		}
+		.lead {
+			display: flex;
+			flex-direction: column;
+			max-width: 1300px;
+
+			font-size: 1rem;
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
 	}
-	.lead {
-		display: flex;
-		flex-direction: column;
-		max-width: 1300px;
-
-		font-size: 1rem;
-
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-}
 </style>

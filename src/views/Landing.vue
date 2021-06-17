@@ -22,20 +22,28 @@
 			</div>
 		</section>
 		<section class="bottom">
+			<small id="disclaimer">
+				<span class="fw-bold">Disclaimer:</span> Dit is een tijdelijke website.
+				Een nieuwe website is in ontwikkeling.<br />
+				Deze tijdelijk website is onderdeel van het
+				<a href="https://hmcollege.nl"> Hout- en Meubileringscollege.</a>
+			</small>
 			<h5>OPENINGSTIJDEN CONTAINERS</h5>
 
 			<h6>CIRCUSTEK</h6>
 			<p>
-				Ophalen eigen gereserveerde: <br />
+				Ophalen gereserveerd materiaal:
+				<br />
 				Donderdagochtend: 08:30 / 12:00
 			</p>
 			<h6>OPLEIDINGEN</h6>
 			<p>
-				Ophalen materiaal verplichte schoolwerkstukken:<br />
-				Maak hierover een afspraak met je praktijkdocent.
+				Ophalen materiaal verplichte schoolwerkstukken:
+				<br />
+				Maak hiervoor een afspraak met je praktijkdocent.
 			</p>
 
-			<p>
+			<p class="mb-5">
 				Meer info: Sjors van der Voort<br />
 				s.vandervoort@hmcollege.nl
 			</p>
@@ -57,6 +65,26 @@
 
 		section {
 			padding: 0 50px;
+		}
+
+		#disclaimer {
+			background: #fffef9;
+			padding: 0.5rem 1rem;
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			text-align: left;
+			z-index: 9999;
+			font-size: 0.8rem;
+
+			@media (max-width: 600px) {
+				font-size: 0.6rem;
+			}
+
+			a {
+				text-decoration: none;
+				color: #ba0c2f;
+			}
 		}
 
 		.top {

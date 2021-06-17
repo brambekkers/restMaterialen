@@ -4,8 +4,13 @@
 		<div class="content">
 			<div class="card card-login">
 				<form @submit.prevent="login">
-					<div class="card-header">
+					<div class="card-header text-center">
 						<h3 class="card-title text-center">Login</h3>
+						<small class="text-center">
+							Log hier in met jouw privé e-mailadres<br />
+							<span class="fw-bold">Let op:</span> Dus niet met je
+							schoolaccount)
+						</small>
 					</div>
 					<div class="card-body">
 						<div class="form-group">
@@ -52,7 +57,7 @@
 		data() {
 			return {
 				email: "",
-				password: "",
+				password: ""
 			};
 		},
 		methods: {
@@ -60,7 +65,7 @@
 				try {
 					await this.$store.dispatch("login", {
 						email: this.email,
-						password: this.password,
+						password: this.password
 					});
 					// onComplete:
 					this.$store.dispatch("notification", {
@@ -68,19 +73,19 @@
 						msg: {
 							title: "Succesvol ingelogd!",
 							text:
-								"Je bent ingelogd op de website. Je kunt nu verder werken onder je eigen account.",
-						},
+								"Je bent ingelogd op de website. Je kunt nu verder werken onder je eigen account."
+						}
 					});
 					// redirect
 					this.$router.push("/libary");
 				} catch (err) {
 					this.$store.dispatch("notification", {
 						style: "error",
-						msg: err,
+						msg: err
 					});
 				}
-			},
-		},
+			}
+		}
 	};
 </script>
 
