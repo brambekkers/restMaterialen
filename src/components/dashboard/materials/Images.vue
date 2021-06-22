@@ -5,7 +5,7 @@
 		</div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-lg-8">
+				<div class="col-12 col-xl-8">
 					<div class="form-group">
 						<input
 							type="file"
@@ -15,8 +15,11 @@
 						/>
 					</div>
 				</div>
-				<div class="col-lg-4 text-end">
-					<button class="btn btn-outline-primary mt-0" @click.prevent="addImage()">
+				<div class="col-12 col-lg-4 text-end">
+					<button
+						class="btn btn-outline-primary mt-0 text-nowrap w-100"
+						@click.prevent="addImage()"
+					>
 						Voeg toe
 					</button>
 				</div>
